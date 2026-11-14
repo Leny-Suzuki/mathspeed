@@ -1,5 +1,5 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.9.3 通信診断</title><style>
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} </style></head><body><main class="panel"><h1>⚔️ MATHSPEED <small>Ver.9.3</small></h1><p class="muted">通信対戦・原因調査テスト（カード対戦はまだできません）</p><div id="loading" class="status">Firebaseに接続中…</div><div id="menu" class="hidden"><div class="section"><button id="create" class="btn gold">🏠 部屋を作る</button></div><div class="section"><label for="codeInput">友達の6桁のルーム番号</label><input class="input" id="codeInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="123456"><button id="join" class="btn">🚪 部屋に入る・診断</button></div></div><div id="roomPanel" class="hidden"><p class="muted">ルーム番号</p><div id="roomCode" class="code">------</div><div class="row"><button id="copy" class="btn">番号をコピー</button><button id="leave" class="btn">退出する</button></div><div id="roomStatus" class="status">接続待ち…</div></div><div id="message" class="status hidden" role="status"></div><div id="lobby" class="hidden"><div class="label">⚔️ オンライン対戦ロビー <span id="lobbyRoom"></span></div><div class="players"><div class="player"><div class="small">あなた</div><img id="myArt" class="portrait" alt="自分のキャラクター"><strong id="myName"></strong><span id="myCharacter"></span><span id="myReady"></span></div><div class="player"><div class="small">対戦相手</div><img id="otherArt" class="portrait" alt="対戦相手のキャラクター"><strong id="otherName">参加待ち</strong><span id="otherCharacter">---</span><span id="otherReady"></span></div></div><div class="section"><label for="nickname">ニックネーム（ゲームの保存データから読み込み）</label><input id="nickname" class="input" maxlength="20" style="font-size:1rem;letter-spacing:normal;text-align:left" placeholder="プレイヤー"><label for="character">キャラクター・進化形態</label><select id="character" class="input" style="font-size:1rem;letter-spacing:normal;text-align:left"></select><div class="row"><button id="saveChoice" class="btn">キャラと名前を反映</button><button id="ready" class="btn gold">準備完了！</button></div><div id="lobbyStatus" class="status">参加者を待っています…</div></div><p class="small">このロビーは同期テスト用です。カード対戦はまだできません。既存のセーブデータは読み取りのみで、書き換えません。</p></div><div class="label">🔎 通信診断ログ</div><div id="diagnostics" class="status log" role="log" aria-live="polite">まだ操作していません。</div><div class="row" style="margin-top:10px"><button id="copyLog" class="btn">診断ログをコピー</button><button id="clearLog" class="btn">ログを消す</button></div><p class="small">Macとスマホで同じURLを開いてください。インターネット接続が必要です。個人識別用のUIDはログに表示しません。30分で部屋は期限切れになります。診断中は部屋を作った側の画面を閉じないでください。</p></main>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.9.4 通信診断</title><style>
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} </style></head><body><main class="panel"><h1>⚔️ MATHSPEED <small>Ver.9.4</small></h1><p class="muted">オンライン対戦・カード同期テスト</p><div id="loading" class="status">Firebaseに接続中…</div><div id="menu" class="hidden"><div class="section"><button id="create" class="btn gold">🏠 部屋を作る</button></div><div class="section"><label for="codeInput">友達の6桁のルーム番号</label><input class="input" id="codeInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="123456"><button id="join" class="btn">🚪 部屋に入る・診断</button></div></div><div id="roomPanel" class="hidden"><p class="muted">ルーム番号</p><div id="roomCode" class="code">------</div><div class="row"><button id="copy" class="btn">番号をコピー</button><button id="leave" class="btn">退出する</button></div><div id="roomStatus" class="status">接続待ち…</div></div><div id="message" class="status hidden" role="status"></div><div id="lobby" class="hidden"><div class="label">⚔️ オンライン対戦ロビー <span id="lobbyRoom"></span></div><div class="players"><div class="player"><div class="small">あなた</div><img id="myArt" class="portrait" alt="自分のキャラクター"><strong id="myName"></strong><span id="myCharacter"></span><span id="myReady"></span></div><div class="player"><div class="small">対戦相手</div><img id="otherArt" class="portrait" alt="対戦相手のキャラクター"><strong id="otherName">参加待ち</strong><span id="otherCharacter">---</span><span id="otherReady"></span></div></div><div class="section"><label for="nickname">ニックネーム（ゲームの保存データから読み込み）</label><input id="nickname" class="input" maxlength="20" style="font-size:1rem;letter-spacing:normal;text-align:left" placeholder="プレイヤー"><label for="character">キャラクター・進化形態</label><select id="character" class="input" style="font-size:1rem;letter-spacing:normal;text-align:left"></select><div class="row"><button id="saveChoice" class="btn">キャラと名前を反映</button><button id="ready" class="btn gold">準備完了！</button></div><div id="lobbyStatus" class="status">参加者を待っています…</div></div><p class="small">通信対戦テスト版。セーブデータは読み取りのみです。</p></div><section id="battle" class="hidden"><div class="label">🃏 オンラインカード対戦</div><div id="battleStatus" class="status">両者の準備を待っています…</div><div id="battlePlayers" class="row" style="justify-content:space-between;margin:12px 0"></div><div class="row" style="justify-content:center"><div class="pile"><small>中央①</small><strong id="center0">?</strong></div><div class="pile"><small>中央②</small><strong id="center1">?</strong></div></div><div class="label">あなたの手札（4枚）</div><div id="hand" class="row" style="justify-content:center;margin:12px 0"></div><div id="calc" class="status">カードを選択すると計算候補が表示されます。</div><div id="moves" class="row" style="margin:10px 0"></div><button id="resetBattle" class="btn gold hidden">🔄 新しい対戦を開始（ホスト）</button><p class="small">中央の数字と手札の数字を四則演算し、答えの一の位が手札と一致すれば出せます。ジョーカーはワイルド。10の倍数は10として扱います。最初の中央2枚は各プレイヤーの27枚から1枚ずつ使用します。</p></section><div class="label">🔎 通信診断ログ</div><div id="diagnostics" class="status log" role="log" aria-live="polite">まだ操作していません。</div><div class="row" style="margin-top:10px"><button id="copyLog" class="btn">診断ログをコピー</button><button id="clearLog" class="btn">ログを消す</button></div><p class="small">Macとスマホで同じURLを開いてください。インターネット接続が必要です。個人識別用のUIDはログに表示しません。30分で部屋は期限切れになります。診断中は部屋を作った側の画面を閉じないでください。</p></main>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script><script>
 'use strict';
 const config={apiKey:'AIzaSyC9J3X3oefV3NiAnFIHJU1hEsFK4qaPEqA',authDomain:'mathspeed-ae3c1.firebaseapp.com',databaseURL:'https://mathspeed-ae3c1-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-ae3c1',appId:'1:966068532607:web:6f77134af224b84e10164a'};
@@ -40,14 +40,98 @@ function updateMyPreview(){const id=$('character').value;const name=$('nickname'
 function heroName(id){const m=/^s([0-9])(?:_([12]))?$/.exec(id||'');return m?HERO_NAMES[Number(m[1])][Number(m[2]||0)]:'キャラクター'}
 function lobbyPath(){return 'lobbies/'+roomCode+'/'+(isHost?'host':'guest')}
 async function writeLobby(ready){if(!roomCode||!uid)return;const id=$('character').value;const allowed=readLocalPlayer().options.some(o=>o.id===id);if(!allowed){message('未解放のキャラクターは選択できません。');return}const name=($('nickname').value.trim()||'プレイヤー').slice(0,20);const data={uid,name,avatar:id,ready:!!ready};await firebase.database().ref(lobbyPath()).set(data);lobbyReady=!!ready;updateMyPreview();log('ロビー情報を送信：'+heroName(id)+' / '+(ready?'準備完了':'準備中'))}
-function stopLobby(){if(lobbyRef){lobbyRef.off();lobbyRef=null}show('lobby',false);lobbyReady=false;remoteLobby=null}
-async function startLobby(code,host){stopLobby();initLobbyChoices();show('lobby',true);$('lobbyRoom').textContent='（'+code+'）';lobbyRef=firebase.database().ref('lobbies/'+code);lobbyRef.on('value',snap=>{const all=snap.val()||{};const mine=all[host?'host':'guest'];const other=all[host?'guest':'host'];remoteLobby=other;
+function stopLobby(){stopBattle();if(lobbyRef){lobbyRef.off();lobbyRef=null}show('lobby',false);lobbyReady=false;remoteLobby=null}
+async function startLobby(code,host){stopLobby();initLobbyChoices();show('lobby',true);watchBattle();$('lobbyRoom').textContent='（'+code+'）';lobbyRef=firebase.database().ref('lobbies/'+code);lobbyRef.on('value',snap=>{const all=snap.val()||{};const mine=all[host?'host':'guest'];const other=all[host?'guest':'host'];remoteLobby=other;
  $('otherName').textContent=other?.name||'参加待ち';$('otherCharacter').textContent=other?heroName(other.avatar):'---';$('otherArt').src=HERO_ART[other?.avatar]||HERO_ART.s0;$('otherArt').style.opacity=other?1:.3;$('otherReady').textContent=other?(other.ready?'✅ 準備完了':'⏳ 準備中'):'未接続';
- const both=!!(mine?.ready&&other?.ready);$('lobbyStatus').textContent=both?'🎉 2人とも準備完了！ ロビー同期成功！（カード対戦は次の段階）':other?'2人が接続中。両者が「準備完了」を押してね。':'友達の参加を待っています…';},e=>error(e,'ロビー監視'));
+ const both=!!(mine?.ready&&other?.ready);if(both)maybeStartBattle();$('lobbyStatus').textContent=both?'🎉 2人とも準備完了！ カード対戦へ！':other?'2人が接続中。両者が「準備完了」を押してね。':'友達の参加を待っています…';},e=>error(e,'ロビー監視'));
  try{await writeLobby(false)}catch(e){error(e,'ロビー登録');message('Firebaseのルールに /lobbies の許可が必要です。ルール設定ファイルを確認してね。')}
 }
 $('nickname').addEventListener('input',()=>{lobbyReady=false;updateMyPreview()});$('character').addEventListener('change',()=>{lobbyReady=false;updateMyPreview()});
 $('saveChoice').addEventListener('click',()=>writeLobby(false).catch(e=>error(e,'キャラ反映')));
+
+// Ver.9.4: game state is authoritative in a single Firebase transaction.
+let gameRef=null,gameState=null,selectedCard=-1,gameBusy=false,gameStarting=false;
+const cardValue=c=>c===53||c===54?0:((c-1)%13)+1;
+const cardLabel=c=>cardValue(c)===0?'🃏':String(cardValue(c));
+const digit=n=>n===0?0:n%10===0?10:n%10;
+function validCalcs(center,card){
+ const a=cardValue(center),b=cardValue(card);
+ if(a===0||b===0)return ['ジョーカー'];
+ const out=[];
+ if(digit(a+b)===b)out.push(a+' + '+b+' = '+(a+b));
+ if(a-b>=0&&digit(a-b)===b)out.push(a+' − '+b+' = '+(a-b));
+ if(digit(a*b)===b)out.push(a+' × '+b+' = '+(a*b));
+ if(b!==0&&a%b===0&&digit(a/b)===b)out.push(a+' ÷ '+b+' = '+(a/b));
+ return out;
+}
+function newGame(room){
+ const cards=Array.from({length:54},(_,i)=>i+1);
+ for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}
+ const h=cards.slice(0,27),g=cards.slice(27);
+ return {hostUid:room.hostUid,guestUid:room.guestUid,status:'playing',version:0,center:[h.shift(),g.shift()],host:{hand:h.splice(0,4),deck:h,played:0},guest:{hand:g.splice(0,4),deck:g,played:0},winner:'',lastMove:'対戦開始！'};
+}
+function stopBattle(){if(gameRef){gameRef.off();gameRef=null}gameState=null;selectedCard=-1;show('battle',false);}
+function watchBattle(){if(!roomCode||gameRef)return;gameRef=firebase.database().ref('games/'+roomCode);gameRef.on('value',snap=>{gameState=snap.val();if(gameState){show('battle',true);renderBattle()}else{show('battle',false)}},e=>error(e,'対戦同期'))}
+async function maybeStartBattle(){
+ if(!isHost||!roomCode||gameStarting)return;
+ const code=roomCode;gameStarting=true;
+ try{
+  const [lobby,room,game]=await Promise.all([firebase.database().ref('lobbies/'+code).once('value'),firebase.database().ref('rooms/'+code).once('value'),firebase.database().ref('games/'+code).once('value')]);
+  const l=lobby.val(),r=room.val();
+  if(code!==roomCode||!r?.guestUid||!l?.host?.ready||!l?.guest?.ready||game.exists())return;
+  const initial=newGame(r);
+  const result=await firebase.database().ref('games/'+code).transaction(v=>v===null?initial:undefined,undefined,false);
+  if(result.committed)log('🎮 対戦開始！カード54枚を配布しました');
+ }catch(e){error(e,'対戦開始')}finally{gameStarting=false}
+}
+function renderBattle(){
+ const g=gameState;if(!g)return;
+ const mine=g[isHost?'host':'guest'],other=g[isHost?'guest':'host'];if(!mine||!other)return;
+ const label=side=>side==='host'?'ホスト':'ゲスト';
+ $('battlePlayers').textContent='';
+ for(const [title,p] of [['あなた',mine],['相手',other]]){const el=document.createElement('span');el.className='battle-meta';el.textContent=title+'：残り '+(p.hand.length+p.deck.length)+'枚 / 出した '+p.played+'枚';$('battlePlayers').append(el)}
+ g.center.forEach((c,i)=>{$('center'+i).textContent=cardLabel(c)});
+ $('hand').replaceChildren();
+ mine.hand.forEach((c,i)=>{const btn=document.createElement('button');btn.className='playcard'+(selectedCard===i?' selected':'');btn.textContent=cardLabel(c);btn.disabled=g.status!=='playing'||gameBusy;btn.addEventListener('click',()=>{selectedCard=i;renderBattle()});$('hand').append(btn)});
+ const done=g.status==='finished';
+ $('battleStatus').textContent=done?(g.winner===(isHost?'host':'guest')?'🏆 勝利！':'対戦終了：相手の勝利！')+' / '+g.lastMove:'⚔️ 対戦中 / '+g.lastMove;
+ $('moves').replaceChildren();
+ const c=mine.hand[selectedCard];
+ if(c!==undefined&&g.status==='playing'){
+  let any=false;
+  g.center.forEach((center,pile)=>{const opts=validCalcs(center,c);if(!opts.length)return;any=true;const btn=document.createElement('button');btn.className='btn gold';btn.textContent='中央'+(pile+1)+'に出す（'+opts[0]+'）';btn.disabled=gameBusy;btn.addEventListener('click',()=>playCard(selectedCard,c,pile));$('moves').append(btn)});
+  $('calc').textContent=any?'出せる場所を選んでね。':'このカードは今は出せません。別のカードを選んでね。';
+ }else $('calc').textContent=done?'勝負が決まりました。':'手札を選んでね。';
+ show('resetBattle',done&&isHost);
+}
+async function playCard(index,card,pile){
+ if(gameBusy||!gameState||!roomCode)return;gameBusy=true;
+ const code=roomCode,side=isHost?'host':'guest';let reason='';
+ try{
+  const ref=firebase.database().ref('games/'+code);
+  const result=await ref.transaction(g=>{
+   if(!g){reason='状態を読み込み中';return undefined}
+   if(g.status!=='playing'){reason='対戦終了';return undefined}
+   if(g[side+'Uid']!==uid){reason='参加者が一致しません';return undefined}
+   const p=g[side];if(p.hand[index]!==card){reason='手札が更新されました';return undefined}
+   if(!validCalcs(g.center[pile],card).length){reason='中央のカードが変わりました';return undefined}
+   const next=JSON.parse(JSON.stringify(g));const player=next[side];
+   player.hand.splice(index,1);if(player.deck.length)player.hand.push(player.deck.shift());
+   player.played++;next.center[pile]=card;next.version=(g.version||0)+1;
+   next.lastMove=(side==='host'?'ホスト':'ゲスト')+'が '+cardLabel(card)+' を中央'+(pile+1)+'に出した';
+   if(player.hand.length===0&&player.deck.length===0){next.status='finished';next.winner=side}
+   return next;
+  },undefined,false);
+  if(result.committed){selectedCard=-1;log('🃏 '+(result.snapshot.val()?.lastMove||'カード更新'))}
+  else{log('⚠️ カード操作を再判定：'+(reason||'競合'));message('カードの状態が変わりました。もう一度選んでね。')}
+ }catch(e){error(e,'カード操作')}finally{gameBusy=false;if(gameState)renderBattle()}
+}
+async function resetBattle(){
+ if(!isHost||!roomCode)return;
+ try{const code=roomCode;const snap=await firebase.database().ref('rooms/'+code).once('value');const room=snap.val();if(!room?.guestUid)return;const fresh=newGame(room);await firebase.database().ref('games/'+code).set(fresh);selectedCard=-1;log('🔄 再戦開始')}catch(e){error(e,'再戦')}
+}
+$('resetBattle').addEventListener('click',resetBattle);
+
 $('ready').addEventListener('click',()=>writeLobby(!lobbyReady).catch(e=>error(e,'準備完了')));
 
 $('create').addEventListener('click',createRoom);$('join').addEventListener('click',joinRoom);$('leave').addEventListener('click',leave);$('copy').addEventListener('click',()=>{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(roomCode).then(()=>message('ルーム番号をコピーしたよ！')).catch(()=>message('番号を選択してコピーしてね。'));else message('番号を選択してコピーしてね。')});$('copyLog').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(logLines.join('\n'));message('診断ログをコピーしたよ！')}catch(e){message('コピーできない場合は診断ログのスクリーンショットを送ってね。')}});$('clearLog').addEventListener('click',()=>{logLines=[];$('diagnostics').textContent='ログを消しました。'});
