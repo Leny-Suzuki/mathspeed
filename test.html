@@ -1,5 +1,39 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.9.4 通信診断</title><style>
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} </style></head><body><main class="panel"><h1>⚔️ MATHSPEED <small>Ver.9.4</small></h1><p class="muted">オンライン対戦・カード同期テスト</p><div id="loading" class="status">Firebaseに接続中…</div><div id="menu" class="hidden"><div class="section"><button id="create" class="btn gold">🏠 部屋を作る</button></div><div class="section"><label for="codeInput">友達の6桁のルーム番号</label><input class="input" id="codeInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="123456"><button id="join" class="btn">🚪 部屋に入る・診断</button></div></div><div id="roomPanel" class="hidden"><p class="muted">ルーム番号</p><div id="roomCode" class="code">------</div><div class="row"><button id="copy" class="btn">番号をコピー</button><button id="leave" class="btn">退出する</button></div><div id="roomStatus" class="status">接続待ち…</div></div><div id="message" class="status hidden" role="status"></div><div id="lobby" class="hidden"><div class="label">⚔️ オンライン対戦ロビー <span id="lobbyRoom"></span></div><div class="players"><div class="player"><div class="small">あなた</div><img id="myArt" class="portrait" alt="自分のキャラクター"><strong id="myName"></strong><span id="myCharacter"></span><span id="myReady"></span></div><div class="player"><div class="small">対戦相手</div><img id="otherArt" class="portrait" alt="対戦相手のキャラクター"><strong id="otherName">参加待ち</strong><span id="otherCharacter">---</span><span id="otherReady"></span></div></div><div class="section"><label for="nickname">ニックネーム（ゲームの保存データから読み込み）</label><input id="nickname" class="input" maxlength="20" style="font-size:1rem;letter-spacing:normal;text-align:left" placeholder="プレイヤー"><label for="character">キャラクター・進化形態</label><select id="character" class="input" style="font-size:1rem;letter-spacing:normal;text-align:left"></select><div class="row"><button id="saveChoice" class="btn">キャラと名前を反映</button><button id="ready" class="btn gold">準備完了！</button></div><div id="lobbyStatus" class="status">参加者を待っています…</div></div><p class="small">通信対戦テスト版。セーブデータは読み取りのみです。</p></div><section id="battle" class="hidden"><div class="label">🃏 オンラインカード対戦</div><div id="battleStatus" class="status">両者の準備を待っています…</div><div id="battlePlayers" class="row" style="justify-content:space-between;margin:12px 0"></div><div class="row" style="justify-content:center"><div class="pile"><small>中央①</small><strong id="center0">?</strong></div><div class="pile"><small>中央②</small><strong id="center1">?</strong></div></div><div class="label">あなたの手札（4枚）</div><div id="hand" class="row" style="justify-content:center;margin:12px 0"></div><div id="calc" class="status">カードを選択すると計算候補が表示されます。</div><div id="moves" class="row" style="margin:10px 0"></div><button id="resetBattle" class="btn gold hidden">🔄 新しい対戦を開始（ホスト）</button><p class="small">中央の数字と手札の数字を四則演算し、答えの一の位が手札と一致すれば出せます。ジョーカーはワイルド。10の倍数は10として扱います。最初の中央2枚は各プレイヤーの27枚から1枚ずつ使用します。</p></section><div class="label">🔎 通信診断ログ</div><div id="diagnostics" class="status log" role="log" aria-live="polite">まだ操作していません。</div><div class="row" style="margin-top:10px"><button id="copyLog" class="btn">診断ログをコピー</button><button id="clearLog" class="btn">ログを消す</button></div><p class="small">Macとスマホで同じURLを開いてください。インターネット接続が必要です。個人識別用のUIDはログに表示しません。30分で部屋は期限切れになります。診断中は部屋を作った側の画面を閉じないでください。</p></main>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.9.5 通信診断</title><style>
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} 
+/* Ver.9.5: use the established card/operation/center selection pattern. */
+.panel{width:min(770px,100%)}#battle{margin-top:25px;padding-top:16px;border-top:1px solid #b8a775}#battle h2{font-size:1.45rem;margin:0}#battle small{font-size:.65em;color:#c7d1e7}
+.battle-topline{display:flex;justify-content:space-between;align-items:center;gap:10px}.clock{font-size:1rem;font-weight:700;color:#e3d6a5}
+.versus-strip{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:7px;align-items:center;margin:12px 0;padding:12px;border:1px solid #9a8250;border-radius:13px;background:#0d1a36}
+.vs-person{display:flex;align-items:center;gap:7px;min-width:0}.vs-person:nth-child(3){flex-direction:row-reverse;text-align:right}.vs-person .portrait{height:66px;width:66px;flex-shrink:0}.vs-person div{display:flex;flex-direction:column;min-width:0;gap:3px}.vs-person strong{overflow-wrap:anywhere;font-size:.95rem}.vs-person span{font-size:.78rem;color:#cbd5e6}.vs-mark{color:#ffdc86;font-size:1.2rem;font-weight:900}
+.battle-status,.battle-message{background:#0c1831;border-radius:10px;padding:13px;min-height:50px;font-weight:600;line-height:1.6;margin:12px 0}.battle-message{border-left:4px solid #d9b663}
+.battle-field{background:linear-gradient(145deg,#1f674b,#15533f);border:3px solid #b8a46b;border-radius:17px;padding:15px 8px;box-shadow:inset 0 0 0 2px #ffffff16;margin:14px 0}
+.battle-totals{display:flex;justify-content:space-between;gap:12px;color:#fff3cb;font-size:.85rem;font-weight:650}.field-caption{text-align:center;color:#fff9e3;margin:10px 0;font-weight:700}.field-caption.muted{color:#d2e5d9}
+.center-cards{display:flex;justify-content:center;gap:15px;margin:12px 0}.table-card{position:relative;display:flex;align-items:center;flex-direction:column;justify-content:center;background:white;color:#162436;border:3px solid #e5c46f;border-radius:12px;box-shadow:0 3px 0 #0004;min-width:0;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent;min-height:105px}
+.table-card .rank{font-size:2.05rem;font-weight:900;line-height:1.1}.table-card .suit{font-size:1.8rem;line-height:1.2}.table-card .rank.red,.table-card .suit.red{color:#c72d47}.table-card .rank.black,.table-card .suit.black{color:#1b2637}.table-card.joker{background:#fff0c9;border-color:#b18d45}.table-card.joker .rank{font-size:1rem;letter-spacing:.06em}.table-card.joker .suit{font-size:2rem;color:#ad7835}.table-card.selected{outline:4px solid #72e69d;transform:translateY(-3px)}.table-card.ready{border-color:#f6d86d;box-shadow:0 0 0 4px #f6d86d55,0 4px 0 #0004}.table-card:disabled{cursor:default;opacity:.9}
+.center-card{width:min(28vw,110px);height:145px}.hand-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.hand-cards .table-card{width:100%;height:114px}.hand-cards .table-card.placeholder{background:#f1f0e6;color:#667}.hand-cards button:disabled{opacity:.5}
+.battle-controls{padding:6px 3px}.step-title{margin:15px 0 9px;font-weight:750}.op-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.op-buttons button{font-size:1.55rem;font-weight:850;min-height:56px;background:#243f70;border:2px solid #dab66b;color:#fff1cd;border-radius:10px;cursor:pointer;touch-action:manipulation}.op-buttons button.active{background:#f5cd63;color:#15213d;box-shadow:0 0 0 3px #9bf6a8}.op-buttons button:disabled{opacity:.5;cursor:default}.battle-actionbar{display:flex;gap:8px;flex-wrap:wrap}.battle-rules{margin:18px 0;color:#c3d0e5}.battle-rules summary{cursor:pointer}
+.battle-intro{position:fixed;inset:0;z-index:60;background:radial-gradient(circle,#243b73ee,#050d24fa);display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none}.battle-intro.hidden{display:none}.intro-inner{padding:25px;width:100%}.intro-vs{font-weight:850;letter-spacing:.1em;font-size:clamp(1.1rem,3vw,2rem);color:#ffe09a}.intro-count{font-weight:1000;font-size:clamp(5.5rem,22vw,12rem);color:#ffe18e;line-height:1.3;text-shadow:0 0 45px #ffb8378c}.intro-caption{font-weight:850;font-size:clamp(1.25rem,4vw,2.2rem);color:white}
+@media(max-width:460px){.panel{padding:12px}.versus-strip{padding:7px 4px}.vs-person{gap:2px}.vs-person .portrait{width:47px;height:50px}.vs-person strong{font-size:.85rem}.vs-person span{font-size:.67rem}.battle-field{padding:9px 5px}.table-card .rank{font-size:1.7rem}.table-card .suit{font-size:1.6rem}.hand-cards .table-card{height:100px}.center-card{height:122px}.battle-totals{font-size:.75rem}.op-buttons button{min-height:53px}}
+</style></head><body><main class="panel"><h1>⚔️ MATHSPEED <small>Ver.9.5</small></h1><p class="muted">通常版のルール・操作を移植した通信対戦テスト</p><div id="loading" class="status">Firebaseに接続中…</div><div id="menu" class="hidden"><div class="section"><button id="create" class="btn gold">🏠 部屋を作る</button></div><div class="section"><label for="codeInput">友達の6桁のルーム番号</label><input class="input" id="codeInput" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="123456"><button id="join" class="btn">🚪 部屋に入る・診断</button></div></div><div id="roomPanel" class="hidden"><p class="muted">ルーム番号</p><div id="roomCode" class="code">------</div><div class="row"><button id="copy" class="btn">番号をコピー</button><button id="leave" class="btn">退出する</button></div><div id="roomStatus" class="status">接続待ち…</div></div><div id="message" class="status hidden" role="status"></div><div id="lobby" class="hidden"><div class="label">⚔️ オンライン対戦ロビー <span id="lobbyRoom"></span></div><div class="players"><div class="player"><div class="small">あなた</div><img id="myArt" class="portrait" alt="自分のキャラクター"><strong id="myName"></strong><span id="myCharacter"></span><span id="myReady"></span></div><div class="player"><div class="small">対戦相手</div><img id="otherArt" class="portrait" alt="対戦相手のキャラクター"><strong id="otherName">参加待ち</strong><span id="otherCharacter">---</span><span id="otherReady"></span></div></div><div class="section"><label for="nickname">ニックネーム（ゲームの保存データから読み込み）</label><input id="nickname" class="input" maxlength="20" style="font-size:1rem;letter-spacing:normal;text-align:left" placeholder="プレイヤー"><label for="character">キャラクター・進化形態</label><select id="character" class="input" style="font-size:1rem;letter-spacing:normal;text-align:left"></select><div class="row"><button id="saveChoice" class="btn">キャラと名前を反映</button><button id="ready" class="btn gold">準備完了！</button></div><div id="lobbyStatus" class="status">参加者を待っています…</div></div><p class="small">通信対戦テスト版。セーブデータは読み取りのみです。</p></div><section id="battle" class="hidden" aria-label="オンライン対戦">
+  <div class="battle-topline"><h2>⚡ マスピード　<small>ONLINE</small></h2><span id="battleClock" class="clock">00:00</span></div>
+  <div class="versus-strip"><div class="vs-person"><img id="battleMyArt" class="portrait" alt="自分のキャラクター"><div><small>あなた</small><strong id="battleMyName">プレイヤー</strong><span id="battleMyRank">キャラクター</span></div></div><span class="vs-mark">VS</span><div class="vs-person"><img id="battleOtherArt" class="portrait" alt="相手のキャラクター"><div><small>対戦相手</small><strong id="battleOtherName">プレイヤー</strong><span id="battleOtherRank">キャラクター</span></div></div></div>
+  <div class="battle-status" id="battleStatus" role="status">対戦準備中…</div>
+  <div class="battle-field">
+    <div id="battlePlayers" class="battle-totals"></div>
+    <p class="field-caption">中央の2枚を計算しよう！</p>
+    <div id="battleCenter" class="center-cards"><button type="button" id="center0" class="table-card center-card" data-lane="0" disabled>?</button><button type="button" id="center1" class="table-card center-card" data-lane="1" disabled>?</button></div>
+    <div id="centerNote" class="field-caption muted">計算してカードを出そう！</div>
+  </div>
+  <div class="battle-controls">
+    <p class="step-title">① 演算を選ぶ（ジョーカーなら不要）</p><div class="op-buttons" id="ops"><button type="button" data-op="+">＋</button><button type="button" data-op="-">－</button><button type="button" data-op="×">×</button><button type="button" data-op="÷">÷</button></div>
+    <p class="step-title">② カードを選ぶ → ③ 中央の山を選ぶ</p><div id="hand" class="hand-cards"></div>
+    <p id="stockCount" class="muted small">山札を自動補充</p>
+    <div id="calc" class="battle-message" role="status">演算を選んでね！</div>
+    <div class="battle-actionbar"><button type="button" id="hint" class="btn">💡 ヒント</button><button type="button" id="cancel" class="btn">選択解除</button><button type="button" id="resetBattle" class="btn gold hidden">🔄 再戦（ホスト）</button></div>
+  </div>
+  <details class="battle-rules"><summary>📖 通常版と同じルール</summary><p>中央の2枚を四則演算して、答えの一の位と同じ数字の手札を出す。①演算 → ②手札 → ③中央の山、の順に操作しよう。10は10・20・30…の正の10の倍数に対応（答え0は不可）。A＝1、J＝1、Q＝2、K＝3。ジョーカーは自由に出せるよ。引き算・割り算は順番を入れ替えてもOK。</p></details>
+</section>
+<div id="battleIntro" class="battle-intro hidden" aria-live="polite"><div class="intro-inner"><div id="introVersus" class="intro-vs">ONLINE BATTLE</div><div id="introCount" class="intro-count">3</div><div id="introCaption" class="intro-caption">対戦スタート！</div></div></div><div class="label">🔎 通信診断ログ</div><div id="diagnostics" class="status log" role="log" aria-live="polite">まだ操作していません。</div><div class="row" style="margin-top:10px"><button id="copyLog" class="btn">診断ログをコピー</button><button id="clearLog" class="btn">ログを消す</button></div><p class="small">Macとスマホで同じURLを開いてください。インターネット接続が必要です。個人識別用のUIDはログに表示しません。30分で部屋は期限切れになります。診断中は部屋を作った側の画面を閉じないでください。</p></main>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script><script>
 'use strict';
 const config={apiKey:'AIzaSyC9J3X3oefV3NiAnFIHJU1hEsFK4qaPEqA',authDomain:'mathspeed-ae3c1.firebaseapp.com',databaseURL:'https://mathspeed-ae3c1-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-ae3c1',appId:'1:966068532607:web:6f77134af224b84e10164a'};
@@ -49,29 +83,81 @@ async function startLobby(code,host){stopLobby();initLobbyChoices();show('lobby'
 $('nickname').addEventListener('input',()=>{lobbyReady=false;updateMyPreview()});$('character').addEventListener('change',()=>{lobbyReady=false;updateMyPreview()});
 $('saveChoice').addEventListener('click',()=>writeLobby(false).catch(e=>error(e,'キャラ反映')));
 
-// Ver.9.4: game state is authoritative in a single Firebase transaction.
-let gameRef=null,gameState=null,selectedCard=-1,gameBusy=false,gameStarting=false;
-const cardValue=c=>c===53||c===54?0:((c-1)%13)+1;
-const cardLabel=c=>cardValue(c)===0?'🃏':String(cardValue(c));
-const digit=n=>n===0?0:n%10===0?10:n%10;
-function validCalcs(center,card){
- const a=cardValue(center),b=cardValue(card);
- if(a===0||b===0)return ['ジョーカー'];
- const out=[];
- if(digit(a+b)===b)out.push(a+' + '+b+' = '+(a+b));
- if(a-b>=0&&digit(a-b)===b)out.push(a+' − '+b+' = '+(a-b));
- if(digit(a*b)===b)out.push(a+' × '+b+' = '+(a*b));
- if(b!==0&&a%b===0&&digit(a/b)===b)out.push(a+' ÷ '+b+' = '+(a/b));
+// Ver.9.5: original Ver.8.5 arithmetic & 3-step interaction, Firebase transactions.
+let gameRef=null,gameState=null,selectedCard=null,selectedOp=null,gameBusy=false,gameStarting=false;
+let localGameVersion=-1,localRound=-1,battleTickHandle=null,settlingStall=false;
+const SYMBOLS=['♠','♥','♦','♣'];
+const RANK_TEXT=['JOKER','A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const gameRank=id=>!id||id>52?0:((id-1)%13)+1;
+const gameSuit=id=>!id||id>52?4:Math.floor((id-1)/13);
+const gameValue=id=>{const r=gameRank(id);return r===0?null:r<=10?r:r-10};
+const cardName=id=>RANK_TEXT[gameRank(id)]||'JOKER';
+const hand4=p=>Array.from({length:4},(_,i)=>p&&p.hand?p.hand[i]??null:null);
+const deckCards=p=>Array.isArray(p?.deck)?p.deck:[];
+const totalCards=p=>hand4(p).filter(Boolean).length+deckCards(p).length;
+function cardFace(id){
+ if(!id)return '<span>空き</span>';
+ if(gameRank(id)===0)return '<span class="rank">JOKER</span><span class="suit">★</span>';
+ const suit=gameSuit(id),red=suit===1||suit===2,cl=red?'red':'black';
+ return `<span class="rank ${cl}">${cardName(id)}</span><span class="suit ${cl}">${SYMBOLS[suit]}</span>`;
+}
+// This is a direct translation of the ORIGINAL game's expressions(op,a,b,target):
+// calculate the TWO center cards, compare the positive integer result's ones digit
+// to the VALUE of the hand card (A=1, J=1, Q=2, K=3).
+function expressions95(op,a,b,target){
+ if(!a||!b||gameRank(a)===0||gameRank(b)===0)return [];
+ const x=gameValue(a),y=gameValue(b),out=[];
+ function test(u,v,z,sign){if(!Number.isInteger(z)||z<=0)return;if((z%10||10)===target)out.push(`${u} ${sign} ${v} = ${z}`)}
+ if(op==='+')test(x,y,x+y,'+');
+ if(op==='-'){test(x,y,x-y,'−');if(x!==y)test(y,x,y-x,'−')}
+ if(op==='×')test(x,y,x*y,'×');
+ if(op==='÷'){if(x%y===0)test(x,y,x/y,'÷');if(x!==y&&y%x===0)test(y,x,y/x,'÷')}
  return out;
 }
-function newGame(room){
- const cards=Array.from({length:54},(_,i)=>i+1);
- for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}
- const h=cards.slice(0,27),g=cards.slice(27);
- return {hostUid:room.hostUid,guestUid:room.guestUid,status:'playing',version:0,center:[h.shift(),g.shift()],host:{hand:h.splice(0,4),deck:h,played:0},guest:{hand:g.splice(0,4),deck:g,played:0},winner:'',lastMove:'対戦開始！'};
+function allLegalForCard(g,card){
+ if(!card)return [];
+ if(gameRank(card)===0)return [0,1].map(lane=>({lane,op:null,eq:'ジョーカー！'}));
+ const result=[];
+ for(let lane=0;lane<2;lane++){
+  if(gameRank(g.center[lane])===0){result.push({lane,op:null,eq:'ジョーカーの上に自由に置ける！'});continue}
+  for(const op of ['+','-','×','÷'])for(const eq of expressions95(op,g.center[0],g.center[1],gameValue(card)))result.push({lane,op,eq});
+ }
+ return result;
 }
-function stopBattle(){if(gameRef){gameRef.off();gameRef=null}gameState=null;selectedCard=-1;show('battle',false);}
-function watchBattle(){if(!roomCode||gameRef)return;gameRef=firebase.database().ref('games/'+roomCode);gameRef.on('value',snap=>{gameState=snap.val();if(gameState){show('battle',true);renderBattle()}else{show('battle',false)}},e=>error(e,'対戦同期'))}
+function legalFor(g,card,op,lane){return allLegalForCard(g,card).filter(m=>m.lane===lane&&(m.op===null||m.op===op))}
+function anyMoves(g,side){return hand4(g[side]).some(c=>c&&allLegalForCard(g,c).length>0)}
+function mixDeck(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newGame(room){
+ const ids=mixDeck(Array.from({length:54},(_,i)=>i+1));
+ const h=ids.slice(0,27),g=ids.slice(27);
+ const center=[h.pop(),g.pop()],begin=nowServer()+2750;
+ return {hostUid:room.hostUid,guestUid:room.guestUid,status:'playing',version:0,center,
+ host:{hand:h.splice(0,4),deck:h,played:0},guest:{hand:g.splice(0,4),deck:g,played:0},
+ winner:'',lastMove:'3、2、1、マスピード！',lastActor:'',startAt:begin,initialAt:begin,round:0,
+ restartPick:false,restartHost:-1,restartGuest:-1};
+}
+function stopBattle(){
+ if(gameRef){gameRef.off();gameRef=null}
+ if(battleTickHandle){clearInterval(battleTickHandle);battleTickHandle=null}
+ gameState=null;selectedCard=null;selectedOp=null;localGameVersion=-1;localRound=-1;
+ show('battle',false);show('battleIntro',false);show('lobby',true);
+}
+function watchBattle(){
+ if(!roomCode||gameRef)return;
+ gameRef=firebase.database().ref('games/'+roomCode);
+ gameRef.on('value',snap=>{
+  const next=snap.val();
+  if(next){
+   if(next.round!==localRound){selectedCard=null;selectedOp=null;localRound=next.round??0}
+   else if(next.version!==localGameVersion&&next.lastActor&&next.lastActor!==(isHost?'host':'guest'))selectedCard=null;
+   localGameVersion=next.version??-1;
+  }
+  gameState=next;
+  if(gameState){show('battle',true);show('lobby',false);renderBattle()}
+  else{show('battle',false);show('battleIntro',false);show('lobby',true)}
+ },e=>error(e,'対戦同期'));
+ if(!battleTickHandle)battleTickHandle=setInterval(tickBattle,170);
+}
 async function maybeStartBattle(){
  if(!isHost||!roomCode||gameStarting)return;
  const code=roomCode;gameStarting=true;
@@ -81,55 +167,180 @@ async function maybeStartBattle(){
   if(code!==roomCode||!r?.guestUid||!l?.host?.ready||!l?.guest?.ready||game.exists())return;
   const initial=newGame(r);
   const result=await firebase.database().ref('games/'+code).transaction(v=>v===null?initial:undefined,undefined,false);
-  if(result.committed)log('🎮 対戦開始！カード54枚を配布しました');
+  if(result.committed)log('🎮 Ver.9.5 の通常版ルールで対戦開始！');
  }catch(e){error(e,'対戦開始')}finally{gameStarting=false}
 }
+function introRunning(g){return !!g&&g.status==='playing'&&Number(g.startAt)>nowServer()}
+function tickBattle(){
+ const g=gameState;if(!g)return;
+ const rem=(g.startAt||0)-nowServer();
+ if(g.status==='playing'&&rem>0){
+  show('battleIntro',true);
+  $('introVersus').textContent=($('battleMyName').textContent||'あなた')+' VS '+($('battleOtherName').textContent||'相手');
+  const step=rem>1950?'3':rem>1300?'2':rem>650?'1':'GO!';
+  $('introCount').textContent=step;
+  $('introCaption').textContent=step==='GO!'?'マスピード！':g.round>0?'両者手詰まり！ 中央のカードを更新':'対戦スタート！';
+ }else show('battleIntro',false);
+ if(g.status==='playing'){
+  const seconds=Math.max(0,Math.floor((nowServer()-(g.initialAt||((g.startAt||nowServer())-2750)))/1000));
+  $('battleClock').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');
+ }
+ if(isHost&&!gameBusy&&!settlingStall&&g.status==='playing'&&!introRunning(g)&&!g.restartPick&&!anyMoves(g,'host')&&!anyMoves(g,'guest'))settleStalemate();
+}
+function statusMessage(msg){$('calc').textContent=msg}
 function renderBattle(){
  const g=gameState;if(!g)return;
- const mine=g[isHost?'host':'guest'],other=g[isHost?'guest':'host'];if(!mine||!other)return;
- const label=side=>side==='host'?'ホスト':'ゲスト';
- $('battlePlayers').textContent='';
- for(const [title,p] of [['あなた',mine],['相手',other]]){const el=document.createElement('span');el.className='battle-meta';el.textContent=title+'：残り '+(p.hand.length+p.deck.length)+'枚 / 出した '+p.played+'枚';$('battlePlayers').append(el)}
- g.center.forEach((c,i)=>{$('center'+i).textContent=cardLabel(c)});
- $('hand').replaceChildren();
- mine.hand.forEach((c,i)=>{const btn=document.createElement('button');btn.className='playcard'+(selectedCard===i?' selected':'');btn.textContent=cardLabel(c);btn.disabled=g.status!=='playing'||gameBusy;btn.addEventListener('click',()=>{selectedCard=i;renderBattle()});$('hand').append(btn)});
- const done=g.status==='finished';
- $('battleStatus').textContent=done?(g.winner===(isHost?'host':'guest')?'🏆 勝利！':'対戦終了：相手の勝利！')+' / '+g.lastMove:'⚔️ 対戦中 / '+g.lastMove;
- $('moves').replaceChildren();
- const c=mine.hand[selectedCard];
- if(c!==undefined&&g.status==='playing'){
-  let any=false;
-  g.center.forEach((center,pile)=>{const opts=validCalcs(center,c);if(!opts.length)return;any=true;const btn=document.createElement('button');btn.className='btn gold';btn.textContent='中央'+(pile+1)+'に出す（'+opts[0]+'）';btn.disabled=gameBusy;btn.addEventListener('click',()=>playCard(selectedCard,c,pile));$('moves').append(btn)});
-  $('calc').textContent=any?'出せる場所を選んでね。':'このカードは今は出せません。別のカードを選んでね。';
- }else $('calc').textContent=done?'勝負が決まりました。':'手札を選んでね。';
- show('resetBattle',done&&isHost);
+ const meSide=isHost?'host':'guest',opSide=isHost?'guest':'host',me=g[meSide],other=g[opSide];if(!me||!other)return;
+ const myName=$('nickname').value.trim()||'プレイヤー',otherName=$('otherName').textContent||'対戦相手';
+ $('battleMyName').textContent=myName;$('battleOtherName').textContent=otherName;
+ $('battleMyRank').textContent=heroName($('character').value);
+ $('battleOtherRank').textContent=$('otherCharacter').textContent;
+ $('battleMyArt').src=HERO_ART[$('character').value]||HERO_ART.s0;
+ $('battleOtherArt').src=$('otherArt').src;
+ const myCnt=totalCards(me),opCnt=totalCards(other);
+ $('battlePlayers').textContent='あなた：残り '+myCnt+'枚　｜　相手：残り '+opCnt+'枚';
+ $('stockCount').textContent='山札 '+deckCards(me).length+'枚・自動補充';
+ const during=g.status==='playing'&&!introRunning(g)&&!gameBusy;
+ for(let i=0;i<2;i++){
+  const b=$('center'+i),card=g.center[i];b.innerHTML=cardFace(card);
+  b.className='table-card center-card'+(gameRank(card)===0?' joker':'')+(selectedCard!==null?' ready':'');
+  b.disabled=!during||selectedCard===null||!!g.restartPick;
+ }
+ const hand=$('hand');hand.replaceChildren();
+ hand4(me).forEach((c,i)=>{
+  const b=document.createElement(c?'button':'div');if(c)b.type='button';
+  b.className='table-card'+(c&&gameRank(c)===0?' joker':'')+(selectedCard===i?' selected':'')+(g.restartPick?' ready':'')+(!c?' placeholder':'');
+  b.innerHTML=cardFace(c);if(c){b.disabled=!during|| (g.restartPick&&g[meSide==='host'?'restartHost':'restartGuest']>=0);b.onclick=()=>chooseHand(i)}
+  hand.append(b);
+ });
+ for(const b of $('ops').querySelectorAll('button')){b.classList.toggle('active',selectedOp===b.dataset.op);b.disabled=!during||!!g.restartPick}
+ if(g.status==='finished'){
+  $('battleStatus').textContent=g.winner==='draw'?'🤝 引き分け！':g.winner===meSide?'🏆 勝利！':'相手の勝利！';
+  statusMessage(g.lastMove||'対戦終了');
+ }else if(g.restartPick){
+  const mineChoice=g[meSide==='host'?'restartHost':'restartGuest'];
+  $('battleStatus').textContent='⚡ 両者手詰まり！　マスピードで再スタート！';
+  statusMessage(mineChoice>=0?'相手のカード選択を待っています…':'自分の手札を1枚タップ！ 演算は不要だよ。');
+ }else{
+  $('battleStatus').textContent='⚔️ 対戦中　｜　'+(g.lastMove||'マスピード！');
+  if(selectedCard!==null){statusMessage('③ 黄色い中央の山をタップ！　選択中：'+(selectedOp||'ジョーカー／ワイルド'))}
+  else if(selectedOp)statusMessage('② 手札をタップ！　選択中：'+selectedOp);
+  else statusMessage('① 演算を選ぼう！（ジョーカーは演算不要）');
+ }
+ $('centerNote').textContent=g.restartPick?'手詰まり！ 自分の手札を1枚タップして再スタート':selectedCard!==null?'③ 中央の置き場所をタップ！':selectedOp?'選択中：'+selectedOp:'計算してカードを出そう！';
+ show('resetBattle',g.status==='finished'&&isHost);
 }
-async function playCard(index,card,pile){
- if(gameBusy||!gameState||!roomCode)return;gameBusy=true;
- const code=roomCode,side=isHost?'host':'guest';let reason='';
+function chooseOp(op){
+ if(!gameState||gameState.status!=='playing'||introRunning(gameState)||gameState.restartPick||gameBusy)return;
+ selectedOp=op;selectedCard=null;renderBattle();statusMessage('演算を選択！ 次はカードをタップ。');
+}
+function chooseHand(index){
+ const g=gameState;if(!g||g.status!=='playing'||introRunning(g)||gameBusy)return;
+ const side=isHost?'host':'guest',card=hand4(g[side])[index];if(!card)return;
+ if(g.restartPick){submitRestartPick(index,card);return}
+ const options=allLegalForCard(g,card);
+ if(gameRank(card)!==0&&!selectedOp&&!options.some(m=>m.op===null)){statusMessage('先に演算を選んでね！');return}
+ if(!options.some(m=>m.op===null||m.op===selectedOp)){statusMessage('その演算ではこのカードを出せないよ！');return}
+ selectedCard=index;renderBattle();statusMessage('中央のどちらに置く？ 黄色い山をタップ！');
+}
+function choosePile(lane){
+ const g=gameState,side=isHost?'host':'guest';
+ if(!g||g.status!=='playing'||introRunning(g)||g.restartPick||gameBusy||selectedCard===null)return;
+ const card=hand4(g[side])[selectedCard],move=legalFor(g,card,selectedOp,lane)[0];
+ if(!move){statusMessage('その山には出せないよ。別の山か計算を選んでね。');return}
+ submitCard(selectedCard,card,lane,selectedOp);
+}
+function postMoveStall(g){
+ if(g.status!=='playing'||anyMoves(g,'host')||anyMoves(g,'guest'))return;
+ if(deckCards(g.host).length&&deckCards(g.guest).length){
+  g.center=[g.host.deck.pop(),g.guest.deck.pop()];g.round=(g.round||0)+1;g.startAt=nowServer()+2750;
+  g.lastMove='両者手詰まり！ 山札から1枚ずつ中央へ！';g.lastActor='';return;
+ }
+ if(totalCards(g.host)>0&&totalCards(g.guest)>0){
+  g.restartPick=true;g.restartHost=-1;g.restartGuest=-1;g.lastMove='両者手詰まり！ 手札から1枚ずつ中央へ！';g.lastActor='';return;
+ }
+ g.status='finished';g.winner='draw';g.lastMove='両者とも出せるカードがなくなりました。';
+}
+async function submitCard(index,card,lane,op){
+ if(gameBusy||!gameState||!roomCode)return;
+ const side=isHost?'host':'guest',code=roomCode;let reason='',feedback='';gameBusy=true;
  try{
   const ref=firebase.database().ref('games/'+code);
-  const result=await ref.transaction(g=>{
-   if(!g){reason='状態を読み込み中';return undefined}
-   if(g.status!=='playing'){reason='対戦終了';return undefined}
-   if(g[side+'Uid']!==uid){reason='参加者が一致しません';return undefined}
-   const p=g[side];if(p.hand[index]!==card){reason='手札が更新されました';return undefined}
-   if(!validCalcs(g.center[pile],card).length){reason='中央のカードが変わりました';return undefined}
-   const next=JSON.parse(JSON.stringify(g));const player=next[side];
-   player.hand.splice(index,1);if(player.deck.length)player.hand.push(player.deck.shift());
-   player.played++;next.center[pile]=card;next.version=(g.version||0)+1;
-   next.lastMove=(side==='host'?'ホスト':'ゲスト')+'が '+cardLabel(card)+' を中央'+(pile+1)+'に出した';
-   if(player.hand.length===0&&player.deck.length===0){next.status='finished';next.winner=side}
-   return next;
+  const result=await ref.transaction(current=>{
+   if(!current){reason='状態の読み込み待ち';return undefined}
+   if(current.status!=='playing'||current.restartPick||Number(current.startAt)>nowServer()){reason='対戦中ではない';return undefined}
+   if(current[side+'Uid']!==uid){reason='参加者不一致';return undefined}
+   const p=current[side],c=hand4(p)[index];if(c!==card){reason='手札が更新されました';return undefined}
+   const move=legalFor(current,card,op,lane)[0];if(!move){reason='相手が中央のカードを更新しました';return undefined}
+   const g=JSON.parse(JSON.stringify(current)),me=g[side];
+   me.hand=hand4(me);me.deck=deckCards(me);
+   me.hand[index]=me.deck.length?me.deck.pop():null;
+   me.played=(me.played||0)+1;
+   g.center[lane]=card;g.version=(current.version||0)+1;
+   g.lastMove=(side==='host'?'ホスト':'ゲスト')+'：'+move.eq+'　'+cardName(card)+' を中央'+(lane+1)+'へ';
+   g.lastActor=side;
+   if(totalCards(me)===0){g.status='finished';g.winner=side}
+   else postMoveStall(g);
+   return g;
   },undefined,false);
-  if(result.committed){selectedCard=-1;log('🃏 '+(result.snapshot.val()?.lastMove||'カード更新'))}
-  else{log('⚠️ カード操作を再判定：'+(reason||'競合'));message('カードの状態が変わりました。もう一度選んでね。')}
- }catch(e){error(e,'カード操作')}finally{gameBusy=false;if(gameState)renderBattle()}
+  if(result.committed){selectedCard=null;log('🃏 '+(result.snapshot.val()?.lastMove||'カード更新'))}
+  else{log('⚠️ 判定し直し：'+reason);feedback='状況が変わったよ。もう一度選んでね。'}
+ }catch(e){error(e,'カード操作')}finally{gameBusy=false;if(gameState)renderBattle();if(feedback)statusMessage(feedback)}
+}
+async function submitRestartPick(index,card){
+ if(gameBusy||!gameState||!roomCode)return;gameBusy=true;
+ const side=isHost?'host':'guest',field=side==='host'?'restartHost':'restartGuest';
+ try{
+  const result=await firebase.database().ref('games/'+roomCode).transaction(current=>{
+   if(!current||current.status!=='playing'||!current.restartPick||current[field]>=0||current[side+'Uid']!==uid||hand4(current[side])[index]!==card)return undefined;
+   const g=JSON.parse(JSON.stringify(current));g[field]=index;g.version=(current.version||0)+1;
+   g.lastMove=(side==='host'?'ホスト':'ゲスト')+'が再スタート用のカードを選択！';g.lastActor=side;
+   if(g.restartHost>=0&&g.restartGuest>=0){
+    const a=hand4(g.host)[g.restartHost],b=hand4(g.guest)[g.restartGuest];
+    g.center=[a,b];
+    for(const [who,pos] of [['host',g.restartHost],['guest',g.restartGuest]]){
+     const p=g[who];p.hand=hand4(p);p.deck=deckCards(p);p.hand[pos]=p.deck.length?p.deck.pop():null;
+    }
+    g.restartPick=false;g.restartHost=-1;g.restartGuest=-1;g.round=(g.round||0)+1;g.startAt=nowServer()+2750;
+    g.lastMove='中央のカードを更新！ 3、2、1、マスピード！';g.lastActor='';
+    const ha=totalCards(g.host),gu=totalCards(g.guest);
+    if(ha===0||gu===0){g.status='finished';g.winner=ha===0&&gu===0?'draw':ha===0?'host':'guest'}
+   }
+   return g;
+  },undefined,false);
+  if(result.committed){selectedCard=null;selectedOp=null;log('🔄 手詰まり時のカード選択を同期しました')}
+  else statusMessage('選択できませんでした。画面を確認してね。');
+ }catch(e){error(e,'手詰まり処理')}finally{gameBusy=false;if(gameState)renderBattle()}
+}
+async function settleStalemate(){
+ const g=gameState;if(!isHost||settlingStall||!g||g.status!=='playing'||g.restartPick||introRunning(g))return;
+ settlingStall=true;
+ try{
+  const result=await firebase.database().ref('games/'+roomCode).transaction(cur=>{
+   if(!cur||cur.status!=='playing'||cur.restartPick||cur.startAt>nowServer()||anyMoves(cur,'host')||anyMoves(cur,'guest'))return undefined;
+   const next=JSON.parse(JSON.stringify(cur));next.version=(cur.version||0)+1;postMoveStall(next);return next;
+  },undefined,false);
+  if(result.committed)log('🔄 両者手詰まりを自動判定しました');
+ }catch(e){error(e,'手詰まり自動更新')}finally{settlingStall=false}
 }
 async function resetBattle(){
  if(!isHost||!roomCode)return;
- try{const code=roomCode;const snap=await firebase.database().ref('rooms/'+code).once('value');const room=snap.val();if(!room?.guestUid)return;const fresh=newGame(room);await firebase.database().ref('games/'+code).set(fresh);selectedCard=-1;log('🔄 再戦開始')}catch(e){error(e,'再戦')}
+ try{
+  const snap=await firebase.database().ref('rooms/'+roomCode).once('value'),r=snap.val();if(!r?.guestUid)return;
+  await firebase.database().ref('games/'+roomCode).set(newGame(r));
+  selectedCard=null;selectedOp=null;localRound=-1;log('🔄 再戦開始');
+ }catch(e){error(e,'再戦')}
 }
+$('ops').addEventListener('click',e=>{const btn=e.target.closest('button[data-op]');if(btn)chooseOp(btn.dataset.op)});
+$('battleCenter').addEventListener('click',e=>{const btn=e.target.closest('button[data-lane]');if(btn)choosePile(Number(btn.dataset.lane))});
+$('hint').addEventListener('click',()=>{
+ if(!gameState||gameState.status!=='playing'||introRunning(gameState))return;
+ if(gameState.restartPick){statusMessage('自分の手札を1枚選んで中央を更新しよう！');return}
+ const side=isHost?'host':'guest';let chosen=null;
+ hand4(gameState[side]).forEach((c,i)=>{if(chosen||!c)return;const moves=allLegalForCard(gameState,c);if(moves.length)chosen={c,i,move:moves[0]}});
+ statusMessage(chosen?`${cardName(chosen.c)} を ${chosen.move.eq}（${chosen.move.lane===0?'左':'右'}の山）`:'出せるカードがないよ。中央の更新を待とう！');
+});
+$('cancel').addEventListener('click',()=>{selectedCard=null;selectedOp=null;if(gameState)renderBattle();statusMessage('選択解除！')});
 $('resetBattle').addEventListener('click',resetBattle);
 
 $('ready').addEventListener('click',()=>writeLobby(!lobbyReady).catch(e=>error(e,'準備完了')));
