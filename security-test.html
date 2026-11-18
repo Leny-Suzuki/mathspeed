@@ -1,6 +1,6 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.10.1.0｜友達と通信対戦</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>マスピード Ver.10.4.0｜友達と通信対戦</title><style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} 
-/* Ver.10.1.0: use the established card/operation/center selection pattern. */
+/* Ver.10.4.0: use the established card/operation/center selection pattern. */
 .panel{width:min(770px,100%)}#battle{margin-top:25px;padding-top:16px;border-top:1px solid #b8a775}#battle h2{font-size:1.45rem;margin:0}#battle small{font-size:.65em;color:#c7d1e7}
 .battle-topline{display:flex;justify-content:space-between;align-items:center;gap:10px}.clock{font-size:1rem;font-weight:700;color:#e3d6a5}
 .versus-strip{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:7px;align-items:center;margin:12px 0;padding:12px;border:1px solid #9a8250;border-radius:13px;background:#0d1a36}
@@ -15,16 +15,16 @@
 .battle-intro{position:fixed;inset:0;z-index:60;background:radial-gradient(circle,#243b73ee,#050d24fa);display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none}.battle-intro.hidden{display:none}.intro-inner{padding:25px;width:100%}.intro-vs{font-weight:850;letter-spacing:.1em;font-size:clamp(1.1rem,3vw,2rem);color:#ffe09a}.intro-count{font-weight:1000;font-size:clamp(5.5rem,22vw,12rem);color:#ffe18e;line-height:1.3;text-shadow:0 0 45px #ffb8378c}.intro-caption{font-weight:850;font-size:clamp(1.25rem,4vw,2.2rem);color:white}
 @media(max-width:460px){.panel{padding:12px}.versus-strip{padding:7px 4px}.vs-person{gap:2px}.vs-person .portrait{width:47px;height:50px}.vs-person strong{font-size:.85rem}.vs-person span{font-size:.67rem}.battle-field{padding:9px 5px}.table-card .rank{font-size:1.7rem}.table-card .suit{font-size:1.6rem}.hand-cards .table-card{height:100px}.center-card{height:122px}.battle-totals{font-size:.75rem}.op-buttons button{min-height:53px}}
 
-/* Ver.10.1.0: card progress gauges, synchronized countdown, mutual-consent rematch. */
+/* Ver.10.4.0: card progress gauges, synchronized countdown, mutual-consent rematch. */
 .remaining-dashboard{margin:9px 3px}.remaining-line{display:flex;justify-content:space-between;align-items:center;color:#fff3c3;font-size:.85rem;gap:12px}.remaining-line strong{font-size:.98rem;font-variant-numeric:tabular-nums}.remaining-track{height:14px;border-radius:999px;overflow:hidden;background:#071f1cbb;border:1px solid #c4e9c883;box-shadow:inset 0 1px 4px #0009;margin-top:7px}.remaining-fill{height:100%;width:100%;border-radius:999px;transition:width .45s ease;position:relative}.remaining-fill.opponent{background:linear-gradient(90deg,#ef806a,#ffcf71)}.remaining-fill.self{background:linear-gradient(90deg,#51c3e4,#a7f8a9)}.my-meter{padding-top:2px}.result-overlay{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 50% 30%,#254179e8,#020a1ef5 78%);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}.result-overlay.hidden{display:none}.result-panel{position:relative;width:min(480px,100%);padding:28px 19px 24px;background:linear-gradient(145deg,#192f52,#0b1833);border:3px solid #e8bc68;border-radius:24px;text-align:center;box-shadow:0 20px 80px #000c,0 0 55px #eac15a44;animation:result-appear .52s cubic-bezier(.15,1.35,.55,1) both;overflow:hidden}.result-panel.win:before,.result-panel.draw:before{content:'✦   ✨   ✦   ✧   ✨   ✦';position:absolute;top:20px;left:0;right:0;font-size:2rem;color:#ffd56b;opacity:.6;animation:twinkle 1.4s ease-in-out infinite alternate;pointer-events:none}.result-panel.lose{border-color:#91aadb;box-shadow:0 20px 80px #000c,0 0 50px #75a5ff33}.result-icon{position:relative;font-size:4.4rem;line-height:1.3;filter:drop-shadow(0 0 18px #f9c76288)}.result-kicker{letter-spacing:.2em;font-size:.77rem;color:#c2d1ed;font-weight:800;margin:8px 0}.result-title{font-size:clamp(2.7rem,10vw,4.6rem)!important;margin:4px 0 12px!important;color:#ffdb82;text-shadow:0 4px 0 #8b541f,0 0 25px #ffdd7855;line-height:1.15}.result-panel.lose .result-title{color:#c7dcff;text-shadow:0 4px 0 #3e4d70}.result-message{font-size:1.07rem;font-weight:700;margin:12px 0}.result-scores{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:20px 0;background:#07132e;padding:13px 6px;border-radius:12px;border:1px solid #7f9ab36b}.result-scores>div{display:flex;flex-direction:column;gap:5px}.result-scores small{color:#c5d0e1;font-size:.76rem}.result-scores strong{font-size:1.55rem;color:#fff2c8}.result-scores>b{font-size:.95rem;color:#e9b961}.result-note{font-size:.87rem;color:#bfcfea;line-height:1.6}.result-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:20px}.result-buttons .btn{min-height:50px}.intro-shout{font-size:clamp(1.65rem,7vw,3.4rem);font-weight:1000;color:#ffdf80;text-shadow:0 0 24px #ffad4d7f;letter-spacing:.08em;margin:3px auto 10px}.intro-count.intro-word{font-size:clamp(2.5rem,10vw,5.6rem);white-space:nowrap}.intro-caption{max-width:620px;margin:auto}@keyframes result-appear{from{transform:scale(.75) translateY(30px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}@keyframes twinkle{from{transform:translateY(-2px);opacity:.3}to{transform:translateY(5px);opacity:.8}}@media(prefers-reduced-motion:reduce){.result-panel,.result-panel:before,.remaining-fill{animation:none;transition:none}}
 @media(max-width:460px){.remaining-track{height:12px}.remaining-line{font-size:.78rem}.result-panel{padding:20px 13px}.result-scores strong{font-size:1.3rem}}
 .rematch-status{color:#fff0bd;font-weight:750;font-size:1rem;line-height:1.6;background:#081b35;padding:12px 11px;border-radius:10px;border:1px solid #cba96a80;margin:14px 0 3px}.rematch-status.waiting{border-color:#7be2b9;color:#b9ffdc}#rematchBoardStatus{padding:8px 3px;color:#ffe5a3}#resetBattle:disabled,#resultAgain:disabled{opacity:.7;cursor:default}
-/* Ver.10.1.0: hide both center-card faces for the entire countdown. */
+/* Ver.10.4.0: hide both center-card faces for the entire countdown. */
 .center-card.face-down{background:repeating-linear-gradient(45deg,#152a50 0 11px,#244572 11px 22px);border-color:#edc779;box-shadow:inset 0 0 0 5px #182e55,inset 0 0 0 8px #e6bf6c,0 3px 0 #0005;color:#ffe3a0}
 .center-card.face-down .card-back-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;width:66%;height:66%;border:2px solid #e9ce8a;background:#10203fdc;border-radius:10px;gap:4px;box-shadow:0 0 0 3px #162e52}
 .card-back-symbol{font-size:2.15rem;line-height:1.15;text-shadow:0 0 11px #ffe08b70}.card-back-name{font-size:.57rem;font-weight:900;letter-spacing:.09em}
 @media(max-width:460px){.center-card.face-down .card-back-mark{width:70%;height:72%}.card-back-symbol{font-size:1.65rem}.card-back-name{font-size:.45rem}}
-/* Ver.10.1.0: conspicuous no-moves cue, no change to game mechanics. */
+/* Ver.10.4.0: conspicuous no-moves cue, no change to game mechanics. */
 .stall-pick-banner{display:none;margin:10px 0 12px;padding:12px 10px;border:3px solid #ff64c8;border-radius:12px;background:linear-gradient(125deg,#66164c,#321650);color:#fff;text-align:center;font-weight:900;font-size:clamp(.95rem,3.8vw,1.22rem);line-height:1.55;box-shadow:0 0 20px #fc48b94c}
 .stall-pick-banner.show{display:block}
 .stall-pick-banner.waiting{border-color:#71eff4;background:linear-gradient(125deg,#154f64,#142d52);box-shadow:0 0 18px #71eff43b}
@@ -37,7 +37,7 @@
 @media(prefers-reduced-motion:reduce){.hand-cards button.table-card.stall-pick{animation:none}}
 
 
-/* Ver.10.1.0 - Optional, original rock BGM. The user's normal game controls do not change. */
+/* Ver.10.4.0 - Optional, original rock BGM. The user's normal game controls do not change. */
 .duel-music-ui{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:8px 0 14px;padding:9px 11px;border:1px solid #be9f63;border-radius:10px;background:#0a1732}
 .duel-music-ui .btn{padding:8px 12px;font-weight:800;min-height:38px;font-size:.92rem}
 .duel-music-ui .music-preview-btn{background:#916323;color:#fff7dd;border-color:#f7d788}
@@ -135,11 +135,11 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 #lobby .player{position:relative}#battle .vs-person .msCardBadge{position:absolute;bottom:-5px;right:0;transform:scale(.77);transform-origin:right bottom}
 #lobby .player .msCardBadge{margin:3px auto}#battleResult .result-fighter .msCardBadge{transform:scale(.7);margin:0 auto}
 </style>
-</head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
+<style id="v104OnlineRewardStyle">.msCoinReward{padding:10px;border:2px solid #dbb55b;border-radius:9px;background:#2d3456;color:#ffe4a0;font-weight:900;text-align:center;font-size:clamp(13px,2.8vw,17px);line-height:1.5}</style></head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
   <a id="msBackToAdventure" href="./index.html">← 冒険モードに戻る</a>
   <strong>🌐 友達と通信対戦</strong>
 </nav>
-<main class="panel"><h1>⚔️ MATHSPEED <small>Ver.10.1.0</small></h1><div class="duel-music-ui" role="group" aria-label="オリジナル対戦BGMの設定">
+<main class="panel"><h1>⚔️ MATHSPEED <small>Ver.10.4.0</small></h1><div class="duel-music-ui" role="group" aria-label="オリジナル対戦BGMの設定">
   <button type="button" class="btn" id="duelMusicToggle" aria-pressed="true">🎸 BGM ON</button>
   <button type="button" class="btn music-preview-btn" id="duelMusicPreview">▶ 曲を試聴</button>
   <label class="music-volume-label" for="duelMusicVolume">音量</label>
@@ -187,7 +187,7 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
       <div class="result-fighter"><img id="resultHeroOther" alt="相手のキャラクター"><small id="resultHeroOtherName">相手</small></div>
     </div>
     <div class="result-scores"><div><small>あなた</small><strong id="resultMyCards">0枚</strong></div><b>VS</b><div><small>対戦相手</small><strong id="resultTheirCards">0枚</strong></div></div>
-    <p id="resultNote" class="result-note"></p>
+    <p id="resultNote" class="result-note"></p><p id="msOnlineReward" role="status" aria-live="polite" class="msCoinReward">🪙 勝利 +100 / 敗北 +20 / 引き分け +40</p>
     <p id="rematchStatus" class="rematch-status" role="status">2人が「もう一度対戦」を選ぶと再戦できます。</p>
     <div class="result-buttons"><button id="resultAgain" class="btn gold" type="button">🔄 もう一度対戦</button><button id="resultClose" class="btn" type="button">盤面を確認する</button></div>
   </div>
@@ -233,7 +233,7 @@ window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars,catalog,allBacks,allF
 'use strict';
 const config={apiKey:'AIzaSyDECW6ejXkBFg0DtutqO2u65yZOmy--Tas',authDomain:'mathspeed-security-test.firebaseapp.com',databaseURL:'https://mathspeed-security-test-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-security-test',appId:'1:982844628630:web:048eae2c2e51ed9094acb7'};
 const $=id=>document.getElementById(id);let uid=null,roomRef=null,roomCode='',isHost=false,serverOffset=0,logLines=[];
-// Ver.10.1.0: original rock BGM (locally embedded, no extra GitHub uploads).
+// Ver.10.4.0: original rock BGM (locally embedded, no extra GitHub uploads).
 // Playback is strictly a local user preference. No Firebase node or saved game state changes.
 const duelMusicAudio=$('duelMusicAudio');
 let duelMusicOn=true,duelMusicPending=false,duelMusicBlocked=false,duelMusicStartedRound=null;
@@ -372,7 +372,7 @@ async function startLobby(code,host){stopLobby();initLobbyChoices();show('lobby'
 $('nickname').addEventListener('input',()=>{lobbyReady=false;updateMyPreview()});$('character').addEventListener('change',()=>{lobbyReady=false;updateMyPreview()});
 $('saveChoice').addEventListener('click',()=>writeLobby(false).catch(e=>error(e,'キャラ反映')));
 
-// Ver.10.1.0: original Ver.8.5 arithmetic & 3-step interaction, Firebase transactions.
+// Ver.10.4.0: original Ver.8.5 arithmetic & 3-step interaction, Firebase transactions.
 let gameRef=null,gameState=null,selectedCard=null,selectedOp=null,gameBusy=false,gameStarting=false;
 let localGameVersion=-1,localRound=-1,battleTickHandle=null,settlingStall=false,lastRenderedInputEnabled=null;
 const COUNTDOWN_LEAD_MS=4800; // Both screens share one future server-aligned startAt, allowing network delivery.
@@ -473,7 +473,7 @@ async function maybeStartBattle(){
   if(code!==roomCode||!r?.guestUid||!l?.host?.ready||!l?.guest?.ready||game.exists())return;
   const initial=newGame(r);
   const result=await firebase.database().ref('games/'+code).transaction(v=>v===null?initial:undefined,undefined,false);
-  if(result.committed)log('🎮 Ver.10.1.0 の通常版ルールで対戦開始！');
+  if(result.committed)log('🎮 Ver.10.4.0 の通常版ルールで対戦開始！');
  }catch(e){error(e,'対戦開始')}finally{gameStarting=false}
 }
 function introRunning(g){return !!g&&g.status==='playing'&&Number(g.startAt)>nowServer()}
@@ -665,8 +665,36 @@ function renderRematchUI(g){
  $('rematchStatus').classList.toggle('waiting',ownVote||theirVote);
  $('rematchBoardStatus').textContent=status;
 }
+
+// Ver.10.4.0 — local online-battle coin rewards. Works only on the SAME ORIGIN as index.html.
+// Firebase validates the fight result. Wallet/ledger are local and NOT a trusted server economy.
+function msCoinRewardOnline(g){
+ const me=isHost?'host':'guest';const opposite=isHost?'guest':'host';
+ if(g?.status!=='finished'||!['host','guest','draw'].includes(g.winner)||!roomCode||!uid||
+    !g.hostUid||!g.guestUid||g[me+'Uid']!==uid||!Number.isFinite(Number(g.initialAt))||Number(g.initialAt)<=0)
+   return {gain:0,status:'対戦報酬は確認できませんでした'};
+ const unique=[roomCode,String(g.initialAt),g.hostUid,g.guestUid].join('|');
+ const otherUid=g[opposite+'Uid'];
+ const today=(()=>{try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}catch{return new Date().toISOString().slice(0,10)}})();
+ let data={};try{data=JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}')||{}}catch{}
+ const ledger=Array.isArray(data.onlineCoinLedger)?data.onlineCoinLedger.slice(-249).filter(x=>x&&typeof x.id==='string'):[];
+ const previous=ledger.find(x=>x.id===unique);
+ if(previous)return {gain:Number(previous.gain)||0,status:previous.gain>0?'受け取り済み':(previous.reason||'報酬上限に達しました')};
+ const todayLogs=ledger.filter(x=>x.date===today&&x.gain>0);
+ const sameOpponent=todayLogs.filter(x=>x.opponent===otherUid).length;
+ const rateLimited=todayLogs.length>=15||sameOpponent>=3;
+ const gain=rateLimited?0:(g.winner==='draw'?40:g.winner===me?100:20);
+ const reason=rateLimited?'報酬上限（同じ相手は1日3戦／合計15戦）':'受け取り完了';
+ ledger.push({id:unique,date:today,opponent:otherUid,gain,reason});
+ data.onlineCoinLedger=ledger.slice(-250);
+ data.coins=Math.max(0,Math.floor(Number(data.coins)||0))+gain;
+ try{localStorage.setItem(PROFILE_KEY,JSON.stringify(data));return {gain,status:reason,wallet:data.coins}}
+ catch{return {gain:0,status:'報酬を保存できませんでした（ブラウザの保存設定を確認）'}}
+}
+
 function renderFinish(g,meSide,myCnt,opCnt){
  const resultKey=roomCode+'|'+g.initialAt;
+ const msPayout=msCoinRewardOnline(g);
  if(resultDismissedKey===resultKey){show('battleResult',false);return}
  const drawn=g.winner==='draw',win=g.winner===meSide;
  if(onlineFxLastResult!==resultKey){onlineFxLastResult=resultKey;onlineFx.play(drawn?'go':win?'win':'lose')}
@@ -688,6 +716,7 @@ function renderFinish(g,meSide,myCnt,opCnt){
  }
  $('resultMyCards').textContent=myCnt+'枚';$('resultTheirCards').textContent=opCnt+'枚';
  $('resultNote').textContent=g.lastMove||'対戦終了。';
+ $('msOnlineReward').textContent='🪙 '+(msPayout.gain?('+'+msPayout.gain+' マスコイン｜'):'')+msPayout.status+ (Number.isFinite(msPayout.wallet)?'｜所持 '+msPayout.wallet+'枚':'');
  renderRematchUI(g);
  show('resultAgain',true);
  show('battleResult',true);
