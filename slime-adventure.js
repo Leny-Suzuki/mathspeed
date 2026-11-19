@@ -4,10 +4,12 @@ ctx.imageSmoothingEnabled=false;
 const W=960,H=540,G=412,PROFILE='mathspeed-v4-profile',MAX_PLAYS=3,DAILY_CAP=500,DEV=window.MS_SLIME_DEVELOPER===true;
 // Compact, readable jumps at every running speed. All physics are in px / second.
 const GRAVITY=1900,FIRST_JUMP=-500,SECOND_JUMP=-450;
-const speedAt=m=>285+Math.min(175,Math.max(0,m)*.14);
+// Speed keeps rising well past 1,250m, then caps at a challenging but controllable pace.
+const speedAt=m=>285+Math.min(335,Math.max(0,m)*.11);
 const base='./assets/slime/';
 function asset(name){const im=new Image();im.src=base+name;im.onload=()=>{if(mode!=='playing')render()};return im}
 const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle.png'),hero_jump:asset('hero_jump.png'),hero_double:asset('hero_double.png'),hero_land:asset('hero_land.png'),hero_hurt:asset('hero_hurt.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
+let lastPattern='solo';
 let mode='ready',worldX=260,py=G,vy=0,onGround=true,jumps=0,falling=false,cam=0,seconds=0,lastTime=0,raf=0,frame=0,hearts=3,inv=0,landSquash=0,obstacles=[],coins=[],fxParts=[],spawnX=1040,picked=0,meters=0,runId='',finished=false,seed=0,mute=false,audio=null,musicId=null,noteI=0,devBest=0;
 try{devBest=Number(sessionStorage.getItem('mathspeed-slime-dev-best'))||0}catch{}
 const R=(a,b)=>a+Math.floor(random()*(b-a+1));
@@ -25,39 +27,68 @@ const melody=[392,440,494,523,587,494,440,392,349,392,440,494,523,440,392,349,39
 function musicOff(){if(musicId){clearInterval(musicId);musicId=null}}
 function musicOn(){musicOff();if(mute||mode!=='playing')return;musicId=setInterval(()=>{if(mode!=='playing'||document.hidden)return;const i=noteI++%melody.length;sound(melody[i],.22,.0075,'triangle');if(i%4===0)sound(melody[i]/2,.28,.004,'sine')},230)}
 function overlay(title,desc,reward,foot,btn,disabled=false){setText('overlayTitle',title);setText('overlayText',desc);setText('overlayReward',reward);setText('overlayNote',foot);setText('start',btn);$('start').disabled=disabled;$('overlay').hidden=false;hud()}
-function ready(){mode='ready';const p=read(),d=day(p),left=Math.max(0,3-d.plays);$('jump').disabled=true;$('pause').disabled=true;const locked=!DEV&&left===0;overlay(locked?'今日はここまで！':'計算スライムの冒険',locked?'今日の挑戦は3回使い切ったよ。明日また会おうね！':'計算スライムと、どこまでも遠くへ！\n赤いトゲ・岩・コウモリ・穴は危険。黄色いπ金貨を集めよう。',DEV?'🧪 開発者テスト：何回でも遊べる・報酬なし':'🪙 金貨＋100mごとに12枚',DEV?'開発者モード：記録とコインは通常の成績に加算しません':`本日の残り：${left}回`,locked?'明日のお楽しみ':'▶ おさんぽ出発！',locked)}
+function ready(){mode='ready';const p=read(),d=day(p),left=Math.max(0,3-d.plays);$('jump').disabled=true;$('pause').disabled=true;const locked=!DEV&&left===0;overlay(locked?'今日はここまで！':'計算スライムの冒険',locked?'今日の挑戦は3回使い切ったよ。明日また会おうね！':'計算スライムと、どこまでも遠くへ！\nトゲや岩はジャンプ！ コウモリは地面を走ってくぐろう。\n短い連続障害物には2段ジャンプ！ 黄色いπ金貨を集めよう。',DEV?'🧪 開発者テスト：何回でも遊べる・報酬なし':'🪙 金貨＋100mごとに12枚',DEV?'開発者モード：記録とコインは通常の成績に加算しません':`本日の残り：${left}回`,locked?'明日のお楽しみ':'▶ おさんぽ出発！',locked)}
 function spark(x,y,color,num=9){for(let i=0;i<num;i++)fxParts.push({x,y,vx:(random()-.5)*180,vy:-random()*145-15,age:0,ttl:.36+random()*.48,color,size:3+R(0,3)})}
 function spawn(){
- // Each hazard starts AFTER a clear runway from the previous hazard's right edge.
- // The runway is measured in reaction time, rather than fixed px: even at 460px/s
- // there is enough room to finish a compact jump and decide when to jump again.
+ // Build readable obstacle "phrases" instead of spreading every hazard evenly.
+ // Single hazards, tight two/three-hazard combos and underpass bats all have
+ // different solutions. Every phrase receives a full recovery runway after it.
  while(spawnX<worldX+W+700){
   const projectedMeters=Math.max(0,(spawnX-260)/18),futureSpeed=speedAt(projectedMeters);
-  const safeRunway=Math.ceil(futureSpeed*.68+65),freeSpace=safeRunway+R(20,110);
-  const previousRight=spawnX,obstacleX=previousRight+freeSpace;
-  const progress=Math.min(1,projectedMeters/1200),r=random();
-  let type=r<.29?'spikes':r<.57?'rock':r<.8?'pit':'bat';
-  if(projectedMeters<130&&type==='pit')type='rock';
-  if(projectedMeters<220&&type==='bat')type='spikes';
-  // Smaller obstacles complement the lower, shorter first jump.
-  const width=type==='pit'?R(Math.round(85+25*progress),Math.round(118+30*progress)):
-      type==='spikes'?66:type==='rock'?68:76;
-  const height=type==='spikes'?41:type==='rock'?51:type==='bat'?58:0;
-  const obj={type,x:obstacleX,w:width,h:height,y:type==='bat'?G-132:G,phase:random()*6.28};
-  obstacles.push(obj);
-  spawnX=obstacleX+width; // Right edge, NOT the obstacle's starting position.
-  // Coins stay on the clear approach, never directly inside a hazard's collision box.
-  const n=Math.min(5,Math.max(2,Math.floor((freeSpace-125)/48)));
-  const firstCoin=previousRight+75;
+  const progress=Math.min(1,projectedMeters/2600);
+  const roll=random();
+  let pattern='solo';
+  if(projectedMeters>320&&roll<.10+progress*.10)pattern='bat';
+  else if(projectedMeters>170&&roll<.27+progress*.04)pattern='pit';
+  else if(projectedMeters>1200&&roll<.31+progress*.16)pattern='triple';
+  else if(projectedMeters>280&&roll<.43+progress*.32)pattern='pair';
+  // After an airborne combo, a bat can be passed safely by staying grounded.
+  // Don't place a bat too soon after a triple, pit, or previous bat.
+  const extraRecovery=pattern==='bat'||lastPattern==='triple'||lastPattern==='pit'||lastPattern==='bat';
+  const reactionTime=extraRecovery ? .91+random()*.27 : .58+random()*.32;
+  // Deliberate short beats occur between *single* ground hazards as well.
+  const shortBeat=!extraRecovery&&projectedMeters>650&&random()<(.13+progress*.12);
+  const approach=Math.ceil(futureSpeed*(shortBeat ? .46 : reactionTime)+(shortBeat?25:45));
+  const previousRight=spawnX,firstX=previousRight+approach;
+  const pieces=[];
+  function piece(type,x){
+   const width=type==='pit'?R(Math.round(85+45*progress),Math.round(118+90*progress)):
+     type==='spikes'?62:type==='rock'?64:76;
+   const height=type==='spikes'?41:type==='rock'?51:type==='bat'?58:0;
+   const obj={type,x,w:width,h:height,y:type==='bat'?G-132:G,phase:random()*6.28};
+   pieces.push(obj);return obj;
+  }
+  if(pattern==='bat')piece('bat',firstX);
+  else if(pattern==='pit')piece('pit',firstX);
+  else{
+   const count=pattern==='triple'?3:pattern==='pair'?2:1;
+   let at=firstX;
+   for(let i=0;i<count;i++){
+    const type=random()<.54?'spikes':'rock';
+    const part=piece(type,at);
+    if(i<count-1){
+     // For a combo, the short, conspicuous gaps are meant to be crossed
+     // with one well-timed jump or a purposeful second jump.
+     at=part.x+part.w+R(20,pattern==='triple'?Math.round(34+Math.max(0,projectedMeters-1200)/1800*26):Math.round(47+progress*25));
+    }
+   }
+  }
+  for(const obj of pieces)obstacles.push(obj);
+  const last=pieces[pieces.length-1];
+  spawnX=last.x+last.w;
+  lastPattern=pattern;
+  // Coins form a line in the clear approach, not inside dangerous objects.
+  const available=firstX-previousRight;
+  const n=Math.min(6,Math.max(0,Math.floor((available-90)/45)));
   for(let i=0;i<n;i++){
-   const x=firstCoin+i*48;
-   if(x>obstacleX-85)break;
-   coins.push({x,y:G-85-(i%3===1?45:0),taken:false,phase:random()*6});
+   const x=previousRight+60+i*45;
+   if(x>firstX-50)break;
+   coins.push({x,y:G-85-(i%3===1?35:0),taken:false,phase:random()*6});
   }
  }
 }
 function begin(){if(mode==='playing')return;let p=read();const d=day(p);if(!DEV){if(d.plays>=3){ready();return}d.plays+=1;if(!write(p)){overlay('保存できません','挑戦回数を保存できないため、開始を中止したよ。ブラウザの保存設定を確認してね。','','','戻る');return}}
-worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10121-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10122-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function jump(){if(mode!=='playing'||falling||jumps>=2)return; // Single tap = first jump; second tap while airborne = double-jump.
  if(onGround||jumps===1){jumps++;vy=jumps===1?FIRST_JUMP:SECOND_JUMP;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
 function inPit(x){return obstacles.some(o=>o.type==='pit'&&x>=o.x+13&&x<=o.x+o.w-13)}
