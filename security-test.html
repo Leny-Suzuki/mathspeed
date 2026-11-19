@@ -135,7 +135,7 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 #lobby .player{position:relative}#battle .vs-person .msCardBadge{position:absolute;bottom:-5px;right:0;transform:scale(.77);transform-origin:right bottom}
 #lobby .player .msCardBadge{margin:3px auto}#battleResult .result-fighter .msCardBadge{transform:scale(.7);margin:0 auto}
 </style>
-<style id="v104OnlineRewardStyle">.msCoinReward{padding:10px;border:2px solid #dbb55b;border-radius:9px;background:#2d3456;color:#ffe4a0;font-weight:900;text-align:center;font-size:clamp(13px,2.8vw,17px);line-height:1.5}</style></head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
+<style id="v104OnlineRewardStyle">.msCoinReward{padding:10px;border:2px solid #dbb55b;border-radius:9px;background:#2d3456;color:#ffe4a0;font-weight:900;text-align:center;font-size:clamp(13px,2.8vw,17px);line-height:1.5}</style><meta name="mathspeed-version" content="10.5.4"></head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
   <a id="msBackToAdventure" href="./index.html">← 冒険モードに戻る</a>
   <strong>🌐 友達と通信対戦</strong>
 </nav>
@@ -222,7 +222,7 @@ function equip(type,id){const s=load();if(type==='back'&&(id==='b0'||s.owned.bac
  else if(type==='frame'&&(id==='f0'||s.owned.frames.includes(id)))s.equipped.frame=id;else return false;return save(s)}
 function ownAvatars(){return load().owned.avatars.slice()}
 function name(id){return catalog.find(x=>x.id===id)?.name||'謎のキャラクター'}
-function avatarArt(id){return arts[id]||null}
+function avatarArt(id){return /^g[0-2]$/.test(id)?('./assets/avatars/'+id+'.png'):(arts[id]||null)}
 function encodeAvatar(avatar){const s=load();return avatar+'~'+s.equipped.back+'~'+s.equipped.frame}
 function parseAvatar(text){const val=String(text||'s0');const m=/^([se][0-9](?:_[12])?|g[0-2])(?:~(b[0-4])~(f[0-4]))?$/.exec(val);
  return m?{avatar:m[1],back:m[2]||'b0',frame:m[3]||'f0'}:{avatar:'s0',back:'b0',frame:'f0'};}
@@ -351,8 +351,13 @@ function heroName(packed){const id=window.MasCosmetics.parseAvatar(packed).avata
   if(/^g[0-2]$/.test(id))return window.MasCosmetics.name(id);
   const m=/^([se])([0-9])(?:_([12]))?$/.exec(id);
   return m?(m[1]==='s'?HERO_NAMES:ENEMY_NAMES)[Number(m[2])][Number(m[3]||0)]:'キャラクター';}
-function msAvatarArt(packed){const id=window.MasCosmetics.parseAvatar(packed).avatar;
- return /^g[0-2]$/.test(id)?window.MasCosmetics.avatarArt(id):(HERO_ART[id]||HERO_ART.s0);}
+function msAvatarArt(packed){
+  const id=window.MasCosmetics.parseAvatar(packed).avatar;
+  // v10.5.4: One authoritative sprite folder for story, online and adventure.
+  if(/^(?:[se][0-9](?:_[12])?|g[0-2])$/.test(id))
+    return './assets/avatars/'+id+'.'+(id[0]==='g'?'png':'webp');
+  return HERO_ART.s0;
+}
 function msPaintCosmetics(imgId,packed){
  const c=window.MasCosmetics.parseAvatar(packed),el=$(imgId);if(!el)return;
  el.dataset.msFrame=c.frame;
