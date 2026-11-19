@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),CV=$('game'),ctx=CV.getContext('2d',{alpha:false}),W=960,H=540,GROUND=410,HEIGHT=83,WIDTH=60,TOTAL=11600,SPEED=6.4,GRAVITY=.85,JUMP=-17.3,KEY='mathspeed-v4-profile';
 let p={x:140,y:GROUND-HEIGHT,vy:0,onGround:true,dead:false},mode='ready',cam=0,coins=[],enemies=[],gaps=[],taken=0,stomps=0,frames=0,last=0,frameID=0,runId='',character='s0',sprite=null,paint=[];
-let lastWallet=0;
+let lastWallet=0,falling=false;
 let soundEnabled=true,musicTimer=0,musicStep=0;
 function getProfile(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch{return {}}}
 function saveProfile(obj){try{localStorage.setItem(KEY,JSON.stringify(obj));return true}catch{return false}}
@@ -14,31 +14,31 @@ function makeLevel(){const rng=rnd(20261119);gaps=[];for(let x=1150;x<TOTAL-650;
  for(let x=720;x<TOTAL-350;x+=510){const ex=x+Math.floor(rng()*125);if(!nearGap(ex,140))enemies.push({x:ex,alive:true})}
 }
 function inGap(x){return gaps.some(g=>x>g.x&&x<g.x+g.w)}
-function reset(){startMusic();sfx('start');cancelAnimationFrame(frameID);p={x:140,y:GROUND-HEIGHT,vy:0,onGround:true,dead:false};mode='playing';cam=0;frames=0;last=0;taken=0;stomps=0;runId=String(Date.now())+'-'+Math.random().toString(36).slice(2);makeLevel();$('panelOverlay').hidden=true;$('jump').disabled=false;hud();frameID=requestAnimationFrame(tick)}
+function reset(){falling=false;startMusic();sfx('start');cancelAnimationFrame(frameID);p={x:140,y:GROUND-HEIGHT,vy:0,onGround:true,dead:false};mode='playing';cam=0;frames=0;last=0;taken=0;stomps=0;runId=String(Date.now())+'-'+Math.random().toString(36).slice(2);makeLevel();$('panelOverlay').hidden=true;$('jump').disabled=false;hud();frameID=requestAnimationFrame(tick)}
 function hud(){$('hudCoin').textContent='🪙 拾ったコイン '+taken;$('hudEnemy').textContent='⚔ 倒した敵 '+stomps;$('hudProgress').textContent='進行 '+Math.min(100,Math.round((p.x/TOTAL)*100))+'%'}
-function jump(){if(mode==='ready')return;if(mode!=='playing')return;if(p.onGround){p.vy=JUMP;p.onGround=false;sfx('jump')}}
+function jump(){if(mode==='ready')return;if(mode!=='playing'||falling)return;if(p.onGround){p.vy=JUMP;p.onGround=false;sfx('jump')}}
 let ac=null;
 function audio(){try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();return ac}catch{return null}}
 function note(freq,duration=.13,volume=.028,type='triangle',delay=0){if(!soundEnabled)return;const a=audio();if(!a)return;const t=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+duration+.02)}
-function sfx(type){if(!soundEnabled)return;const patterns={jump:[[440,0],[660,.08]],coin:[[880,0],[1320,.07]],stomp:[[270,0],[170,.08]],start:[[440,0],[550,.12],[660,.24]],clear:[[523,0],[659,.12],[784,.24],[1047,.4]],fail:[[440,0],[330,.16],[220,.33]]};for(const [hz,d] of patterns[type]||[])note(hz,.13,.065,'square',d)}
+function sfx(type){if(!soundEnabled)return;const patterns={jump:[[440,0],[660,.08]],coin:[[880,0],[1320,.07]],stomp:[[270,0],[170,.08]],start:[[440,0],[550,.12],[660,.24]],clear:[[523,0],[659,.12],[784,.24],[1047,.4]],fail:[[440,0],[330,.16],[220,.33]],fall:[[300,0],[230,.14],[160,.28]]};for(const [hz,d] of patterns[type]||[])note(hz,.13,.065,'square',d)}
 const melody=[392,494,587,494,440,523,659,523,392,494,587,784,659,587,494,440,349,440,523,440,392,494,587,494,330,392,494,587,523,440,392,330];
 function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=0}}
 function startMusic(){stopMusic();if(!soundEnabled)return;musicStep=0;musicTimer=setInterval(()=>{if(mode!=='playing'||document.hidden)return;const i=musicStep++%melody.length;note(melody[i],.19,.012,'triangle');if(i%4===0)note(melody[i]/2,.29,.011,'sine');if(i%8===4)note(130.81,.09,.008,'square')},230)}
 $('soundToggle').addEventListener('click',()=>{soundEnabled=!soundEnabled;$('soundToggle').textContent=soundEnabled?'🔊 BGM ON':'🔇 BGM OFF';if(soundEnabled&&mode==='playing')startMusic();else stopMusic()});
 function tick(time){if(mode!=='playing')return;const dt=Math.min(2.2,Math.max(.6,(time-(last||time))/16.666));last=time;update(dt);draw();if(mode==='playing')frameID=requestAnimationFrame(tick)}
-function update(dt){frames+=dt;p.x+=SPEED*dt;const priorBottom=p.y+HEIGHT;p.vy+=GRAVITY*dt;p.y+=p.vy*dt;
- if(!inGap(p.x+WIDTH*.5)&&p.y+HEIGHT>=GROUND&&p.vy>=0&&priorBottom<=GROUND+18*dt){p.y=GROUND-HEIGHT;p.vy=0;p.onGround=true}else if(p.onGround&&inGap(p.x+WIDTH*.5)){p.onGround=false;p.vy=Math.max(0,p.vy)}
- if(!p.onGround&&p.y+HEIGHT>=GROUND&&p.vy>=0&&!inGap(p.x+WIDTH*.5)&&priorBottom<=GROUND){p.y=GROUND-HEIGHT;p.vy=0;p.onGround=true}
+function update(dt){frames+=dt;p.x+=(falling?SPEED*.35:SPEED)*dt;const priorBottom=p.y+HEIGHT;p.vy+=GRAVITY*dt;p.y+=p.vy*dt;
+ if(!falling&&!inGap(p.x+WIDTH*.5)&&p.y+HEIGHT>=GROUND&&p.vy>=0&&priorBottom<=GROUND+18*dt){p.y=GROUND-HEIGHT;p.vy=0;p.onGround=true}else if(p.onGround&&inGap(p.x+WIDTH*.5)){p.onGround=false;p.vy=Math.max(0,p.vy)}
+ if(!falling&&!p.onGround&&p.y+HEIGHT>=GROUND&&p.vy>=0&&!inGap(p.x+WIDTH*.5)&&priorBottom<=GROUND){p.y=GROUND-HEIGHT;p.vy=0;p.onGround=true}
  cam=Math.max(0,p.x-190);
- for(const c of coins){if(!c.got&&Math.abs(c.x-(p.x+WIDTH/2))<42&&Math.abs(c.y-(p.y+HEIGHT*.47))<57){c.got=true;taken++;sfx('coin')}}
- for(const e of enemies){if(!e.alive||Math.abs(e.x-(p.x+WIDTH*.5))>49)continue;const top=GROUND-52;const overlap=p.y+HEIGHT>top+4&&p.y<GROUND-6;if(!overlap)continue;
+ for(const c of coins){if(falling)break;if(!c.got&&Math.abs(c.x-(p.x+WIDTH/2))<42&&Math.abs(c.y-(p.y+HEIGHT*.47))<57){c.got=true;taken++;sfx('coin')}}
+ for(const e of enemies){if(falling)break;if(!e.alive||Math.abs(e.x-(p.x+WIDTH*.5))>49)continue;const top=GROUND-52;const overlap=p.y+HEIGHT>top+4&&p.y<GROUND-6;if(!overlap)continue;
   if(p.vy>0&&priorBottom<=top+20*dt){e.alive=false;stomps++;p.y=top-HEIGHT;p.vy=-12.7;p.onGround=false;sfx('stomp')}else{end(false);return}
  }
- if(p.y+HEIGHT>=GROUND&&inGap(p.x+WIDTH*.5)){end(false,'fall');return}if(p.y>H+100){end(false,'fall');return}if(p.x>=TOTAL){end(true);return}if(Math.floor(frames)%6===0)hud();
+ if(!falling&&p.y+HEIGHT>GROUND+18&&inGap(p.x+WIDTH*.5)){falling=true;p.onGround=false;p.vy=Math.max(p.vy,2);sfx('fall')}if(falling){p.onGround=false;if(p.y>H+85){end(false,'fall');return}}if(p.x>=TOTAL){end(true);return}if(Math.floor(frames)%6===0)hud();
 }
 function grant(value,success){const a=getProfile(),records=Array.isArray(a.coinAdventureRuns)?a.coinAdventureRuns.slice(-79):[];if(records.includes(runId))return {credited:0,wallet:Math.floor(Number(a.coins)||0),ok:true};
  const current=Math.max(0,Math.floor(Number(a.coins)||0));a.coins=current+value;records.push(runId);a.coinAdventureRuns=records;a.coinAdventureBest=Math.max(Number(a.coinAdventureBest)||0,success?1:0);const ok=saveProfile(a);return {credited:ok?value:0,wallet:ok?a.coins:current,ok}}
-function end(success,reason){if(mode!=='playing')return;mode=success?'clear':'failed';cancelAnimationFrame(frameID);hud();$('jump').disabled=true;const base=taken*5+stomps*10,earned=success?base+50:Math.floor(base/2);const granted=grant(earned,success);wallet();$('panelOverlay').hidden=false;$('panelTitle').textContent=success?'🏆 ゴール！ おめでとう！':reason==='fall'?'🌊 崖から落ちた！ ゲームオーバー':'💥 ゲームオーバー';$('panelBody').innerHTML='拾ったコイン '+taken+'枚（'+taken*5+'）<br>倒したスライム '+stomps+'体（'+stomps*10+'）'+(success?'<br>ゴールボーナス +50':'<br>失敗したので半分を持ち帰るよ');$('panelReward').textContent=granted.ok?'🪙 +'+granted.credited+' マスコイン獲得！':'⚠️ 保存できなかったよ。端末の保存設定を確認してね。';$('start').textContent='🔄 もう一度冒険';sfx(success?'clear':'fail');stopMusic();draw()}
+function end(success,reason){if(mode!=='playing')return;mode=success?'clear':'failed';cancelAnimationFrame(frameID);hud();$('jump').disabled=true;const base=taken*5+stomps*10,earned=success?base+50:Math.floor(base/2);const granted=grant(earned,success);wallet();$('panelOverlay').hidden=false;$('panelTitle').textContent=success?'🏆 ゴール！ おめでとう！':reason==='fall'?'🌊 崖から落ちた！ ゲームオーバー':'💥 ゲームオーバー';$('panelBody').innerHTML='拾ったコイン '+taken+'枚（'+taken*5+'）<br>倒したモンスター '+stomps+'体（'+stomps*10+'）'+(success?'<br>ゴールボーナス +50':'<br>失敗したので半分を持ち帰るよ');$('panelReward').textContent=granted.ok?'🪙 +'+granted.credited+' マスコイン獲得！':'⚠️ 保存できなかったよ。端末の保存設定を確認してね。';$('start').textContent='🔄 もう一度冒険';sfx(success?'clear':'fail');stopMusic();draw()}
 function rect(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
 function hill(cx,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.moveTo(cx-r,H);ctx.quadraticCurveTo(cx-r*.6,290,cx,260+r*.07);ctx.quadraticCurveTo(cx+r*.65,290,cx+r,H);ctx.fill()}
 function drawBG(){const sky=ctx.createLinearGradient(0,0,0,GROUND);sky.addColorStop(0,'#2760a8');sky.addColorStop(.55,'#8ad0f0');sky.addColorStop(1,'#e5f6f5');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
@@ -53,14 +53,14 @@ const soil=ctx.createLinearGradient(0,GROUND,0,H);soil.addColorStop(0,'#b87845')
 for(const g of gaps){if(g.x-cam>W+80||g.x+g.w-cam<0)continue;const x=g.x-cam;ctx.fillStyle='#1b577a';ctx.fillRect(x,GROUND+1,g.w,H-GROUND);ctx.fillStyle='#a6def9';ctx.fillRect(x,GROUND+38+Math.sin(frames*.04)*4,g.w,3)}
 }
 function drawCoins(){coins.forEach(c=>{if(c.got||Math.abs(c.x-cam-W/2)>W/2+45)return;const x=Math.round(c.x-cam),y=Math.round(c.y+Math.sin(frames*.1+c.x)*3);ctx.fillStyle='#8f5617';ctx.beginPath();ctx.ellipse(x+2,y+2,13,17,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fbd751';ctx.beginPath();ctx.ellipse(x,y,12,16,0,0,Math.PI*2);ctx.fill();rect(x-3,y-10,6,20,'#fff4a5');rect(x-7,y-3,14,6,'#fff4a5')})}
-const slimeSprite=new Image();slimeSprite.src='./assets/slime.png';
+const slimeSprite=new Image();slimeSprite.src='./assets/evil-slime.png';
 function drawSlimes(){enemies.forEach(e=>{if(!e.alive||Math.abs(e.x-cam-W/2)>W/2+80)return;
  const x=e.x-cam,y=GROUND-58+Math.sin(frames*.085+e.x)*3;
  ctx.fillStyle='#163c5970';ctx.beginPath();ctx.ellipse(x,y+54,34,7,0,0,Math.PI*2);ctx.fill();
  if(slimeSprite.complete&&slimeSprite.naturalWidth){const bounce=1+Math.sin(frames*.13+e.x)*.045;ctx.save();ctx.translate(x,y+50);ctx.scale(1/bounce,bounce);ctx.drawImage(slimeSprite,-42,-74,84,76);ctx.restore()}
  else{ctx.fillStyle='#55c9ff';ctx.beginPath();ctx.ellipse(x,y+24,29,28,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#142c57';rect(x-13,y+18,5,9,'#142c57');rect(x+9,y+18,5,9,'#142c57')}
 })}
-function drawPlayer(){const x=p.x-cam,y=p.y+(p.onGround?Math.sin(frames*.27)*2:0);rect(x+6,GROUND-7,54,7,'#223a4980');if(sprite&&sprite.complete&&sprite.naturalWidth){ctx.save();ctx.translate(x+WIDTH/2,y+HEIGHT/2);if(!p.onGround)ctx.rotate(-.1);ctx.drawImage(sprite,-WIDTH/2-3,-HEIGHT/2-4,WIDTH+6,HEIGHT+8);ctx.restore()}else{rect(x+13,y+6,39,44,'#f6b57f');rect(x+8,y+52,17,26,'#243f79');rect(x+35,y+52,17,26,'#243f79');rect(x+21,y+24,6,6,'#152442');rect(x+37,y+24,6,6,'#152442')}
+function drawPlayer(){const x=p.x-cam,y=p.y+(p.onGround?Math.sin(frames*.27)*2:0);if(!falling&&p.y+HEIGHT<=GROUND+12)rect(x+6,GROUND-7,54,7,'#223a4980');if(sprite&&sprite.complete&&sprite.naturalWidth){ctx.save();ctx.translate(x+WIDTH/2,y+HEIGHT/2);if(falling)ctx.rotate(Math.min(1.15,(p.y+HEIGHT-GROUND)/110));else if(!p.onGround)ctx.rotate(-.1);ctx.drawImage(sprite,-WIDTH/2-3,-HEIGHT/2-4,WIDTH+6,HEIGHT+8);ctx.restore()}else{rect(x+13,y+6,39,44,'#f6b57f');rect(x+8,y+52,17,26,'#243f79');rect(x+35,y+52,17,26,'#243f79');rect(x+21,y+24,6,6,'#152442');rect(x+37,y+24,6,6,'#152442')}
 }
 function drawGoal(){const x=TOTAL-cam;if(x<-100||x>W+100)return;rect(x,GROUND-205,11,205,'#e1c48b');rect(x+11,GROUND-198,99,70,'#d2456e');rect(x+19,GROUND-185,78,12,'#f9e4a0');rect(x+19,GROUND-158,52,12,'#f9e4a0');rect(x-26,GROUND-12,70,12,'#f9df76')}
 function draw(){if(!ctx)return;drawBG();drawGround();drawGoal();drawCoins();drawSlimes();drawPlayer();if(mode==='ready'){rect(0,0,960,540,'#09152b10')} }
