@@ -2,6 +2,9 @@
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d',{alpha:false});
 ctx.imageSmoothingEnabled=false;
 const W=960,H=540,G=412,PROFILE='mathspeed-v4-profile',MAX_PLAYS=3,DAILY_CAP=500,DEV=window.MS_SLIME_DEVELOPER===true;
+// Compact, readable jumps at every running speed. All physics are in px / second.
+const GRAVITY=1900,FIRST_JUMP=-500,SECOND_JUMP=-450;
+const speedAt=m=>285+Math.min(175,Math.max(0,m)*.14);
 const base='./assets/slime/';
 function asset(name){const im=new Image();im.src=base+name;im.onload=()=>{if(mode!=='playing')render()};return im}
 const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle.png'),hero_jump:asset('hero_jump.png'),hero_double:asset('hero_double.png'),hero_land:asset('hero_land.png'),hero_hurt:asset('hero_hurt.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
@@ -24,14 +27,39 @@ function musicOn(){musicOff();if(mute||mode!=='playing')return;musicId=setInterv
 function overlay(title,desc,reward,foot,btn,disabled=false){setText('overlayTitle',title);setText('overlayText',desc);setText('overlayReward',reward);setText('overlayNote',foot);setText('start',btn);$('start').disabled=disabled;$('overlay').hidden=false;hud()}
 function ready(){mode='ready';const p=read(),d=day(p),left=Math.max(0,3-d.plays);$('jump').disabled=true;$('pause').disabled=true;const locked=!DEV&&left===0;overlay(locked?'今日はここまで！':'計算スライムの冒険',locked?'今日の挑戦は3回使い切ったよ。明日また会おうね！':'計算スライムと、どこまでも遠くへ！\n赤いトゲ・岩・コウモリ・穴は危険。黄色いπ金貨を集めよう。',DEV?'🧪 開発者テスト：何回でも遊べる・報酬なし':'🪙 金貨＋100mごとに12枚',DEV?'開発者モード：記録とコインは通常の成績に加算しません':`本日の残り：${left}回`,locked?'明日のお楽しみ':'▶ おさんぽ出発！',locked)}
 function spark(x,y,color,num=9){for(let i=0;i<num;i++)fxParts.push({x,y,vx:(random()-.5)*180,vy:-random()*145-15,age:0,ttl:.36+random()*.48,color,size:3+R(0,3)})}
-function spawn(){while(spawnX<worldX+W+700){const diff=Math.min(1,meters/1200),space=R(Math.round(345-70*diff),Math.round(470-100*diff));spawnX+=space;const r=random();let type=r<.29?'spikes':r<.57?'rock':r<.8?'pit':'bat';if(meters<130&&type==='pit')type='rock';if(meters<220&&type==='bat')type='spikes';const obj={type,x:spawnX,w:type==='pit'?R(112,170):type==='spikes'?80:type==='rock'?76:80,h:type==='spikes'?50:type==='rock'?61:type==='bat'?58:0,y:type==='bat'?G-132:G,phase:random()*6.28};obstacles.push(obj);
- // Reward players for reacting, but never force a coin path through a hazard.
- const n=R(2,5),start=spawnX-space+80;for(let i=0;i<n;i++){const x=start+i*48;if(x>obj.x-75&&x<obj.x+obj.w+50)continue;const y=G-85-(i%3===1?50:0);coins.push({x,y,taken:false,phase:random()*6})}
- }}
+function spawn(){
+ // Each hazard starts AFTER a clear runway from the previous hazard's right edge.
+ // The runway is measured in reaction time, rather than fixed px: even at 460px/s
+ // there is enough room to finish a compact jump and decide when to jump again.
+ while(spawnX<worldX+W+700){
+  const projectedMeters=Math.max(0,(spawnX-260)/18),futureSpeed=speedAt(projectedMeters);
+  const safeRunway=Math.ceil(futureSpeed*.68+65),freeSpace=safeRunway+R(20,110);
+  const previousRight=spawnX,obstacleX=previousRight+freeSpace;
+  const progress=Math.min(1,projectedMeters/1200),r=random();
+  let type=r<.29?'spikes':r<.57?'rock':r<.8?'pit':'bat';
+  if(projectedMeters<130&&type==='pit')type='rock';
+  if(projectedMeters<220&&type==='bat')type='spikes';
+  // Smaller obstacles complement the lower, shorter first jump.
+  const width=type==='pit'?R(Math.round(85+25*progress),Math.round(118+30*progress)):
+      type==='spikes'?66:type==='rock'?68:76;
+  const height=type==='spikes'?41:type==='rock'?51:type==='bat'?58:0;
+  const obj={type,x:obstacleX,w:width,h:height,y:type==='bat'?G-132:G,phase:random()*6.28};
+  obstacles.push(obj);
+  spawnX=obstacleX+width; // Right edge, NOT the obstacle's starting position.
+  // Coins stay on the clear approach, never directly inside a hazard's collision box.
+  const n=Math.min(5,Math.max(2,Math.floor((freeSpace-125)/48)));
+  const firstCoin=previousRight+75;
+  for(let i=0;i<n;i++){
+   const x=firstCoin+i*48;
+   if(x>obstacleX-85)break;
+   coins.push({x,y:G-85-(i%3===1?45:0),taken:false,phase:random()*6});
+  }
+ }
+}
 function begin(){if(mode==='playing')return;let p=read();const d=day(p);if(!DEV){if(d.plays>=3){ready();return}d.plays+=1;if(!write(p)){overlay('保存できません','挑戦回数を保存できないため、開始を中止したよ。ブラウザの保存設定を確認してね。','','','戻る');return}}
-worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10120-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10121-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function jump(){if(mode!=='playing'||falling||jumps>=2)return; // Single tap = first jump; second tap while airborne = double-jump.
- if(onGround||jumps===1){jumps++;vy=jumps===1?-610:-560;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
+ if(onGround||jumps===1){jumps++;vy=jumps===1?FIRST_JUMP:SECOND_JUMP;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
 function inPit(x){return obstacles.some(o=>o.type==='pit'&&x>=o.x+13&&x<=o.x+o.w-13)}
 function award(){const distance=Math.max(0,Math.floor(meters)),bonus=Math.floor(distance/100)*12,raw=bonus+picked;
  if(DEV){devBest=Math.max(devBest,distance);try{sessionStorage.setItem('mathspeed-slime-dev-best',String(devBest))}catch{}return {distance,bonus,raw,earned:0,persisted:true,developer:true}}
@@ -43,13 +71,13 @@ function resume(){mode='playing';lastTime=0;$('overlay').hidden=true;$('jump').d
 $('start').addEventListener('click',()=>{if(mode==='paused')resume();else if(mode==='ready'||mode==='ended')begin()});$('pause').addEventListener('click',pause);$('sound').addEventListener('click',()=>{mute=!mute;setText('sound',mute?'🔇 音 OFF':'🔊 音 ON');if(mute)musicOff();else musicOn()});
 for(const node of [canvas,$('jump')]){node.addEventListener('pointerdown',e=>{e.preventDefault();jump()},{passive:false});node.addEventListener('contextmenu',e=>e.preventDefault());node.addEventListener('selectstart',e=>e.preventDefault())}
 window.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!e.repeat)jump()}if(e.code==='Escape'&&mode==='playing')pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
-function update(dt){seconds+=dt;inv=Math.max(0,inv-dt);landSquash=Math.max(0,landSquash-dt);const speed=285+Math.min(175,meters*.14);worldX+=speed*dt;meters=(worldX-260)/18;cam=Math.max(0,worldX-260);
- vy+=1480*dt;py+=vy*dt;
+function update(dt){seconds+=dt;inv=Math.max(0,inv-dt);landSquash=Math.max(0,landSquash-dt);const speed=speedAt(meters);worldX+=speed*dt;meters=(worldX-260)/18;cam=Math.max(0,worldX-260);
+ vy+=GRAVITY*dt;py+=vy*dt;
  if(!falling&&inPit(worldX)&&py>=G+3){falling=true;onGround=false;sfx('fall')}
  if(!falling&&!inPit(worldX)&&py>=G){if(!onGround&&vy>110){landSquash=.15;spark(worldX,G-8,'#d3eda0',4)}py=G;vy=0;onGround=true;jumps=0}
  else if(py<G-2){onGround=false}
  if(falling&&py>H+100){end('pit');return}
- if(!falling){const left=worldX-24,right=worldX+23,top=py-68,bottom=py-7;
+ if(!falling){const left=worldX-18,right=worldX+17,top=py-65,bottom=py-11;
  for(const o of obstacles){if(o.type==='pit'||inv>0)continue;const objTop=o.type==='bat'?o.y:o.y-o.h;if(right>o.x+11&&left<o.x+o.w-11&&bottom>objTop+9&&top<objTop+(o.type==='bat'?42:o.h-6)){hearts--;inv=1.3;vy=-305;onGround=false;sfx('hit');spark(worldX,py-35,'#ffe49f',16);if(hearts<=0){end('hp');return}break}}
  for(const c of coins){if(c.taken)continue;if(Math.abs(c.x-worldX)<40&&Math.abs(c.y-(py-42))<48){c.taken=true;picked++;sfx('coin');spark(c.x,c.y,'#ffdf6c',11)}}}
  for(const e of fxParts){e.age+=dt;e.x+=e.vx*dt;e.y+=e.vy*dt;e.vy+=160*dt}fxParts=fxParts.filter(e=>e.age<e.ttl);
