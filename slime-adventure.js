@@ -8,7 +8,7 @@ const GRAVITY=1900,FIRST_JUMP=-500,SECOND_JUMP=-450;
 const speedAt=m=>285+Math.min(335,Math.max(0,m)*.11);
 const base='./assets/slime/';
 function asset(name){const im=new Image();im.src=base+name;im.onload=()=>{if(mode!=='playing')render()};return im}
-const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle.png'),hero_jump:asset('hero_jump.png'),hero_double:asset('hero_double.png'),hero_land:asset('hero_land.png'),hero_hurt:asset('hero_hurt.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
+const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle_a.png'),hero_jump:asset('hero_jump_a.png'),hero_double:asset('hero_double_a.png'),hero_land:asset('hero_land_a.png'),hero_hurt:asset('hero_hurt_a.png'),hero_fall:asset('hero_fall_a.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
 let lastPattern='solo';
 let mode='ready',worldX=260,py=G,vy=0,onGround=true,jumps=0,falling=false,cam=0,seconds=0,lastTime=0,raf=0,frame=0,hearts=3,inv=0,landSquash=0,obstacles=[],coins=[],fxParts=[],spawnX=1040,picked=0,meters=0,runId='',finished=false,seed=0,mute=false,audio=null,musicId=null,noteI=0,devBest=0;
 try{devBest=Number(sessionStorage.getItem('mathspeed-slime-dev-best'))||0}catch{}
@@ -88,7 +88,7 @@ function spawn(){
  }
 }
 function begin(){if(mode==='playing')return;let p=read();const d=day(p);if(!DEV){if(d.plays>=3){ready();return}d.plays+=1;if(!write(p)){overlay('保存できません','挑戦回数を保存できないため、開始を中止したよ。ブラウザの保存設定を確認してね。','','','戻る');return}}
-worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10122-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10123-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function jump(){if(mode!=='playing'||falling||jumps>=2)return; // Single tap = first jump; second tap while airborne = double-jump.
  if(onGround||jumps===1){jumps++;vy=jumps===1?FIRST_JUMP:SECOND_JUMP;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
 function inPit(x){return obstacles.some(o=>o.type==='pit'&&x>=o.x+13&&x<=o.x+o.w-13)}
@@ -127,8 +127,20 @@ function ground(){const step=64,baseX=Math.floor(cam/step)*step;for(let i=-1;i<=
  for(let n=Math.floor(cam/100)-2;n<Math.ceil((cam+W)/100)+2;n++){const wx=n*100+29,x=wx-cam,rand=randHash(n+22);if(inPit(wx)||x<-22||x>W+22)continue;const stem=G-18-(n%3)*4;block(x,stem,3,22,'#356c37');block(x-9,stem+6,10,5,'#43954a');block(x+3,stem+9,10,5,'#549f52');if(rand>.32){const color=rand>.65?'#f8e7f0':'#fbfbce';for(let a=0;a<5;a++){const theta=a*Math.PI*2/5;block(x+Math.cos(theta)*6-3,stem+Math.sin(theta)*6-3,6,6,color)}block(x-3,stem-3,6,6,'#ffc252')}else{block(x-2,stem-5,8,9,'#ffda7e');block(x-3,stem-7,9,4,'#fff1ae')}}}
 function hazards(){for(const o of obstacles){const x=o.x-cam;if(x>W+130||x<-150)continue;if(o.type==='pit'){drawImage(img.warning,x-10,G-54,27,27);drawImage(img.warning,x+o.w-12,G-54,27,27);block(x,G-11,8,7,'#ea6a76');block(x+o.w-8,G-11,8,7,'#ea6a76');continue}if(o.type==='bat'){const yy=o.y+Math.sin(seconds*4+o.phase)*8;drawImage(img.bat,x,yy,80,58);drawImage(img.warning,x+26,yy-32,24,24)}else{drawImage(img[o.type],x,o.y-o.h,o.w,o.h);drawImage(img.warning,x+o.w/2-12,o.y-o.h-33,24,24)}}}
 function drawCoins(){for(const c of coins){if(c.taken)continue;const x=c.x-cam;if(x<-45||x>W+45)continue;const scale=.86+.14*Math.abs(Math.sin(seconds*5+c.phase));const w=34*scale,y=c.y+Math.sin(seconds*3+c.phase)*4;drawImage(img.coin,x-w/2,y-17,w,34)}}
-function hero(){const x=worldX-cam,y=py-81;if(inv>0&&Math.floor(seconds*14)%2)return;const sprite=inv>0?'hero_hurt':onGround&&landSquash>0?'hero_land':onGround?'hero_idle':jumps>=2?'hero_double':'hero_jump';if(!falling){ctx.fillStyle='#132c3980';ctx.beginPath();ctx.ellipse(x,G+6,33*Math.max(.3,1-Math.max(0,G-py)/250),6,0,0,Math.PI*2);ctx.fill()}
-ctx.save();ctx.translate(Math.round(x),Math.round(y+42));if(falling)ctx.rotate(Math.min(1,(py-G)/100));else if(jumps===2)ctx.rotate(.12*Math.sin(seconds*13));if(!onGround&&!falling)ctx.scale(.94,1.05);drawImage(img[sprite],-44,-42,88,90);ctx.restore()}
+// A-design: a fully redrawn, pixel-unified slime with a consistent ground anchor.
+// These visual transforms never modify collision, jump duration or speed.
+function hero(){
+ const x=worldX-cam,y=py-81;
+ if(inv>0&&Math.floor(seconds*14)%2)return;
+ const sprite=inv>0?'hero_hurt':onGround&&landSquash>0?'hero_land':onGround?'hero_idle':jumps>=2?'hero_double':vy>115?'hero_fall':'hero_jump';
+ if(!falling){ctx.fillStyle='#132c3980';ctx.beginPath();ctx.ellipse(x,G+6,33*Math.max(.3,1-Math.max(0,G-py)/250),6,0,0,Math.PI*2);ctx.fill()}
+ ctx.save();ctx.translate(Math.round(x),Math.round(y+42));
+ if(falling)ctx.rotate(Math.min(1,(py-G)/100));
+ else if(jumps===2)ctx.rotate(.07*Math.sin(seconds*13));
+ if(onGround&&landSquash<=0){const wobble=Math.sin(seconds*8)*.015;ctx.scale(1+wobble,1-wobble)}
+ else if(!onGround&&!falling)ctx.scale(.98,1.025);
+ drawImage(img[sprite],-44,-42,88,90);ctx.restore()
+}
 function particles(){for(const p of fxParts){block(p.x-cam,p.y,p.size,p.size,p.color)}}
 function render(){background();ground();drawCoins();hazards();hero();particles();if(mode==='playing'&&seconds<4){ctx.font='bold 18px sans-serif';ctx.fillStyle='#fffce9';ctx.shadowColor='#0c2946';ctx.shadowBlur=7;ctx.fillText('タップでジャンプ！ 空中で再タップ！',W*.23,H-24);ctx.shadowBlur=0}}
 function loop(time){if(mode!=='playing')return;const dt=Math.min(.035,lastTime?(time-lastTime)/1000:.016);lastTime=time;frame++;update(dt);render();if(mode==='playing')raf=requestAnimationFrame(loop)}
