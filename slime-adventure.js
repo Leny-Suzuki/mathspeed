@@ -1,16 +1,16 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id),canvas=$('game'),ctx=canvas.getContext('2d',{alpha:false});
 ctx.imageSmoothingEnabled=false;
-const W=960,H=540,G=412,PROFILE='mathspeed-v4-profile',MAX_PLAYS=3,DAILY_CAP=500,DEV=window.MS_SLIME_DEVELOPER===true;
+const W=960,H=540,G=412,PROFILE='mathspeed-v4-profile',MAX_PLAYS=3,DEV=window.MS_SLIME_DEVELOPER===true;
 // Compact, readable jumps at every running speed. All physics are in px / second.
 const GRAVITY=1900,FIRST_JUMP=-500,SECOND_JUMP=-450;
 // Speed keeps rising well past 1,250m, then caps at a challenging but controllable pace.
-const speedAt=m=>285+Math.min(335,Math.max(0,m)*.11);
+const speedAt=m=>285+Math.min(535,Math.max(0,m)*.15);
 const base='./assets/slime/';
 function asset(name){const im=new Image();im.src=base+name;im.onload=()=>{if(mode!=='playing')render()};return im}
 const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle_a.png'),hero_jump:asset('hero_jump_a.png'),hero_double:asset('hero_double_a.png'),hero_land:asset('hero_land_a.png'),hero_hurt:asset('hero_hurt_a.png'),hero_fall:asset('hero_fall_a.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
 let lastPattern='solo';
-let mode='ready',worldX=260,py=G,vy=0,onGround=true,jumps=0,falling=false,cam=0,seconds=0,lastTime=0,raf=0,frame=0,hearts=3,inv=0,landSquash=0,obstacles=[],coins=[],fxParts=[],spawnX=1040,picked=0,meters=0,runId='',finished=false,seed=0,mute=false,audio=null,musicId=null,noteI=0,devBest=0;
+let mode='ready',worldX=260,py=G,vy=0,onGround=true,jumps=0,falling=false,cam=0,seconds=0,lastTime=0,raf=0,frame=0,hearts=2,inv=0,landSquash=0,obstacles=[],coins=[],fxParts=[],spawnX=1040,picked=0,meters=0,runId='',finished=false,seed=0,mute=false,audio=null,musicId=null,noteI=0,devBest=0;
 try{devBest=Number(sessionStorage.getItem('mathspeed-slime-dev-best'))||0}catch{}
 const R=(a,b)=>a+Math.floor(random()*(b-a+1));
 function random(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
@@ -20,14 +20,14 @@ function read(){try{return JSON.parse(localStorage.getItem(PROFILE)||'{}')||{}}c
 function write(p){try{localStorage.setItem(PROFILE,JSON.stringify(p));return true}catch{return false}}
 function day(p){const now=jpDate();if(!p.slimeDaily||p.slimeDaily.date!==now)p.slimeDaily={date:now,plays:0,earned:0};if(!p.miniGameDaily||p.miniGameDaily.date!==now)p.miniGameDaily={date:now,earned:0};return p.slimeDaily}
 function setText(id,val){$(id).textContent=val}
-function hud(){const p=read(),d=day(p);setText('wallet','🪙 '+Math.max(0,Math.floor(Number(p.coins)||0)).toLocaleString('ja-JP')+'枚');setText('attempts',DEV?'∞ 無制限':Math.max(0,3-(d.plays||0))+' / 3 回');setText('best',Math.floor(DEV?devBest:(p.slimeBestMeters||0)).toLocaleString('ja-JP')+' m');setText('daily',DEV?'試遊中：加算なし':Math.max(0,Math.floor(p.miniGameDaily.earned||0))+' / 500');setText('pickups',picked+' 枚');setText('biome',meters<300?'陽だまりの森':meters<650?'きのこの森':meters<1200?'古代の小道':'星の大森林');setText('distance','⚑ '+Math.floor(meters).toLocaleString('ja-JP')+' m');setText('hp','♥ '.repeat(hearts)+'♡ '.repeat(3-hearts));setText('airJump',onGround?'2段ジャンプ OK':jumps<2?'もう1回ジャンプ！':'ジャンプ使い切り');}
+function hud(){const p=read(),d=day(p);setText('wallet','🪙 '+Math.max(0,Math.floor(Number(p.coins)||0)).toLocaleString('ja-JP')+'枚');setText('attempts',DEV?'∞ 無制限':Math.max(0,3-(d.plays||0))+' / 3 回');setText('best',Math.floor(DEV?devBest:(p.slimeBestMeters||0)).toLocaleString('ja-JP')+' m');setText('daily',DEV?'試遊中：加算なし':'獲得 '+Math.max(0,Math.floor(p.miniGameDaily.earned||0)).toLocaleString('ja-JP')+' 枚');setText('pickups',picked+' 枚');setText('biome',meters<300?'陽だまりの森':meters<650?'きのこの森':meters<1200?'古代の小道':'星の大森林');setText('distance','⚑ '+Math.floor(meters).toLocaleString('ja-JP')+' m');setText('hp','♥ '.repeat(hearts)+'♡ '.repeat(2-hearts));setText('airJump',onGround?'2段ジャンプ OK':jumps<2?'もう1回ジャンプ！':'ジャンプ使い切り');}
 function sound(f,d=.12,v=.018,wave='triangle',offset=0){if(mute)return;try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume();const t=audio.currentTime+offset,o=audio.createOscillator(),g=audio.createGain();o.type=wave;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+.018);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(audio.destination);o.start(t);o.stop(t+d+.02)}catch{}}
 function sfx(k){const f={jump:[490,640],double:[570,780,1000],coin:[880,1100],hit:[280,180],fall:[430,305,220],over:[440,350,290],best:[520,650,785,1000],start:[440,554,660]}[k]||[];f.forEach((n,i)=>sound(n,.13,.02,'triangle',.065*i))}
 const melody=[392,440,494,523,587,494,440,392,349,392,440,494,523,440,392,349,392,494,587,659,587,523,494,440,392,440,494,523,494,440,392,330];
 function musicOff(){if(musicId){clearInterval(musicId);musicId=null}}
 function musicOn(){musicOff();if(mute||mode!=='playing')return;musicId=setInterval(()=>{if(mode!=='playing'||document.hidden)return;const i=noteI++%melody.length;sound(melody[i],.22,.0075,'triangle');if(i%4===0)sound(melody[i]/2,.28,.004,'sine')},230)}
 function overlay(title,desc,reward,foot,btn,disabled=false){setText('overlayTitle',title);setText('overlayText',desc);setText('overlayReward',reward);setText('overlayNote',foot);setText('start',btn);$('start').disabled=disabled;$('overlay').hidden=false;hud()}
-function ready(){mode='ready';const p=read(),d=day(p),left=Math.max(0,3-d.plays);$('jump').disabled=true;$('pause').disabled=true;const locked=!DEV&&left===0;overlay(locked?'今日はここまで！':'計算スライムの冒険',locked?'今日の挑戦は3回使い切ったよ。明日また会おうね！':'計算スライムと、どこまでも遠くへ！\nトゲや岩はジャンプ！ コウモリは地面を走ってくぐろう。\n短い連続障害物には2段ジャンプ！ 黄色いπ金貨を集めよう。',DEV?'🧪 開発者テスト：何回でも遊べる・報酬なし':'🪙 金貨＋100mごとに12枚',DEV?'開発者モード：記録とコインは通常の成績に加算しません':`本日の残り：${left}回`,locked?'明日のお楽しみ':'▶ おさんぽ出発！',locked)}
+function ready(){mode='ready';const p=read(),d=day(p),left=Math.max(0,3-d.plays);$('jump').disabled=true;$('pause').disabled=true;const locked=!DEV&&left===0;overlay(locked?'今日はここまで！':'計算スライムの冒険',locked?'今日の挑戦は3回使い切ったよ。明日また会おうね！':'計算スライムと、どこまでも遠くへ！\nトゲや岩はジャンプ！ コウモリは地面を走ってくぐろう。\n短い連続障害物には2段ジャンプ！ 黄色いπ金貨を集めよう。',DEV?'🧪 開発者テスト：何回でも遊べる・報酬なし':'🪙 金貨＋100mごとに3枚（上限なし）',DEV?'開発者モード：記録とコインは通常の成績に加算しません':`本日の残り：${left}回`,locked?'明日のお楽しみ':'▶ おさんぽ出発！',locked)}
 function spark(x,y,color,num=9){for(let i=0;i<num;i++)fxParts.push({x,y,vx:(random()-.5)*180,vy:-random()*145-15,age:0,ttl:.36+random()*.48,color,size:3+R(0,3)})}
 function spawn(){
  // Build readable obstacle "phrases" instead of spreading every hazard evenly.
@@ -35,7 +35,7 @@ function spawn(){
  // different solutions. Every phrase receives a full recovery runway after it.
  while(spawnX<worldX+W+700){
   const projectedMeters=Math.max(0,(spawnX-260)/18),futureSpeed=speedAt(projectedMeters);
-  const progress=Math.min(1,projectedMeters/2600);
+  const progress=Math.min(1,projectedMeters/3200);
   const roll=random();
   let pattern='solo';
   if(projectedMeters>320&&roll<.10+progress*.10)pattern='bat';
@@ -45,10 +45,10 @@ function spawn(){
   // After an airborne combo, a bat can be passed safely by staying grounded.
   // Don't place a bat too soon after a triple, pit, or previous bat.
   const extraRecovery=pattern==='bat'||lastPattern==='triple'||lastPattern==='pit'||lastPattern==='bat';
-  const reactionTime=extraRecovery ? .91+random()*.27 : .58+random()*.32;
+  const reactionTime=extraRecovery ? .88+random()*.24 : .53+random()*.31;
   // Deliberate short beats occur between *single* ground hazards as well.
-  const shortBeat=!extraRecovery&&projectedMeters>650&&random()<(.13+progress*.12);
-  const approach=Math.ceil(futureSpeed*(shortBeat ? .46 : reactionTime)+(shortBeat?25:45));
+  const shortBeat=!extraRecovery&&projectedMeters>650&&random()<(.16+progress*.15);
+  const approach=Math.ceil(futureSpeed*(shortBeat ? .47 : reactionTime)+(shortBeat?30:48));
   const previousRight=spawnX,firstX=previousRight+approach;
   const pieces=[];
   function piece(type,x){
@@ -88,13 +88,13 @@ function spawn(){
  }
 }
 function begin(){if(mode==='playing')return;let p=read();const d=day(p);if(!DEV){if(d.plays>=3){ready();return}d.plays+=1;if(!write(p)){overlay('保存できません','挑戦回数を保存できないため、開始を中止したよ。ブラウザの保存設定を確認してね。','','','戻る');return}}
-worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=3;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10123-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=2;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10124-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function jump(){if(mode!=='playing'||falling||jumps>=2)return; // Single tap = first jump; second tap while airborne = double-jump.
  if(onGround||jumps===1){jumps++;vy=jumps===1?FIRST_JUMP:SECOND_JUMP;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
 function inPit(x){return obstacles.some(o=>o.type==='pit'&&x>=o.x+13&&x<=o.x+o.w-13)}
-function award(){const distance=Math.max(0,Math.floor(meters)),bonus=Math.floor(distance/100)*12,raw=bonus+picked;
+function award(){const distance=Math.max(0,Math.floor(meters)),bonus=Math.floor(distance/100)*3,raw=bonus+picked;
  if(DEV){devBest=Math.max(devBest,distance);try{sessionStorage.setItem('mathspeed-slime-dev-best',String(devBest))}catch{}return {distance,bonus,raw,earned:0,persisted:true,developer:true}}
- const p=read(),d=day(p),common=p.miniGameDaily;if(!Array.isArray(p.slimeRunIds))p.slimeRunIds=[];if(p.slimeRunIds.includes(runId))return{distance,bonus,raw,earned:0,persisted:true};const remain=Math.max(0,DAILY_CAP-(Math.floor(common.earned)||0)),earned=Math.min(remain,raw);p.coins=Math.max(0,Math.floor(Number(p.coins)||0))+earned;d.earned=(d.earned||0)+earned;common.earned=(common.earned||0)+earned;p.slimeBestMeters=Math.max(p.slimeBestMeters||0,distance);p.slimeTotalMeters=(p.slimeTotalMeters||0)+distance;p.slimeRunIds=[...p.slimeRunIds.slice(-29),runId];const saved=write(p);return{distance,bonus,raw,earned:saved?earned:0,persisted:saved}}
+ const p=read(),d=day(p),common=p.miniGameDaily;if(!Array.isArray(p.slimeRunIds))p.slimeRunIds=[];if(p.slimeRunIds.includes(runId))return{distance,bonus,raw,earned:0,persisted:true};const earned=raw;p.coins=Math.max(0,Math.floor(Number(p.coins)||0))+earned;d.earned=(d.earned||0)+earned;common.earned=(common.earned||0)+earned;p.slimeBestMeters=Math.max(p.slimeBestMeters||0,distance);p.slimeTotalMeters=(p.slimeTotalMeters||0)+distance;p.slimeRunIds=[...p.slimeRunIds.slice(-29),runId];const saved=write(p);return{distance,bonus,raw,earned:saved?earned:0,persisted:saved}}
 function end(reason){if(mode!=='playing'||finished)return;finished=true;mode='ended';musicOff();cancelAnimationFrame(raf);$('jump').disabled=true;$('pause').disabled=true;const r=award(),p=read(),d=day(p),again=DEV||d.plays<MAX_PLAYS;sfx('over');const desc=`${r.distance.toLocaleString('ja-JP')} m 到達！\nπ金貨：${picked}枚 ＋ 距離ボーナス：${r.bonus}枚`;
  const reward=DEV?'🧪 テスト報酬：加算なし（本来 '+r.raw+'枚）':r.persisted?'🪙 +'+r.earned+' マスコイン':'保存に失敗しました';const foot=DEV?'開発者の挑戦：無制限・自己ベストはテスト用':`自己ベスト：${p.slimeBestMeters||0} m ／ 今日の残り：${Math.max(0,MAX_PLAYS-d.plays)}回`;overlay(reason==='pit'?'ぽちゃん！おつかれさま':reason==='hp'?'ふにゃ〜！また挑戦しよう':'おさんぽ終了！',desc,reward,foot,again?'↻ もう一度あそぶ':'今日はここまで',!again)}
 function pause(){if(mode!=='playing')return;mode='paused';musicOff();cancelAnimationFrame(raf);$('jump').disabled=true;$('pause').disabled=true;overlay('おさんぽ休憩中','タップでジャンプ、空中でもう一度押して2段ジャンプ！','現在 '+Math.floor(meters)+' m','挑戦回数は変更されません','▶ つづきをあそぶ')}

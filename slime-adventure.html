@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>計算スライムの冒険 | マスピード Ver.10.12.3</title>
+<title>計算スライムの冒険 | マスピード Ver.10.12.4</title>
 <style>
 :root{color-scheme:dark;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;color:#fff6d9;background:#0a2034}*{box-sizing:border-box}html{min-height:100%;background:#09172f}body{margin:0;padding:10px 14px 26px;background:radial-gradient(ellipse at 49% 0%,#315776 0%,#162941 48%,#0b1d32 100%);min-height:100dvh}
 button{font:inherit;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation}button:disabled{cursor:default;opacity:.48}button:focus-visible,a:focus-visible{outline:3px solid #fbe19c;outline-offset:3px}#shell{max-width:1160px;margin:auto}
@@ -18,16 +18,16 @@ header.top{display:flex;align-items:center;gap:12px;justify-content:space-betwee
 </style>
 </head><body>
 <main id="shell">
-<header class="top"><a class="back" href="./index.html">← マスピード</a><div class="brand">計算スライムの冒険<small>MINI GAME 01 · Ver.10.12.3</small></div><div class="wallet" id="wallet">🪙 0枚</div></header>
+<header class="top"><a class="back" href="./index.html">← マスピード</a><div class="brand">計算スライムの冒険<small>MINI GAME 01 · Ver.10.12.4</small></div><div class="wallet" id="wallet">🪙 0枚</div></header>
 <div class="status"><div class="stat" id="attemptStat"><b>今日の残り</b><span id="attempts">3 / 3 回</span></div><div class="stat"><b>自己ベスト</b><span id="best">0 m</span></div><div class="stat"><b>今回の金貨</b><span id="pickups">0 枚</span></div><div class="stat"><b>本日の報酬</b><span id="daily">0 / 500</span></div><div class="stat"><b>いまのエリア</b><span id="biome">陽だまりの森</span></div></div>
 <div class="stage" id="stage"><canvas id="game" width="960" height="540" aria-label="計算スライムの冒険。画面タップかジャンプボタンで2段ジャンプするゲーム"></canvas><div class="stageHud"><span id="distance">⚑ 0 m</span><span id="hp" class="hearts">♥ ♥ ♥</span><span id="airJump">2段ジャンプ OK</span></div>
  <div class="overlay" id="overlay"><div class="dialog"><img class="heroSprite" src="./assets/slime/hero_idle_a.png" alt="計算スライム"><h1 id="overlayTitle">計算スライムの冒険</h1><p id="overlayText">どこまで進めるかな？</p><div class="rules"><span><img src="./assets/slime/spikes.png" alt="">赤いトゲ＝危険</span><span><img src="./assets/slime/rock.png" alt="">岩・敵＝危険</span><span><img src="./assets/slime/coin.png" alt="">π金貨＝獲得</span></div><div class="reward" id="overlayReward">金貨＋到達距離でマスコイン！</div><div class="note" id="overlayNote"></div><button id="start" type="button">▶ 冒険に出発！</button><div class="subtext" id="overlayFoot">タップでジャンプ。空中でもう一度タップで2段ジャンプ！</div></div></div>
 </div>
 <div class="controls"><button class="jump" id="jump" type="button" disabled>↑ ジャンプ ／ もう一度で2段ジャンプ！</button><button class="sidebtn" id="pause" type="button" disabled>⏸ 中断</button><button class="sidebtn" id="sound" type="button">🔊 音 ON</button></div>
-<p class="info" id="gameInfo">通常挑戦：1日3回。金貨と距離ボーナスを獲得。ミニゲーム報酬は合計1日500枚まで。<br>花や木は背景飾り。<b>赤いトゲ・岩・コウモリ・穴</b>に気をつけて！</p>
+<p class="info" id="gameInfo">通常挑戦：1日3回。金貨と距離ボーナスを獲得。距離ボーナスは100mごとに3枚。報酬上限なし。<br>花や木は背景飾り。<b>赤いトゲ・岩・コウモリ・穴</b>に気をつけて！</p>
 </main>
 <script>
 (function(){let ok=false;try{ok=sessionStorage.getItem('mathspeed-slime-preview')==='yes';window.MS_SLIME_DEVELOPER=sessionStorage.getItem('mathspeed-slime-dev')==='yes';sessionStorage.removeItem('mathspeed-slime-preview');sessionStorage.removeItem('mathspeed-slime-dev')}catch(e){}if(!ok){document.documentElement.style.visibility='hidden';location.replace('./index.html')}})();
 </script>
-<script src="./slime-adventure.js?v=10.12.3" defer></script>
+<script src="./slime-adventure.js?v=10.12.4" defer></script>
 </body></html>
