@@ -9,7 +9,7 @@ const speedAt=m=>285+Math.min(535,Math.max(0,m)*.15);
 const base='./assets/slime/';
 function asset(name){const im=new Image();im.src=base+name;im.onload=()=>{if(mode!=='playing')render()};return im}
 const img={bg:asset('forest.webp'),ground:asset('ground.png'),hero_idle:asset('hero_idle_a.png'),hero_jump:asset('hero_jump_a.png'),hero_double:asset('hero_double_a.png'),hero_land:asset('hero_land_a.png'),hero_hurt:asset('hero_hurt_a.png'),hero_fall:asset('hero_fall_a.png'),spikes:asset('spikes.png'),rock:asset('rock.png'),bat:asset('bat.png'),coin:asset('coin.png'),warning:asset('warning.png')};
-let lastPattern='solo';
+let lastPattern='solo',legendUnlockedThisRun=false;
 let mode='ready',worldX=260,py=G,vy=0,onGround=true,jumps=0,falling=false,cam=0,seconds=0,lastTime=0,raf=0,frame=0,hearts=2,inv=0,landSquash=0,obstacles=[],coins=[],fxParts=[],spawnX=1040,picked=0,meters=0,runId='',finished=false,seed=0,mute=false,audio=null,musicId=null,noteI=0,devBest=0;
 try{devBest=Number(sessionStorage.getItem('mathspeed-slime-dev-best'))||0}catch{}
 const R=(a,b)=>a+Math.floor(random()*(b-a+1));
@@ -35,16 +35,17 @@ function spawn(){
  // different solutions. Every phrase receives a full recovery runway after it.
  while(spawnX<worldX+W+700){
   const projectedMeters=Math.max(0,(spawnX-260)/18),futureSpeed=speedAt(projectedMeters);
-  const progress=Math.min(1,projectedMeters/3200);
+  const progress=Math.min(1,projectedMeters/3500);
   const roll=random();
   let pattern='solo';
-  if(projectedMeters>320&&roll<.10+progress*.10)pattern='bat';
-  else if(projectedMeters>170&&roll<.27+progress*.04)pattern='pit';
-  else if(projectedMeters>1200&&roll<.31+progress*.16)pattern='triple';
-  else if(projectedMeters>280&&roll<.43+progress*.32)pattern='pair';
+  if(projectedMeters>320&&roll<.12+progress*.21)pattern='bat';
+  else if(projectedMeters>170&&roll<.23+progress*.06)pattern='pit';
+  else if(projectedMeters>1200&&roll<.36+progress*.17)pattern='triple';
+  else if(projectedMeters>280&&roll<.46+progress*.38)pattern='pair';
+  if(projectedMeters>2200&&pattern==='solo'&&random()<.42)pattern='lowgate';
   // After an airborne combo, a bat can be passed safely by staying grounded.
   // Don't place a bat too soon after a triple, pit, or previous bat.
-  const extraRecovery=pattern==='bat'||lastPattern==='triple'||lastPattern==='pit'||lastPattern==='bat';
+  const extraRecovery=pattern==='bat'||pattern==='lowgate'||lastPattern==='triple'||lastPattern==='pit'||lastPattern==='bat'||lastPattern==='lowgate';
   const reactionTime=extraRecovery ? .88+random()*.24 : .53+random()*.31;
   // Deliberate short beats occur between *single* ground hazards as well.
   const shortBeat=!extraRecovery&&projectedMeters>650&&random()<(.16+progress*.15);
@@ -59,6 +60,7 @@ function spawn(){
    pieces.push(obj);return obj;
   }
   if(pattern==='bat')piece('bat',firstX);
+  else if(pattern==='lowgate'){const first=piece(random()<.5?'spikes':'rock',firstX);piece('bat',first.x+first.w+Math.ceil(futureSpeed*.69));}
   else if(pattern==='pit')piece('pit',firstX);
   else{
    const count=pattern==='triple'?3:pattern==='pair'?2:1;
@@ -88,7 +90,7 @@ function spawn(){
  }
 }
 function begin(){if(mode==='playing')return;let p=read();const d=day(p);if(!DEV){if(d.plays>=3){ready();return}d.plays+=1;if(!write(p)){overlay('保存できません','挑戦回数を保存できないため、開始を中止したよ。ブラウザの保存設定を確認してね。','','','戻る');return}}
-worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=2;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10124-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+worldX=260;py=G;vy=0;onGround=true;jumps=0;falling=false;cam=0;seconds=0;lastTime=0;hearts=2;inv=0;landSquash=0;obstacles=[];coins=[];fxParts=[];spawnX=900;lastPattern='solo';legendUnlockedThisRun=false;picked=0;meters=0;finished=false;seed=((Date.now()^Math.floor(Math.random()*10000000))>>>0)||920;runId='ms-10125-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);noteI=0;mode='playing';$('overlay').hidden=true;$('jump').disabled=false;$('pause').disabled=false;spawn();hud();musicOn();sfx('start');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
 function jump(){if(mode!=='playing'||falling||jumps>=2)return; // Single tap = first jump; second tap while airborne = double-jump.
  if(onGround||jumps===1){jumps++;vy=jumps===1?FIRST_JUMP:SECOND_JUMP;onGround=false;landSquash=0;sfx(jumps===1?'jump':'double');spark(worldX,py-12,jumps===1?'#eafbbb':'#ffefb1',7);hud()}}
 function inPit(x){return obstacles.some(o=>o.type==='pit'&&x>=o.x+13&&x<=o.x+o.w-13)}
@@ -102,7 +104,24 @@ function resume(){mode='playing';lastTime=0;$('overlay').hidden=true;$('jump').d
 $('start').addEventListener('click',()=>{if(mode==='paused')resume();else if(mode==='ready'||mode==='ended')begin()});$('pause').addEventListener('click',pause);$('sound').addEventListener('click',()=>{mute=!mute;setText('sound',mute?'🔇 音 OFF':'🔊 音 ON');if(mute)musicOff();else musicOn()});
 for(const node of [canvas,$('jump')]){node.addEventListener('pointerdown',e=>{e.preventDefault();jump()},{passive:false});node.addEventListener('contextmenu',e=>e.preventDefault());node.addEventListener('selectstart',e=>e.preventDefault())}
 window.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!e.repeat)jump()}if(e.code==='Escape'&&mode==='playing')pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
-function update(dt){seconds+=dt;inv=Math.max(0,inv-dt);landSquash=Math.max(0,landSquash-dt);const speed=speedAt(meters);worldX+=speed*dt;meters=(worldX-260)/18;cam=Math.max(0,worldX-260);
+function unlockLegend(){
+ if(DEV||legendUnlockedThisRun||meters<10000)return;
+ const p=read();
+ if((Number(p.slimeBestMeters)||0)<10000)p.slimeBestMeters=Math.floor(meters);
+ const key='mathspeed-v10-1-cosmetics';
+ try{
+  const cos=JSON.parse(localStorage.getItem(key)||'{}')||{};
+  if(!cos.owned||typeof cos.owned!=='object')cos.owned={backs:[],frames:[],avatars:[]};
+  if(!Array.isArray(cos.owned.avatars))cos.owned.avatars=[];
+  const first=!cos.owned.avatars.includes('slime_legend');
+  if(first)cos.owned.avatars.push('slime_legend');
+  localStorage.setItem(key,JSON.stringify(cos));
+  write(p);
+  legendUnlockedThisRun=true;
+  if(first){sfx('best');overlay('🏆 伝説達成！','10,000m突破！\n限定アバター「伝説のスライム」を獲得しました！','👑 ガチャ・ショップでは入手できない特別なアバター','この挑戦は続行できるよ！','▶ 冒険を続ける');mode='paused';musicOff();cancelAnimationFrame(raf);$('jump').disabled=true;$('pause').disabled=true}
+ }catch(e){console.warn('legend unlock save failed',e)}
+}
+function update(dt){seconds+=dt;inv=Math.max(0,inv-dt);landSquash=Math.max(0,landSquash-dt);const speed=speedAt(meters);worldX+=speed*dt;meters=(worldX-260)/18;cam=Math.max(0,worldX-260);unlockLegend();if(mode!=='playing')return;
  vy+=GRAVITY*dt;py+=vy*dt;
  if(!falling&&inPit(worldX)&&py>=G+3){falling=true;onGround=false;sfx('fall')}
  if(!falling&&!inPit(worldX)&&py>=G){if(!onGround&&vy>110){landSquash=.15;spark(worldX,G-8,'#d3eda0',4)}py=G;vy=0;onGround=true;jumps=0}
