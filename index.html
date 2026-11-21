@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><!-- Ver.8.5: audited against 8.4; player sprites inherited from 8.3; battle progression and version display fixed. -->
-<title>マスピード Ver.10.12.25｜冒険＆オンライン対戦</title><style>
+<title>マスピード Ver.10.12.26｜冒険＆オンライン対戦</title><style>
 :root{font-family:system-ui,sans-serif;color:#20332c;background:#eef5ef}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:auto;padding:12px}header,.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:4px 0}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}select,.smallbtn{padding:9px;border:1px solid #bccfc2;border-radius:10px;background:white}.table{background:#176448;border-radius:18px;padding:13px;color:white;margin:12px 0}.hand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.card{position:relative;background:white;color:#17211b;border:2px solid #dce4de;border-radius:10px;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #0002;padding:4px}.card .rank{font-size:clamp(23px,6vw,34px);font-weight:850}.card .suit{font-size:21px}.red{color:#cf3048}.joker{background:#292e50;color:#ffe19b;border-color:#d8b65e}.joker .rank{font-size:clamp(15px,4vw,22px)}.empty{border:2px dashed #ffffff66;border-radius:10px;min-height:94px;display:grid;place-items:center;color:#ffffffaa}.userempty{border:2px dashed #c6d3c9;color:#85978a}.selected{outline:4px solid #ffcf4d;outline-offset:1px}.center{display:flex;justify-content:center;gap:18px;margin:14px 0}.center button{width:104px;min-height:132px}.center button.ready{outline:4px solid #ffcf4d;outline-offset:2px}.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.ops button{border:1px solid #bfd2c6;border-radius:12px;background:white;font-size:26px;font-weight:bold;min-height:54px}.ops button.active{background:#176448;color:white}.panel{background:white;border:1px solid #d2e0d6;border-radius:15px;padding:13px;margin:10px 0}.muted{font-size:12px;opacity:.8}.msg{background:#e0eee5;padding:12px;border-radius:12px;min-height:52px;font-size:14px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.controls button{padding:10px 13px;border-radius:10px;border:1px solid #bfd2c6;background:white}.controls .primary{background:#176448;color:white}.meter{height:6px;background:#ffffff4a;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;background:#ffcf4d}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:20px;z-index:2}.overlay.show{display:flex}.dialog{background:white;padding:26px;border-radius:18px;text-align:center;width:min(100%,390px)}.dialog h2{font-size:27px}#playerHand button{width:100%}#cpuHand .card{min-height:88px}@media(min-width:600px){.card{min-height:115px}.center button{width:120px;min-height:150px}}
 
 /* Explicit control colors for Safari, iPadOS and dark-mode browsers */
@@ -143,7 +143,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 }
 #titleOverlay .titleInfo{left:35%;top:87%;width:34%;background:#091a3bca}
 #titleOverlay .titlePanel.titleArt::after{
-  content:"Ver.10.12.25";display:flex;position:absolute;right:0;top:0;
+  content:"Ver.10.12.26";display:flex;position:absolute;right:0;top:0;
   z-index:2;box-sizing:border-box;width:13.5%;min-width:90px;max-width:190px;
   height:6%;min-height:28px;align-items:center;justify-content:center;
   padding:0 6px;background:#11102f;border-bottom:1px solid #6e568d;
@@ -190,7 +190,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 #center .ms-cardback-text {font:bold 11px system-ui,sans-serif;letter-spacing:1px}
 </style>
 <style id="v100OnlineIntegrationStyle">
-/* Ver.10.12.25 — Online mode is an additional, independent screen. Original single-player logic untouched. */
+/* Ver.10.12.26 — Online mode is an additional, independent screen. Original single-player logic untouched. */
 #titleOverlay .titleOnlineButton {
   position:absolute; z-index:5; right:2.2%; bottom:4.7%; width:24%; min-height:48px;
   box-sizing:border-box; display:flex; justify-content:center; align-items:center;
@@ -205,7 +205,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
   background:linear-gradient(180deg,#399abe,#244e82); outline:3px solid #fff2b7;
   outline-offset:2px;
 }
-#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.25"}
+#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.26"}
 @media(max-width:650px) and (orientation:portrait) {
   #titleOverlay .titleActions {bottom:18%;height:24%;}
   #titleOverlay .titleOnlineButton {
@@ -298,7 +298,7 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 </style>
 
 <style id="v103GachaShowtime">
-/* Ver.10.12.25 — reliable tablet controls and gacha cinematic. */
+/* Ver.10.12.26 — reliable tablet controls and gacha cinematic. */
 @media (min-width:651px) and (max-width:1100px) and (orientation:portrait),
        (min-width:651px) and (max-width:1180px) and (orientation:landscape) {
  #titleOverlay .titleMapButton{
@@ -389,7 +389,7 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 </style>
 
 <style id="v104CoinAdventureLink">
-/* Ver.10.12.25: four bottom destinations on desktop/tablet, four stacked on phones. */
+/* Ver.10.12.26: four bottom destinations on desktop/tablet, four stacked on phones. */
 #titleOverlay .titleCoinButton{position:absolute;display:flex;align-items:center;justify-content:center;z-index:8;box-sizing:border-box;
  border:2px solid #f8d386;border-radius:8px;min-height:46px;padding:7px 5px;
  color:#fff7ce!important;-webkit-text-fill-color:#fff7ce!important;text-decoration:none;
@@ -418,7 +418,7 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 }
 </style>
 <style id="ms106CollectionStyles">
-/* Ver.10.12.25 — new collection finishes, matching the existing fantasy card style. */
+/* Ver.10.12.26 — new collection finishes, matching the existing fantasy card style. */
 :root{--ms-gold:#f3dca1}
 .msCardBadge[data-ms-back="b5"],body[data-ms-back="b5"] .center-facedown,body[data-ms-back="b5"] .table-card.face-down{background:radial-gradient(circle at 25% 25%,#ffb47d 0 8%,transparent 20%),repeating-linear-gradient(135deg,#6b1d27 0 6px,#a83a25 6px 12px,#e37138 12px 16px)!important;border-color:#ffd080!important;color:#fff5d7!important}
 .msCardBadge[data-ms-back="b6"],body[data-ms-back="b6"] .center-facedown,body[data-ms-back="b6"] .table-card.face-down{background:radial-gradient(circle at 68% 20%,#d4faffaa 0 6%,transparent 15%),repeating-linear-gradient(150deg,#06405b 0 9px,#08697b 10px 17px,#034057 18px 24px)!important;border-color:#89f8fc!important;color:#d1faff!important}
@@ -638,7 +638,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 #titleOverlay{background:#091b36}
 #titleOverlay .titlePanel.titleArt{width:min(100vw,177.78dvh);height:auto;max-height:100dvh;min-height:0;aspect-ratio:16/9;background:#142b50;overflow:hidden;}
 #titleOverlay .titleImage{inset:0;background-image:url('./assets/title_a109.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat;background-position:center!important;animation:none!important;filter:none!important}
-#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.25"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
+#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.26"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
 #titleOverlay .ms108Home{left:31%;width:38%;top:47%;bottom:2%;max-height:none;padding:0;gap:clamp(4px,.7vw,9px);justify-content:flex-start;background:transparent;border:0;border-radius:0;box-shadow:none;}
 #titleOverlay .ms108HomeEyebrow{background:#0d2c51ac;border:1px solid #efc77c88;border-radius:8px;padding:3px 9px;font-size:clamp(9px,.83vw,12px);text-shadow:0 1px #000}
 #titleOverlay .ms108HeroButton{min-height:clamp(46px,7.5vw,77px)!important;justify-content:center!important;text-align:center!important;gap:0!important;background:linear-gradient(135deg,#0d4199,#155dc1 48%,#072f77)!important;border:3px ridge #fce1a2!important;border-radius:8px!important;padding:5px!important;box-shadow:0 4px 0 #102442aa,inset 0 2px #ffffff4d,0 0 17px #f3c97580!important}
@@ -705,6 +705,24 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 }
 </style>
 <style id="ms110Fixes">
+
+/* v10.12.26: guided tutorial uses the actual CPU match view, no alternate board */
+#msTutorialHud[hidden]{display:none!important}
+#msTutorialHud{position:sticky;top:0;z-index:9000;max-width:760px;margin:0 auto 8px;padding:9px 12px;background:#102d46;color:#fff5d9;border:2px solid #dfbe69;border-radius:0 0 15px 15px;box-shadow:0 5px 16px #0004;font-family:system-ui,sans-serif}
+#msTutorialHud .ms126HudSpeech{display:flex;align-items:center;gap:10px}
+#msTutorialHud .ms126HudSpeech img{height:54px;width:54px;object-fit:contain;image-rendering:pixelated}
+#msTutorialHud .ms126HudSpeech div{flex:1;min-width:0}
+#msTutorialHud .ms126HudSpeech b{font-size:14px;color:#fbd17b}
+#msTutorialHud .ms126HudSpeech p{margin:3px 0 5px;font-size:13px;line-height:1.45}
+#msTutorialHud .ms126HudBtns{display:flex;gap:6px;flex-wrap:wrap}
+#msTutorialHud .ms126HudBtns button{border:1px solid #e0bb70;background:#294b6b;color:#ffefcf;border-radius:8px;padding:7px 10px;font-size:13px;font-weight:700;cursor:pointer}
+#msTutorialHud .ms126HudBtns button:first-child{background:#80602d}
+#msTutorialHud .ms126HudBtns button[hidden]{display:none}
+body.ms126-playing{scroll-padding-top:155px}
+/* Hide non-battle menu chrome during the lesson; keep the exact original CPU board and input elements. */
+body.ms126-playing main > header,body.ms126-playing #profileBar,body.ms126-playing #profileBar + .bar,body.ms126-playing #profileBar + .bar + .controls{display:none!important}
+@media(max-width:440px){#msTutorialHud{padding:5px 8px}#msTutorialHud .ms126HudSpeech img{height:38px;width:38px}#msTutorialHud .ms126HudSpeech p{font-size:12px}#msTutorialHud .ms126HudBtns button{font-size:11px;padding:6px 7px}}
+
 /* Prevent the five-letter joker label from escaping narrow hand cards. */
 #playerHand .card.joker, #cpuHand .card.joker, #center .card.joker{min-width:0;overflow:hidden;}
 #playerHand .card.joker .rank,#cpuHand .card.joker .rank,#center .card.joker .rank{
@@ -752,7 +770,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 </style></head><body><div id="titleOverlay"><div class="titlePanel titleArt" role="region" aria-label="マスピード タイトル画面">
 <div class="titleImage" role="img" aria-label="金色のマスピードロゴ、海と城、冒険者と青いスライムが描かれたRPG風タイトル画面"></div>
 
-<!-- Ver.10.12.25: New home layout. Original menu actions remain for compatibility. -->
+<!-- Ver.10.12.26: New home layout. Original menu actions remain for compatibility. -->
 <nav id="ms108Home" class="ms108Home" aria-label="メインメニュー">
   <div class="ms108HomeEyebrow"><span>✦ ADVENTURE HUB ✦</span><span id="ms108HomeStatus">第1章 開放中</span></div>
   <button type="button" id="ms108OpenChapters" class="ms108HeroButton">
@@ -778,7 +796,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 <a href="./security-test.html" class="titleOnlineButton" id="menuOnline" aria-label="友達と通信対戦モードへ進む">🌐 友達と通信対戦</a>
 <p id="menuInfo" class="titleInfo" aria-live="polite"></p>
 </div></div>
-<!-- Ver.10.12.25: Section selection. These are navigational shells, not new games. -->
+<!-- Ver.10.12.26: Section selection. These are navigational shells, not new games. -->
 <section id="ms108ChapterDialog" class="ms108Modal" role="dialog" aria-modal="true" aria-labelledby="ms108ChaptersHeading" hidden>
   <div class="ms108Window">
     <header class="ms108WindowHeader"><div><small>STORY MODE</small><h2 id="ms108ChaptersHeading">冒険の書</h2><p>進みたい章を選ぼう</p></div><button type="button" class="ms108Close" data-ms108-close aria-label="閉じる">✕</button></header>
@@ -807,7 +825,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
   </div>
 </section>
 
-<!-- Ver.10.12.25: First-time player self-guided help and practice. -->
+<!-- Ver.10.12.26: First-time player self-guided help and practice. -->
 <section id="ms108HelpDialog" class="ms108Modal" role="dialog" aria-modal="true" aria-labelledby="ms108HelpHeading" hidden>
   <div class="ms108Window ms108HelpWindow">
     <header class="ms108WindowHeader"><div><small>HOW TO PLAY</small><h2 id="ms108HelpHeading">📘 マスピードの遊び方</h2><p>だれでも1人で覚えられる練習コーナー</p></div><button type="button" class="ms108Close" data-ms108-close aria-label="遊び方を閉じる">✕</button></header>
@@ -870,7 +888,12 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
     <button type="button" class="ms108BackButton" data-ms108-close>← タイトルへ戻る</button>
   </div>
 </section>
-<main><header><div><h1>⚡ マスピード</h1><div class="muted">四則演算 × スピード　Ver.10.12.25</div></div><div style="text-align:right"><b id="stage">LEVEL 1</b><div id="timer" class="muted">00:00</div></div></header><div id="profileBar"><div class="avatar" id="profileIcon">🦊</div><div style="flex:1;min-width:0"><div id="profileName">プレイヤー</div><div id="coins">🪙 0 マスコイン</div></div><button class="smallbtn" id="editProfile">プロフィール・実績</button><button class="smallbtn" id="openShop">ショップ</button><button class="smallbtn" id="openGacha">🎲 ガチャ</button><span class="msCardBadge" id="msPlayerBackPreview" data-ms-back="b0" title="装備中のカード裏面">⚡</span></div><div class="bar" style="margin-top:12px"><div><b id="journey">10人抜きチャレンジ</b><div class="muted" id="best">最高到達 Lv.1</div></div><button id="reset" class="smallbtn">最初から挑戦</button></div><div class="controls"><button id="load">📂 続きから再開</button><span class="muted" id="saveStatus">オートセーブ有効（同じ端末・ブラウザ）</span></div><div class="table"><div class="bar"><b id="cpuName">CPU</b><span id="cpuCount">残り 27枚</span></div><div id="cpuHand" class="hand" style="margin-top:10px"></div><div class="meter"><div id="cpuMeter"></div></div><div style="text-align:center;font-size:12px;letter-spacing:2px">中央の2枚</div><div class="center" id="center"></div><div id="centerNote" style="text-align:center;font-size:12px">計算してカードを出そう！</div><div class="meter"><div id="playerMeter"></div></div></div><div class="panel"><div class="bar"><b>あなたの手札</b><span id="playerCount" class="muted"></span></div><p class="muted">① 演算を選ぶ（ジョーカーなら不要）</p><div class="ops" id="ops"></div><p class="muted">② カードを選ぶ → ③ 中央の山を選ぶ</p><div id="restartPickBanner" class="restart-pick-banner" role="status">⚡ 両者手詰まり！<br>💗 ピンクのカードから1枚選んで「マスピード！」</div><div id="playerHand" class="hand"></div><p class="muted" id="stockCount">自動補充</p></div><div class="msg" id="message" aria-live="polite"></div><div class="controls"><button id="hint">ヒント</button><button id="cancel">選択解除</button><button id="pause">一時停止</button><button id="menuBack">タイトルへ</button><button id="battleMap">マップへ</button></div><p class="muted">ジョーカーはどちらの山にも出せます。ジョーカーの上にはどんなカードでも置けます。ジョーカーでない山には通常の計算ルールが適用されます。山札がなくなって手詰まりになったら、場のカードを1枚選んで中央を更新します。引き算・割り算は順序を入れ替えてもOK。答えが10、20、30など正の10の倍数なら10を出せます。答えが0のときは10を出せません。</p></main><div id="vsOverlay"><div class="modal vsBox"><div style="color:#f8d77a;font-weight:800;margin-bottom:14px" id="vsStage">STAGE 1</div><div class="vsRow"><div><div class="avatar vsPortrait" id="vsEnemy">🟢</div><div class="vsLabel" id="vsEnemyName">計算スライム</div></div><div class="vsMark">VS</div><div><div class="avatar vsPortrait" id="vsPlayer">🦊</div><div class="vsLabel" id="vsPlayerName">プレイヤー</div></div></div><p style="margin:24px 0 4px;color:#f8d77a;font-weight:800">対戦開始！</p></div></div>
+
+<div id="msTutorialHud" hidden role="region" aria-label="スライム先生の練習試合">
+ <div class="ms126HudSpeech"><img id="ms126SlimeImg" src="./assets/slime/hero_idle_a.png" alt="計算スライム" onerror="this.style.display='none'"><div><b>🟢 スライム先生の卒業試合</b><p id="ms126TeacherText" aria-live="polite">計算をしてカードを出そう！</p></div></div>
+ <div class="ms126HudBtns"><button id="ms126Hint" type="button">💡 ヒント（3段階）</button><button id="ms126Resume" type="button">▶ ヒントを閉じて続ける</button><button id="ms126Retry" type="button" hidden>↻ 再挑戦</button><button id="ms126Quit" type="button">← チュートリアルへ戻る</button></div>
+</div>
+<main><header><div><h1>⚡ マスピード</h1><div class="muted">四則演算 × スピード　Ver.10.12.26</div></div><div style="text-align:right"><b id="stage">LEVEL 1</b><div id="timer" class="muted">00:00</div></div></header><div id="profileBar"><div class="avatar" id="profileIcon">🦊</div><div style="flex:1;min-width:0"><div id="profileName">プレイヤー</div><div id="coins">🪙 0 マスコイン</div></div><button class="smallbtn" id="editProfile">プロフィール・実績</button><button class="smallbtn" id="openShop">ショップ</button><button class="smallbtn" id="openGacha">🎲 ガチャ</button><span class="msCardBadge" id="msPlayerBackPreview" data-ms-back="b0" title="装備中のカード裏面">⚡</span></div><div class="bar" style="margin-top:12px"><div><b id="journey">10人抜きチャレンジ</b><div class="muted" id="best">最高到達 Lv.1</div></div><button id="reset" class="smallbtn">最初から挑戦</button></div><div class="controls"><button id="load">📂 続きから再開</button><span class="muted" id="saveStatus">オートセーブ有効（同じ端末・ブラウザ）</span></div><div class="table"><div class="bar"><b id="cpuName">CPU</b><span id="cpuCount">残り 27枚</span></div><div id="cpuHand" class="hand" style="margin-top:10px"></div><div class="meter"><div id="cpuMeter"></div></div><div style="text-align:center;font-size:12px;letter-spacing:2px">中央の2枚</div><div class="center" id="center"></div><div id="centerNote" style="text-align:center;font-size:12px">計算してカードを出そう！</div><div class="meter"><div id="playerMeter"></div></div></div><div class="panel"><div class="bar"><b>あなたの手札</b><span id="playerCount" class="muted"></span></div><p class="muted">① 演算を選ぶ（ジョーカーなら不要）</p><div class="ops" id="ops"></div><p class="muted">② カードを選ぶ → ③ 中央の山を選ぶ</p><div id="restartPickBanner" class="restart-pick-banner" role="status">⚡ 両者手詰まり！<br>💗 ピンクのカードから1枚選んで「マスピード！」</div><div id="playerHand" class="hand"></div><p class="muted" id="stockCount">自動補充</p></div><div class="msg" id="message" aria-live="polite"></div><div class="controls"><button id="hint">ヒント</button><button id="cancel">選択解除</button><button id="pause">一時停止</button><button id="menuBack">タイトルへ</button><button id="battleMap">マップへ</button></div><p class="muted">ジョーカーはどちらの山にも出せます。ジョーカーの上にはどんなカードでも置けます。ジョーカーでない山には通常の計算ルールが適用されます。山札がなくなって手詰まりになったら、場のカードを1枚選んで中央を更新します。引き算・割り算は順序を入れ替えてもOK。答えが10、20、30など正の10の倍数なら10を出せます。答えが0のときは10を出せません。</p></main><div id="vsOverlay"><div class="modal vsBox"><div style="color:#f8d77a;font-weight:800;margin-bottom:14px" id="vsStage">STAGE 1</div><div class="vsRow"><div><div class="avatar vsPortrait" id="vsEnemy">🟢</div><div class="vsLabel" id="vsEnemyName">計算スライム</div></div><div class="vsMark">VS</div><div><div class="avatar vsPortrait" id="vsPlayer">🦊</div><div class="vsLabel" id="vsPlayerName">プレイヤー</div></div></div><p style="margin:24px 0 4px;color:#f8d77a;font-weight:800">対戦開始！</p></div></div>
 <div id="titleSettingsOverlay" class="settingsOverlay" hidden><div class="settingsCard"><div class="settingsHead"><strong>⚙ ゲーム設定</strong><button id="titleSettingsClose" type="button">✕ 閉じる</button></div><button id="settingsProfile" type="button">🎮 アバター・育成を見る</button><button id="settingsTrophies" type="button">🏆 トロフィー・実績・称号を見る</button><button id="settingsSound" type="button">♫ 音量設定</button><div class="schoolModeSettings"><strong>🎓 難易度を選ぶ</strong><div class="schoolModeButtons"><button id="modeElementary" type="button">🌱 小学生モード</button><button id="modeJunior" type="button">⚔ 中学生モード</button></div><p id="schoolModeNote" aria-live="polite"></p></div><details><summary>📖 遊び方を見る</summary><p>中央の２枚を四則演算し、答えの一の位と同じ数字のカードを出そう。10は答えが10、20、30などのときに出せるよ（答えが0のときは出せない）。A=1、J=1、Q=2、K=3。ジョーカーはどこにでも出せるよ！</p><div class="rulesHowTo"><strong>🃏 カードの出し方（３つの操作）</strong><ol><li><b>① 演算ボタンを押す</b><br>中央の２枚を見て、「＋」「−」「×」「÷」から使いたい計算を選ぼう。</li><li><b>② 自分のカードを押す</b><br>計算の答えの一の位と同じ数字の手札をタップしよう。</li><li><b>③ 出す場所を決める</b><br>中央にある左右２つの山のうち、カードを置きたい方をタップ！ これで１枚出せるよ。</li></ol><div class="rulesExample"><b>たとえば…</b> 中央が「７」と「５」なら、<b>「＋」→ 手札の「２」→ 中央の左右どちらかの山</b>の順に押すよ。７＋５＝12だから、答えの一の位は２！</div><p>※出せるカードがないときは、ほかの演算も考えてみよう。ジョーカーは計算せずに出せるよ。</p></div></details><p class="settingsNote">セーブデータは同じ端末・ブラウザに保存されます。</p></div></div><div id="profileOverlay"><div class="modal"><div class="msProfileHeading"><h2>🎮 プレイヤー設定</h2><button type="button" id="msProfileClose" aria-label="プレイヤー設定を閉じる">✕ 閉じる</button></div><p class="muted">名前とキャラクターを選ぼう。途中でも変更できるよ！</p><label for="nameInput">プレイヤー名（最大12文字）</label><input id="nameInput" maxlength="12" placeholder="名前を入力" autocomplete="off"><div class="msProfileTabs" role="group" aria-label="プロフィール表示切り替え"><button id="msProfileTabAvatar" type="button" aria-pressed="true">🎭 アバター・育成</button><button id="msProfileTabTrophies" type="button" aria-pressed="false">🏆 トロフィー・称号</button></div><div id="msProfileAvatarPane" class="msProfilePane"><p><b>アバターを選択</b></p><div class="avatarGrid" id="avatarGrid"></div><section id="evolutionSection"></section></div><div id="msProfileTrophyPane" class="msProfilePane" hidden><section id="achievementSection"><h3>🏆 冒険者の記録</h3><div id="achievementStats"></div><div class="achievementTitleLine"><label for="achievementTitle">名乗る称号</label><select id="achievementTitle"></select></div><h3>トロフィーコレクション <span id="achievementCount"></span></h3><p id="trophyRewardNotice" aria-live="polite" hidden></p><div id="achievementGrid"></div></section></div><p id="profileError" style="color:#ffd1ca;font-size:13px"></p><button class="primaryBtn" id="confirmProfile" style="width:100%;margin-top:12px">このキャラで決定！</button></div></div>
 <div id="shopOverlay"><div class="modal"><div class="bar"><h2>🛍️ アバターショップ</h2><button class="smallbtn" id="closeShop">閉じる</button></div><p>所持金：<strong id="shopCoins">0</strong> 🪙</p><p class="muted">敵を倒してから購入可能！前の敵を購入すると次の敵がショップに現れるよ。未登場の敵は「？」で表示。</p><div class="shopGrid" id="shopGrid"></div></div></div><div id="chant" aria-live="assertive"><div class="count" id="chantCount">3</div><div class="word">マスピード！</div><div class="sub" id="chantSub">準備はいい？</div></div><div id="overlay" class="overlay"><div class="dialog"><h2 id="resultTitle"></h2><div id="victoryScene" class="victoryScene" hidden><div class="victoryHeading">STAGE CLEAR!</div><img id="defeatArt" alt="倒した敵のドット絵"><div id="defeatQuote" class="defeatQuote"></div></div><p id="resultDetail"></p><button id="again" class="smallbtn">次へ</button><button id="resultMap" class="smallbtn" type="button" style="margin-left:8px">🗺 マップに戻る</button></div></div><div id="worldOverlay" class="worldOverlay"><div class="worldPanel"><div class="worldTop"><div><div class="worldEyebrow">MASPEED ADVENTURE</div><h2>🗺 ワールドマップ</h2><div id="worldProgress" class="worldHint"></div></div><button id="worldClose" class="worldButton">タイトルへ</button></div><div id="worldMap" class="worldMap"></div><div class="worldActions"><button id="worldNext" class="worldButton worldGold">次の敵に挑む</button><button id="worldArchive" class="worldButton">📖 キャラ図鑑</button></div><div class="worldHint">光る場所は次の挑戦者。撃破した場所は何度でも再戦できるよ。フリー対戦で負けても進行状況はそのまま！</div></div></div><div id="archiveOverlay" class="worldOverlay"><div class="worldPanel"><div class="worldTop"><div><div class="worldEyebrow">CHARACTER ARCHIVE</div><h2>📖 マスピード図鑑</h2><div id="archiveCount" class="worldHint"></div></div><button id="archiveClose" class="worldButton">マップへ</button></div><div id="archiveGrid" class="archiveGrid"></div><div id="archiveDetail" class="archiveDetail" hidden></div><div id="secretLetter" class="secretLetter" hidden></div></div></div><button id="soundToggle" type="button" aria-label="サウンド設定">🔇 サウンド</button><div id="soundPanel" hidden><div style="display:flex;justify-content:space-between;align-items:center"><b>🎼 サウンド設定</b><button id="soundClose" type="button">閉じる</button></div><label>BGM <input id="bgmVolume" type="range" min="0" max="100" value="0"></label><label>効果音 <input id="sfxVolume" type="range" min="0" max="100" value="0"></label><div class="soundTestArea"><b>🎧 サウンドテスト</b><select id="soundTrack" aria-label="試聴するBGM"><option value="title">タイトル画面</option><option value="map">ワールドマップ・図鑑</option><option value="battle">通常戦闘（Lv.1〜6）</option><option value="hard">強敵戦（Lv.7〜9）</option><option value="boss">数学教師戦（Lv.10）</option><option value="orch_easy">【実装】冒険者の挑戦（Lv.1〜3）</option><option value="orch_mid">【実装】立ちはだかる強敵（Lv.4〜6）</option><option value="orch_high">【実装】計算を統べる者（Lv.7〜9）</option><option value="orch_final">【実装】数学の深淵（Lv.10）</option></select><div class="soundTestBtns"><button id="soundTest" type="button">▶ BGMを試聴</button><button id="soundStop" type="button">■ 停止</button></div><select id="soundEffect" aria-label="試聴する効果音"><option value="count">カウントダウン</option><option value="go">マスピード！</option><option value="card">カードを出す</option><option value="win">勝利・撃破</option><option value="lose">敗北</option><option value="coin">ショップ購入（チャリン！）</option></select><button id="effectTest" type="button">♪ 効果音を試聴</button></div><p class="soundNote">初期設定は消音です。音量はこのブラウザに保存されます。ブラウザの仕様によりタップ後に再生します。</p></div><div id="gachaOverlay" role="dialog" aria-modal="true" aria-label="マスコインガチャ"><div id="gachaPanel"><div class="msGachaHeader"><h2>🎲 マスコインガチャ</h2><button type="button" id="msGachaClose">✕ 閉じる</button></div><p style="margin:8px 0">カードの模様・アバターフレーム・限定キャラを集めよう！</p><div class="msGachaRow"><strong id="msGachaCoins">🪙 0</strong><button type="button" id="msGachaRoll">🎲 500コインで1回</button></div><details class="msGachaPreview"><summary>🎬 開封演出を無料でお試し</summary><p>コイン消費なし・景品の獲得なし。通常と超レアの演出を確認できます。</p><button type="button" id="msGachaDemoNormal">🃏 通常演出</button><button type="button" id="msGachaDemoUltra">🌟 超レア演出</button></details><div class="msGachaOdds" id="msGachaOdds"><strong>排出率</strong>：カード裏面 64% ・ フレーム 35% ・ <strong>限定アバター 1%</strong><div>全6体の限定アバター（新登場：八丈島の生き物3体）</div></div><div class="msCollectionProgress" id="msCollectionProgress" aria-live="polite"></div><div class="msGachaResult" id="msGachaResult" aria-live="polite" tabindex="-1">何が出るかはお楽しみ！</div><h3>🃏 カード裏面</h3><div class="msGachaGrid" id="msGachaBacks"></div><h3>🖼️ アバターフレーム</h3><div class="msGachaGrid" id="msGachaFrames"></div><h3>✨ 限定アバター</h3><div class="msGachaGrid" id="msGachaAvatars"></div><p class="msGachaFineprint">ゲーム内で獲得するマスコインだけを使用します。実際のお金は使いません。抽選割合：カード裏面64%・フレーム35%・限定アバター1%（6種類の合計）。同じ景品が出た場合は200コイン返却。4回連続で重複した後は、選ばれた種類がカード裏面またはフレームで、その中に未所持品があれば優先します。限定アバターの排出率は変わりません。どの景品も計算の強さには影響しません。保存は同じ端末・同じブラウザのみ。</p></div><div id="msGachaCinematic" hidden role="dialog" aria-modal="true" aria-label="ガチャ開封演出" data-phase="charge" data-tier="normal">
 <div class="msCineScene"><div class="msCineConfetti" id="msCineConfetti" aria-hidden="true"></div>
@@ -988,11 +1011,65 @@ function renderShop(){
   return '<div class="shopItem"><div class="avatar enemy">'+avatarMarkup('e'+i)+'</div><b>'+name+'</b><div class="muted">🪙 '+prices[i]+'</div><button data-buy="'+i+'" '+(owned||!defeated||profile.coins<prices[i]?'disabled':'')+'>'+label+'</button></div>';
  }).join('');
 }
-function randomCpuDelay(level){let base=delays[level]*(localStorage.getItem("mathspeed-school-mode")==="elementary"?1.5:1);return Math.round(base*(0.8+Math.random()*0.4))}
+// Tutorial keeps the same rules/deck/4-card slots. Only the opponent's pace changes.
+let tutorialSnapshot=null,tutorialHintStage=0,tutorialHintPause=false;
+function tutorialHud(message){const e=$('ms126TeacherText');if(e)e.textContent=message;}
+function tutorialButtons(finished=false){
+ $('ms126Hint').hidden=finished;$('ms126Resume').hidden=finished;
+ $('ms126Retry').hidden=!finished;
+ $('ms126Quit').textContent=finished?'📘 遊び方へ戻る':'← チュートリアルへ戻る';
+}
+function tutorialStart(){
+ if(battleMode!=='tutorial')tutorialSnapshot={state,battleMode};
+ tutorialHintStage=0;tutorialHintPause=false;
+ $('ms108HelpDialog').hidden=true;
+ $('titleOverlay').classList.add('hidden');
+ $('msTutorialHud').hidden=false;
+ document.body.classList.add('ms126-playing');
+ tutorialButtons(false);
+ $('ms126SlimeImg').style.display=''; $('ms126SlimeImg').src=avatarArt('e0'); // exact same opponent portrait as main CPU battle
+ tutorialHud('本番と同じ4枚の手札・計算ルールで対戦！ スライム先生はゆっくり動くよ。');
+ start(0,'tutorial');
+}
+function tutorialQuit(){
+ if(battleMode!=='tutorial')return;
+ chantTimers.forEach(clearTimeout);chantTimers=[];
+ vsTimers.forEach(clearTimeout);vsTimers=[];
+ $('chant').classList.remove('show');$('vsOverlay').classList.remove('show');
+ $('overlay').classList.remove('show');
+ $('msTutorialHud').hidden=true;document.body.classList.remove('ms126-playing');
+ tutorialHintPause=false;tutorialHintStage=0;
+ if(tutorialSnapshot){state=tutorialSnapshot.state;battleMode=tutorialSnapshot.battleMode;}
+ else{state=null;battleMode='story';}
+ tutorialSnapshot=null;
+ if(state)render();
+ showMenu();
+ // The menu observer closes opened dialogs; re-open AFTER it settles.
+ setTimeout(()=>{$('ms108OpenHelp').click();window.MasTutorialBridge?.onReturn?.();},0);
+}
+function tutorialHelp(){
+ if(battleMode!=='tutorial'||!state||state.ended||state.intro)return;
+ tutorialHintPause=true;tutorialHintStage=tutorialHintStage%3+1;
+ const movesAvailable=allMoves('player');
+ if(state.restartPick){tutorialHud('両方の山札がなくなって手詰まり！ ピンク色の自分のカードを1枚選んで、再スタートしよう。');return;}
+ if(!movesAvailable.length){tutorialHud('今は自分が出せるカードがないね。ヒントを閉じてスライムの動きを待とう。両者出せなくなったら本編と同じ手詰まり処理が始まるよ。');return;}
+ const m=movesAvailable[0];
+ if(tutorialHintStage===1)tutorialHud('💡 1/3：中央は「'+label(state.center[0])+'」と「'+label(state.center[1])+'」。足し算・引き算・掛け算・割り算を考えてみよう。');
+ if(tutorialHintStage===2)tutorialHud('💡 2/3：「'+(m.op||'ジョーカー')+'」を使うと「'+label(m.card)+'」が出せるよ。');
+ if(tutorialHintStage===3)tutorialHud('💡 3/3：「'+m.eq+'」。手札の「'+label(m.card)+'」を選び、'+(m.lane===0?'左':'右')+'の山に出してね！');
+}
+function tutorialResume(){tutorialHintPause=false;tutorialHintStage=0;if(state&&battleMode==='tutorial'&&!state.ended){state.cpuWait=0;tutorialHud('さあ続けよう！ ①計算記号 → ②自分のカード → ③左右どちらかの山。');}}
+$('ms126Hint').addEventListener('click',tutorialHelp);
+$('ms126Resume').addEventListener('click',tutorialResume);
+$('ms126Retry').addEventListener('click',tutorialStart);
+$('ms126Quit').addEventListener('click',tutorialQuit);
+window.MasTutorialEngine={start:tutorialStart,quit:tutorialQuit,retry:tutorialStart,help:tutorialHelp,resume:tutorialResume,
+ snapshot:()=>state&&battleMode==='tutorial'?{player:count('player'),cpu:count('cpu'),slots:state.player.hand.length,center:state.center.map(label),hintPaused:tutorialHintPause,ended:state.ended}:null};
+function randomCpuDelay(level){if(battleMode==='tutorial')return 30000+Math.round(Math.random()*9000);let base=delays[level]*(localStorage.getItem("mathspeed-school-mode")==="elementary"?1.5:1);return Math.round(base*(0.8+Math.random()*0.4))}
 const stageRewards=[40,50,60,80,100,120,150,180,220,300];
 function award(winner){let gain=10;if(winner==='player'){let i=state.level;gain=stageRewards[i];if(!profile.defeated.includes(i))profile.defeated.push(i);if(!profile.rewarded.includes(i)){gain+=100;profile.rewarded.push(i)}if(i===9&&!profile.completed){gain+=500;profile.completed=true}}profile.coins+=gain;saveProfile();return gain}
 function vsIntro(callback){vsTimers.forEach(clearTimeout);vsTimers=[];$('vsStage').textContent='STAGE '+(state.level+1)+' / 10';$('vsEnemy').innerHTML=avatarMarkup('e'+state.level);$('vsEnemyName').textContent=names[state.level];$('vsPlayer').innerHTML=avatarMarkup(profile.avatar);$('vsPlayerName').textContent=profile.name;$('vsOverlay').classList.add('show');state.intro=true;vsTimers.push(setTimeout(()=>{$('vsOverlay').classList.remove('show');callback()},1700))}
-function best(){try{return Number(localStorage.getItem(BEST_KEY))||1}catch(e){return 1}}function setBest(n){try{localStorage.setItem(BEST_KEY,String(Math.max(best(),n)))}catch(e){}}function store(silent=false){if(!state||state.ended)return false;try{localStorage.setItem(SAVE_KEY,JSON.stringify({...state,intro:false,paused:true}));savedFlag=true;$('saveStatus').textContent='保存済み：Lv.'+(state.level+1);if(!silent)announce('セーブ完了！ 続きから再開できます。');return true}catch(e){if(!silent)announce('保存できませんでした。ブラウザの保存設定を確認してね。');return false}}function restore(){try{let data=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(!data||!data.player||!data.cpu||!data.center||data.ended){announce('再開できるセーブデータがないよ。');return}chantTimers.forEach(clearTimeout);$('chant').classList.remove('show');$('overlay').classList.remove('show');state=data;battleMode=data.mode||'story';state.intro=false;state.paused=true;state.cpuWait=0;state.cpuTarget=randomCpuDelay(state.level);$('pause').textContent='再開';$('saveStatus').textContent='Lv.'+(state.level+1)+' を読み込みました';render();announce('続きから読み込みました。「再開」を押してスタート！')}catch(e){announce('セーブデータを読み込めませんでした。')}}function clearSave(){try{localStorage.removeItem(SAVE_KEY)}catch(e){}}
+function best(){try{return Number(localStorage.getItem(BEST_KEY))||1}catch(e){return 1}}function setBest(n){try{localStorage.setItem(BEST_KEY,String(Math.max(best(),n)))}catch(e){}}function store(silent=false){if(battleMode==='tutorial'||!state||state.ended)return false;try{localStorage.setItem(SAVE_KEY,JSON.stringify({...state,intro:false,paused:true}));savedFlag=true;$('saveStatus').textContent='保存済み：Lv.'+(state.level+1);if(!silent)announce('セーブ完了！ 続きから再開できます。');return true}catch(e){if(!silent)announce('保存できませんでした。ブラウザの保存設定を確認してね。');return false}}function restore(){try{let data=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(!data||!data.player||!data.cpu||!data.center||data.ended){announce('再開できるセーブデータがないよ。');return}chantTimers.forEach(clearTimeout);$('chant').classList.remove('show');$('overlay').classList.remove('show');state=data;battleMode=data.mode||'story';state.intro=false;state.paused=true;state.cpuWait=0;state.cpuTarget=randomCpuDelay(state.level);$('pause').textContent='再開';$('saveStatus').textContent='Lv.'+(state.level+1)+' を読み込みました';render();announce('続きから読み込みました。「再開」を押してスタート！')}catch(e){announce('セーブデータを読み込めませんでした。')}}function clearSave(){try{localStorage.removeItem(SAVE_KEY)}catch(e){}}
 const value=c=>c.r===0?null:c.r<=10?c.r:c.r-10;const label=c=>c.r===0?'JOKER':(['','A','2','3','4','5','6','7','8','9','10','J','Q','K'][c.r]);const count=who=>state[who].stock.length+state[who].hand.filter(Boolean).length;
 function expressions(op,a,b,target){if(a.r===0||b.r===0)return[];let x=value(a),y=value(b),out=[];function test(u,v,z,sign){if(!Number.isInteger(z)||z<=0)return;if((z%10||10)===target)out.push(`${u} ${sign} ${v} = ${z}`)}if(op==='+')test(x,y,x+y,'+');if(op==='-'){test(x,y,x-y,'−');if(x!==y)test(y,x,y-x,'−')}if(op==='×')test(x,y,x*y,'×');if(op==='÷'){if(x%y===0)test(x,y,x/y,'÷');if(x!==y&&y%x===0)test(y,x,y/x,'÷')}return out}
 function moves(card){if(card.r===0)return[0,1].map(lane=>({lane,op:null,eq:'ジョーカー！'}));let all=[];for(let lane=0;lane<2;lane++){if(state.center[lane].r===0){all.push({lane,op:null,eq:'ジョーカーの上に自由に置ける！'});continue}for(let op of ['+','-','×','÷'])for(let eq of expressions(op,...state.center,value(card)))all.push({lane,op,eq})}return all}
@@ -1002,8 +1079,16 @@ function allMoves(who){return state[who].hand.flatMap((card,index)=>card?moves(c
 function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function cardHtml(c){if(!c)return '<div class="empty">空き</div>';if(c.r===0)return '<span class="rank">JOKER</span><span class="suit">★</span>';let red=c.s===1||c.s===3;return `<span class="rank ${red?'red':''}">${label(c)}</span><span class="suit ${red?'red':''}">${suits[c.s]}</span>`}
 function announce(msg){$('message').textContent=msg}
-function render(){if(!state)return;let s=state;$('stage').textContent='LEVEL '+(s.level+1)+' / 10';$('journey').textContent='第 '+(s.level+1)+' 戦 / 全10戦';$('best').textContent='最高到達 Lv.'+best();$('cpuName').textContent=names[s.level];$('cpuCount').textContent='残り '+count('cpu')+'枚';$('playerCount').textContent='残り '+count('player')+'枚';$('stockCount').textContent='山札 '+s.player.stock.length+'枚・自動補充';$('cpuMeter').style.width=(count('cpu')/26*100)+'%';$('playerMeter').style.width=(count('player')/26*100)+'%';$('timer').textContent=String(Math.floor(s.elapsed/60)).padStart(2,'0')+':'+String(Math.floor(s.elapsed%60)).padStart(2,'0');$('cpuHand').innerHTML=s.cpu.hand.map(c=>`<div class="card ${c?.r===0?'joker':''}">${cardHtml(c)}</div>`).join('');$('playerHand').innerHTML=s.player.hand.map((c,i)=>c?`<button data-hand="${i}" class="card ${c.r===0?'joker':''} ${s.chosen===i?'selected':''} ${s.restartPick?'restartpick':''}">${cardHtml(c)}</button>`:'<div class="card userempty">空き</div>').join('');$('center').innerHTML=s.center.map((c,i)=>s.intro&&!s.centerRevealed?`<button data-lane="${i}" class="card center-facedown" type="button" disabled aria-label="中央のカード（カウントダウン中は裏向き）"><span class="ms-cardback-glyph" aria-hidden="true">⚡</span><span class="ms-cardback-text">MATHSPEED</span></button>`:`<button data-lane="${i}" class="card ${c.r===0?'joker':''} ${s.chosen!==null?'ready':''}">${cardHtml(c)}</button>`).join('');$('ops').innerHTML=['+','-','×','÷'].map((op,i)=>`<button data-op="${op}" class="${s.op===op?'active':''}">${['＋','－','×','÷'][i]}</button>`).join('');$('restartPickBanner').classList.toggle('show',!!s.restartPick);$('centerNote').classList.toggle('stall-alert',!!s.restartPick);$('centerNote').textContent=s.restartPick?'手詰まり！ 自分のカードを1枚選んで再スタート':s.chosen!==null?'③ 中央の置き場所をタップ！':s.op?'選択中：'+s.op:'計算してカードを出そう！'}
-function finish(winner,detail){window.MasSound?.finish(winner);state.ended=true;state.winner=winner;clearSave();let earned=award(winner);window.MasAchievements?.record(winner,state.level,{elapsed:state.elapsed,avatar:profile.avatar,mode:battleMode,lastCard:window.MasAchievements?.lastCard?.(),earned});recordEvolutionBattle();if(winner==='player'){profile.runLevel=Math.max(Number(profile.runLevel)||0,Math.min(10,state.level+1));saveProfile()}else if(battleMode==='story'){saveProfile()}$('victoryScene').hidden=winner!=='player';if(winner==='player'){$('defeatArt').src=defeatImages[state.level];$('defeatQuote').textContent=defeatLines[state.level];setBest(Math.min(10,state.level+2));$('resultTitle').textContent=state.level===9?'🏆 全10ステージ制覇！':'🎉 勝利！ Lv.'+(state.level+1)+'突破';$('resultDetail').textContent=state.level===9?'おめでとう！ 数学教師に勝利！ 🪙 +'+earned+'\n図鑑に最後の手紙が届いた。物語は、まだ終わらない……':detail+' 🪙 +'+earned+'！ 次はLv.'+(state.level+2)+'！';$('again').textContent=battleMode==='free'?'もう一度対戦':state.level===9?'マップに戻る':'次の敵に挑戦'}else{$('resultTitle').textContent=winner==='cpu'?'💥 敗北！':'🤝 手詰まり';$('resultDetail').textContent=detail+' 🪙 +'+earned+'！ 次はレベル1から再挑戦！';$('again').textContent=battleMode==='free'?'もう一度対戦':'レベル1から再挑戦'}$('overlay').classList.add('show');announce(detail);if(winner==='player'&&state.level===9&&battleMode==='story')setTimeout(()=>window.showMathspeedEnding?.(),1100)}
+function render(){if(!state)return;let s=state;$('stage').textContent=battleMode==='tutorial'?'練習試合':'LEVEL '+(s.level+1)+' / 10';$('journey').textContent=battleMode==='tutorial'?'チュートリアル STEP 7':'第 '+(s.level+1)+' 戦 / 全10戦';$('best').textContent='最高到達 Lv.'+best();$('cpuName').textContent=battleMode==='tutorial'?'🟢 計算スライム先生':names[s.level];$('cpuCount').textContent='残り '+count('cpu')+'枚';$('playerCount').textContent='残り '+count('player')+'枚';$('stockCount').textContent='山札 '+s.player.stock.length+'枚・自動補充';$('cpuMeter').style.width=(count('cpu')/26*100)+'%';$('playerMeter').style.width=(count('player')/26*100)+'%';$('timer').textContent=String(Math.floor(s.elapsed/60)).padStart(2,'0')+':'+String(Math.floor(s.elapsed%60)).padStart(2,'0');$('cpuHand').innerHTML=s.cpu.hand.map(c=>`<div class="card ${c?.r===0?'joker':''}">${cardHtml(c)}</div>`).join('');$('playerHand').innerHTML=s.player.hand.map((c,i)=>c?`<button data-hand="${i}" class="card ${c.r===0?'joker':''} ${s.chosen===i?'selected':''} ${s.restartPick?'restartpick':''}">${cardHtml(c)}</button>`:'<div class="card userempty">空き</div>').join('');$('center').innerHTML=s.center.map((c,i)=>s.intro&&!s.centerRevealed?`<button data-lane="${i}" class="card center-facedown" type="button" disabled aria-label="中央のカード（カウントダウン中は裏向き）"><span class="ms-cardback-glyph" aria-hidden="true">⚡</span><span class="ms-cardback-text">MATHSPEED</span></button>`:`<button data-lane="${i}" class="card ${c.r===0?'joker':''} ${s.chosen!==null?'ready':''}">${cardHtml(c)}</button>`).join('');$('ops').innerHTML=['+','-','×','÷'].map((op,i)=>`<button data-op="${op}" class="${s.op===op?'active':''}">${['＋','－','×','÷'][i]}</button>`).join('');$('restartPickBanner').classList.toggle('show',!!s.restartPick);$('centerNote').classList.toggle('stall-alert',!!s.restartPick);$('centerNote').textContent=s.restartPick?'手詰まり！ 自分のカードを1枚選んで再スタート':s.chosen!==null?'③ 中央の置き場所をタップ！':s.op?'選択中：'+s.op:'計算してカードを出そう！'}
+function finish(winner,detail){
+ if(battleMode==='tutorial'){
+  state.ended=true;state.winner=winner;tutorialHintPause=false;
+  window.MasSound?.finish(winner);
+  tutorialButtons(true);
+  tutorialHud(winner==='player'?'🏆 卒業おめでとう！ 本編と同じルールで計算スライムに勝ったよ！':winner==='cpu'?'惜しい！ 計算スライムの勝ち。何度でも練習していいんだよ！':'引き分け！ もう一度チャレンジしよう。');
+  announce(detail);window.MasTutorialBridge?.onFinish?.(winner,detail);return;
+ }
+ window.MasSound?.finish(winner);state.ended=true;state.winner=winner;clearSave();let earned=award(winner);window.MasAchievements?.record(winner,state.level,{elapsed:state.elapsed,avatar:profile.avatar,mode:battleMode,lastCard:window.MasAchievements?.lastCard?.(),earned});recordEvolutionBattle();if(winner==='player'){profile.runLevel=Math.max(Number(profile.runLevel)||0,Math.min(10,state.level+1));saveProfile()}else if(battleMode==='story'){saveProfile()}$('victoryScene').hidden=winner!=='player';if(winner==='player'){$('defeatArt').src=defeatImages[state.level];$('defeatQuote').textContent=defeatLines[state.level];setBest(Math.min(10,state.level+2));$('resultTitle').textContent=state.level===9?'🏆 全10ステージ制覇！':'🎉 勝利！ Lv.'+(state.level+1)+'突破';$('resultDetail').textContent=state.level===9?'おめでとう！ 数学教師に勝利！ 🪙 +'+earned+'\n図鑑に最後の手紙が届いた。物語は、まだ終わらない……':detail+' 🪙 +'+earned+'！ 次はLv.'+(state.level+2)+'！';$('again').textContent=battleMode==='free'?'もう一度対戦':state.level===9?'マップに戻る':'次の敵に挑戦'}else{$('resultTitle').textContent=winner==='cpu'?'💥 敗北！':'🤝 手詰まり';$('resultDetail').textContent=detail+' 🪙 +'+earned+'！ 次はレベル1から再挑戦！';$('again').textContent=battleMode==='free'?'もう一度対戦':'レベル1から再挑戦'}$('overlay').classList.add('show');announce(detail);if(winner==='player'&&state.level===9&&battleMode==='story')setTimeout(()=>window.showMathspeedEnding?.(),1100)}
 function checkEnd(){if(count('player')===0){finish('player','すべてのカードを出し切った！');return true}if(count('cpu')===0){finish('cpu','CPUが先にすべてのカードを出し切った！');return true}return false}
 function chant(restart){window.MasSound?.effect('count');
  chantTimers.forEach(clearTimeout);chantTimers=[];
@@ -1038,8 +1123,8 @@ function restartFromHand(i){
  announce('中央のカードを更新！ マスピード！');render();
  if(!checkEnd()){store(true);chant(true);}
 }
-function play(who,index,lane,move){if(who==='player')window.MasAchievements?.card(move.card||state.player.hand[index],move.op);window.MasSound?.effect(who==='player'?'card':'cpu');let p=state[who],played=move.card||p.hand[index];p.hand[index]=null;state.center[lane]=played;refill(who);if(who==='cpu')state.chosen=null;announce((who==='cpu'?names[state.level]:profile.name)+'：'+move.eq);render();if(!checkEnd()){stall();store(true)}}
-function start(level=0,mode='story'){window.MasAchievements?.newMatch?.();window.MasSound?.scene(level===9?'orch_final':level>=6?'orch_high':level>=3?'orch_mid':'orch_easy');battleMode=mode;chantTimers.forEach(clearTimeout);chantTimers=[];$('chant').classList.remove('show');let deck=[];for(let suit=0;suit<4;suit++)for(let r=1;r<=13;r++)deck.push({r,s:suit});deck.push({r:0,s:4},{r:0,s:5});shuffle(deck);let p=deck.slice(0,27),c=deck.slice(27);let center=[p.pop(),c.pop()];state={player:{hand:p.splice(0,4),stock:p},cpu:{hand:c.splice(0,4),stock:c},center,level:level,mode:mode,op:null,chosen:null,elapsed:0,paused:false,ended:false,cpuWait:0,cpuTarget:randomCpuDelay(level),restartPick:false,intro:true,centerRevealed:false};$('overlay').classList.remove('show');$('pause').textContent='一時停止';announce('準備中…');setBest(level+1);render();store(true);vsIntro(()=>chant(false))}
+function play(who,index,lane,move){if(who==='player'&&battleMode!=='tutorial')window.MasAchievements?.card(move.card||state.player.hand[index],move.op);window.MasSound?.effect(who==='player'?'card':'cpu');let p=state[who],played=move.card||p.hand[index];p.hand[index]=null;state.center[lane]=played;refill(who);if(who==='cpu')state.chosen=null;if(battleMode==='tutorial'&&who==='player'){tutorialHintPause=false;tutorialHintStage=0;tutorialHud('✨ 正解！ '+move.eq+'。中央のカードも更新されたよ。次の計算を探そう！');}announce((who==='cpu'?names[state.level]:profile.name)+'：'+move.eq);render();if(!checkEnd()){stall();store(true)}}
+function start(level=0,mode='story'){if(mode!=='tutorial')window.MasAchievements?.newMatch?.();window.MasSound?.scene(level===9?'orch_final':level>=6?'orch_high':level>=3?'orch_mid':'orch_easy');battleMode=mode;chantTimers.forEach(clearTimeout);chantTimers=[];$('chant').classList.remove('show');let deck=[];for(let suit=0;suit<4;suit++)for(let r=1;r<=13;r++)deck.push({r,s:suit});deck.push({r:0,s:4},{r:0,s:5});shuffle(deck);let p=deck.slice(0,27),c=deck.slice(27);let center=[p.pop(),c.pop()];state={player:{hand:p.splice(0,4),stock:p},cpu:{hand:c.splice(0,4),stock:c},center,level:level,mode:mode,op:null,chosen:null,elapsed:0,paused:false,ended:false,cpuWait:0,cpuTarget:randomCpuDelay(level),restartPick:false,intro:true,centerRevealed:false};$('overlay').classList.remove('show');$('pause').textContent='一時停止';announce('準備中…');if(mode!=='tutorial')setBest(level+1);render();store(true);vsIntro(()=>chant(false))}
 $('ops').addEventListener('click',e=>{let b=e.target.closest('button');if(!b||state.paused||state.ended||state.intro||state.restartPick)return;let ops=['+','-','×','÷'];state.op=ops[['＋','－','×','÷'].indexOf(b.textContent)];state.chosen=null;announce('演算を選択！ 次はカードをタップ。');render()});
 $('playerHand').addEventListener('click',e=>{let b=e.target.closest('[data-hand]');if(!b||state.paused||state.ended||state.intro)return;let i=Number(b.dataset.hand);if(state.restartPick){restartFromHand(i);return}let c=state.player.hand[i],opts=moves(c);if(c.r!==0&&!state.op&&!opts.some(m=>m.op===null)){announce('先に演算を選んでね！');return}if(!opts.some(m=>m.op===null||m.op===state.op)){announce('その演算ではこのカードを出せないよ！');return}state.chosen=i;announce('中央のどちらに置く？ 黄色い山をタップ！');render()});
 $('center').addEventListener('click',e=>{let b=e.target.closest('[data-lane]');if(!b||state.paused||state.ended||state.intro||state.restartPick||state.chosen===null)return;let lane=Number(b.dataset.lane),i=state.chosen,c=state.player.hand[i];if(!c)return;let m=legal(c,state.op,lane)[0];if(!m){announce('その山には出せないよ。別の山か計算を選んでね。');return}state.chosen=null;play('player',i,lane,{...m,card:c})});
@@ -1048,10 +1133,11 @@ $('editProfile').onclick=openProfile;$('openShop').onclick=openShop;$('closeShop
 clock=setInterval(()=>{if(!state||state.paused||state.ended||state.intro)return;if(state.restartPick)return;state.elapsed+=0.1;state.cpuWait+=100;
 // When the player is stuck, avoid making them wait through the full beginner CPU delay.
 // Keep normal difficulty unchanged while the player has a legal move.
+if(battleMode==='tutorial'&&tutorialHintPause)return;
 if(!allMoves('player').length){
  const cpuCanMove=allMoves('cpu').length>0;
  if(!cpuCanMove){stall();return;}
- state.cpuTarget=Math.min(state.cpuTarget,state.cpuWait+1800);
+ state.cpuTarget=Math.min(state.cpuTarget,state.cpuWait+(battleMode==='tutorial'?13000:1800));
 }
 if(state.cpuWait>=state.cpuTarget){state.cpuWait=0;state.cpuTarget=randomCpuDelay(state.level);let m=allMoves('cpu');if(m.length){let pick=m[Math.floor(Math.random()*m.length)];play('cpu',pick.index,pick.lane,pick)}else stall()}if(Math.round(state.elapsed*10)%50===0)store(true);if(Math.round(state.elapsed*10)%5===0)$('timer').textContent=String(Math.floor(state.elapsed/60)).padStart(2,'0')+':'+String(Math.floor(state.elapsed%60)).padStart(2,'0')},100);readProfile();
 function hasSave(){try{let d=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');return !!(d&&d.player&&d.cpu&&d.center&&!d.ended)}catch(e){return false}}
@@ -1093,7 +1179,7 @@ function showPrologue(done){let page=0;const el=$('storyOverlay');el.classList.a
 $('menuNew').onclick=()=>{if(hasSave()&&!confirm('現在の10人抜きの進行をレベル1からやり直しますか？\n※コイン・購入済みアバター・撃破記録は消えません。'))return;clearSave();state=null;profile.runLevel=0;profile.forceNewRun=true;saveProfile();hideMenu();showPrologue(()=>{if(!localStorage.getItem(PROFILE_KEY)){openProfile()}else showWorld()})};
 $('menuContinue').onclick=()=>{if(!hasSave()){refreshMenu();return}hideMenu();restore()};
 $('menuShop').onclick=()=>{window.MasSound?.scene('title');menuShopOpen=true;openShop()};$('menuSoundTest').onclick=()=>{$('titleSettingsOverlay').hidden=false};
-$('menuBack').onclick=showMenu;$('battleMap').onclick=()=>{if(state&&!state.ended){state.paused=true;store(true)}showWorld()};
+$('menuBack').onclick=()=>battleMode==='tutorial'?tutorialQuit():showMenu();$('battleMap').onclick=()=>{if(battleMode==='tutorial'){tutorialQuit();return}if(state&&!state.ended){state.paused=true;store(true)}showWorld()};
 
 // Ver.10.1 -- additional in-game cosmetic gacha (uses the existing profile coins).
 function msApplyGachaStyle(){
@@ -1636,127 +1722,28 @@ function tutorMove(a,b,operation,value){
   const e=tutorExpression(a,b,operation);
   return e&&tutorValue(e.raw)===Number(value)?e:null;
 }
-let match=null, cpuTimer=null, cpuGeneration=0;
-const OPS=['＋','−','×','÷'];
-function cancelCpu(){cpuGeneration++;if(cpuTimer!==null){clearTimeout(cpuTimer);cpuTimer=null;}}
-function tutorLegal(center,hand){
- const found=[];
- for(let k=0;k<hand.length;k++){
-  const value=hand[k];
-  if(value==='JOKER'){found.push({index:k,value,operation:'★',formula:'ジョーカー',raw:null});continue;}
-  if(center.includes('JOKER')){found.push({index:k,value,operation:'★',formula:'ジョーカーの上',raw:null});continue;}
-  for(const operation of OPS){const r=tutorMove(center[0],center[1],operation,value);if(r)found.push({index:k,value,operation,...r});}
- }
- return found;
-}
-function tutorDeal(){return [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,'JOKER'].sort(()=>Math.random()-.5);}
-function tutorFill(hand,deck){while(hand.length<8&&deck.length)hand.push(deck.pop());}
-function startTutorMatch(){
- cancelCpu();const a=tutorDeal(),b=tutorDeal();
- match={center:[3,4],hand:[],cpu:[],deck:a,cpuDeck:b,played:0,cpuPlayed:0,finished:false,log:[],pausedUntil:0,started:false};
- tutorFill(match.hand,match.deck);tutorFill(match.cpu,match.cpuDeck);
- op='';picked=null;hint=0;practice=0;opp=0;gameFinished=false;
-}
-function tutorEnd(winner){
- if(!match||match.finished)return;
- match.finished=true;gameFinished=true;cancelCpu();renderMatch();
- say(winner==='player'?'🏆 卒業おめでとう！ 計算スライムとの本格対戦に勝ったよ！':'スライム先生の勝ち！ 大丈夫、何度でも再挑戦できるよ！');
-}
-function tutorMovesFor(who){return tutorLegal(match.center,who==='cpu'?match.cpu:match.hand);}
-function tutorCheckEnd(){
- if(!match.hand.length&&!match.deck.length){tutorEnd('player');return true;}
- if(!match.cpu.length&&!match.cpuDeck.length){tutorEnd('cpu');return true;}
- return false;
-}
-function tutorPlay(who,index,pile,operation){
- if(!match||match.finished||!match.started)return false;
- const hand=who==='cpu'?match.cpu:match.hand,deck=who==='cpu'?match.cpuDeck:match.deck;
- const v=hand[index];if(v===undefined)return false;
- const move=tutorLegal(match.center,hand).find(m=>m.index===index&&m.operation===operation);
- if(!move)return false;
- const old=match.center.slice();match.center[pile]=v;
- hand.splice(index,1);tutorFill(hand,deck);
- if(who==='cpu')match.cpuPlayed++;else match.played++;
- const msg=move.raw===null?`${who==='cpu'?'スライム':'あなた'}：${v==='JOKER'?'ジョーカーを出した！':'ジョーカーの上に '+v+' を出した！'}`:`${who==='cpu'?'スライム':'あなた'}：${move.formula}＝${move.raw} → ${v} を出した！`;
- match.log.unshift(msg);match.log=match.log.slice(0,4);
- if(who==='player'){op='';picked=null;hint=0;match.pausedUntil=Date.now()+1800;}
- if(tutorCheckEnd())return true;
- renderMatch();say(msg);scheduleCpu();return true;
-}
-function tutorRefresh(){
- if(!match||match.finished)return;
- if(tutorMovesFor('player').length||tutorMovesFor('cpu').length){say('まだ出せるカードがあるよ。計算を探してみよう！');return;}
- const pool=[1,2,3,4,5,6,7,8,9,10];let pair=null;
- for(let k=0;k<120;k++){
-  const candidate=[pool[Math.floor(Math.random()*10)],pool[Math.floor(Math.random()*10)]];
-  if(tutorLegal(candidate,match.hand).length||tutorLegal(candidate,match.cpu).length){pair=candidate;break;}
- }
- match.center=pair||[3,4];op='';picked=null;hint=0;
- renderMatch();say('手詰まり！ 中央の2枚を新しくしたよ。マスピード！');scheduleCpu();
-}
-function scheduleCpu(){
- cancelCpu();if(!match||!match.started||match.finished)return;
- const token=cpuGeneration;
- cpuTimer=setTimeout(()=>{
-  cpuTimer=null;
-  if(token!==cpuGeneration||!match||match.finished||!match.started)return;
-  if(root.getClientRects().length===0){scheduleCpu();return;}
-  if(Date.now()<match.pausedUntil){scheduleCpu();return;}
-  const moves=tutorMovesFor('cpu');
-  if(moves.length){const m=moves[Math.floor(Math.random()*moves.length)];tutorPlay('cpu',m.index,Math.floor(Math.random()*2),m.operation);}
-  else scheduleCpu();
- },3600);
-}
+// STEP 7 does not implement any card rules. It launches the EXACT normal CPU engine.
+let match=null;
+function cancelCpu(){} // STEP navigation retained without timers in the help modal.
 function renderMatch(){
- if(!match)startTutorMatch();
- const c=$('mtContent');c.replaceChildren();
- const acts=$('mtActions');acts.replaceChildren();
- if(match.finished){
-  talk(match.hand.length===0&&!match.deck.length?'卒業おめでとう！ もう一人でマスピードを遊べるね！':'惜しかったね！ 次はもっと上手にできるよ！');
-  text(c,match.hand.length===0&&!match.deck.length?'🏆 チュートリアル卒業！':'計算スライムの勝ち！','mt-finish');
-  text(c,`あなたが出したカード：${match.played}枚　スライム：${match.cpuPlayed}枚`,'mt-message');
-  acts.append(btn('↻ もう一度対戦',()=>{startTutorMatch();renderMatch();}));return;
- }
- talk(match.started?'本番と同じ計算で勝負！ 困ったらヒントを押してね。':'いよいよ卒業試合！ ぼくもカードを出すよ。焦らず計算してみよう！');
- const board=area(c,'mt-board');
- text(board,`🟢 計算スライム　手札 ${match.cpu.length}枚 / 山札 ${match.cpuDeck.length}枚`,'mt-score');
- const enemy=line(board);match.cpu.forEach(v=>{const el=card(v,()=>say('これはスライム先生のカードだよ！'));el.disabled=true;el.classList.add('mt-enemy-card');enemy.append(el);});
- text(board,'中央の2つの山（出す先を選ぼう）');
- const center=line(board);
- match.center.forEach((v,i)=>center.append(card(v,()=>{
-  if(!match.started){say('「試合開始」を押してね！');return;}
-  if(picked===null){say('まず自分のカードを選ぼう！');return;}
-  const value=match.hand[picked];
-  const available=tutorLegal(match.center,match.hand).filter(m=>m.index===picked);
-  const chosen=available.find(m=>m.operation===op)||available[0];
-  if(!chosen){say('そのカードは今は出せないよ。ほかの計算を試してみよう！');return;}
-  tutorPlay('player',picked,i,chosen.operation);
- })));
- text(board,`🔵 あなた　手札 ${match.hand.length}枚 / 山札 ${match.deck.length}枚`,'mt-score');
- text(board,'① 計算を選ぶ（分からなければカードを先に選んでもOK）');
- const ops=area(board,'mt-ops');OPS.forEach(v=>{const x=btn(v,()=>{op=v;renderMatch();say(`「${v}」で計算してみよう！`);});if(op===v)x.classList.add('sel');ops.append(x);});
- text(board,'② 自分のカードを選ぶ → ③ 中央の好きな山をタップ');
- const hand=line(board);match.hand.forEach((v,i)=>{const x=card(v,()=>{
-  if(!match.started){say('先に「試合開始」を押してね！');return;}
-  picked=i;const possible=tutorLegal(match.center,match.hand).filter(m=>m.index===i);
-  renderMatch();say(possible.length?`${v} を選んだよ！ 中央の山をタップしよう。`:'そのカードはまだ出せないみたい。ほかのカードも見てみよう！');
- });if(picked===i)x.classList.add('sel');hand.append(x);});
- if(match.log.length)text(board,'直前のプレイ：'+match.log[0],'mt-tiny');
- if(!match.started){acts.append(btn('▶ マスピード！ 試合開始',()=>{match.started=true;match.pausedUntil=Date.now()+2400;renderMatch();say('スタート！ まずは中央の2枚を計算しよう！');scheduleCpu();},'mt-next'));}
- else{
-  if(!tutorMovesFor('player').length&&!tutorMovesFor('cpu').length)acts.append(btn('🔄 手詰まり：中央を更新',tutorRefresh,'mt-next'));
-  acts.append(btn('💡 3段階ヒント',()=>{
-   const moves=tutorMovesFor('player');hint=hint%3+1;match.pausedUntil=Date.now()+10000;scheduleCpu();
-   if(!moves.length){say('今は出せるカードがないね。スライム先生の手も止まるまで待ってみよう！');return;}
-   const m=moves[0];
-   say([`中央は ${match.center.join(' と ')}。何の計算ができるかな？`,
-     `「${m.operation}」を考えてみよう！`,
-     m.raw===null?`${m.value} はジョーカーのルールで出せるよ！`:`${m.formula}＝${m.raw}！ ${m.value} を選んで中央に出そう！`][hint-1]);
-  }));
- }
- acts.append(btn('↻ 最初から対戦',()=>{startTutorMatch();renderMatch();}));
- if(!match.started)say('準備ができたら「試合開始」を押してね！');
+ const c=$('mtContent');c.replaceChildren();const acts=$('mtActions');acts.replaceChildren();
+ talk('最後は、本物のマスピードの画面でぼくと勝負！ 4枚の手札と自動補充、ジョーカーも本編と同じだよ。');
+ const b=area(c,'mt-board');
+ text(b,'🎓 卒業試合：計算スライム先生','mt-score');
+ text(b,'この練習試合は本編のCPU戦そのもの。手札4枚、中央の山2つ、山札自動補充、手詰まり処理まで全部同じ！','mt-message');
+ text(b,'相手の計算はゆっくり（約30〜39秒）。ヒントは3段階で、ヒントを見ている間は相手が動かないよ。','mt-tiny');
+ text(b,'勝敗・コイン・トロフィー・冒険のセーブデータには影響しないよ。','mt-tiny');
+ acts.append(btn('⚔️ 本物の対戦画面で練習開始',()=>{
+  if(!window.MasTutorialEngine){say('対戦画面を準備できませんでした。ページを再読み込みしてね。');return;}
+  window.MasTutorialEngine.start();
+ },'mt-next'));
+ if(gameFinished)text(b,'前の練習試合は終了！ 次も自分のペースで挑戦しよう。','mt-tiny');
+ say('「練習開始」を押すと本編と同じ対戦画面に移動するよ。');
 }
+window.MasTutorialBridge={
+ onFinish(winner){gameFinished=true;},
+ onReturn(){if(step===6)renderMatch();}
+};
 // Reset when opening the tab, but retain current lesson during tab switches.
 render();
 })();
