@@ -434,13 +434,22 @@ function stopBattle(){
  gameState=null;selectedCard=null;selectedOp=null;localGameVersion=-1;localRound=-1;lastRenderedInputEnabled=null;lastBattleViewKey=null;resultDismissedKey=null;show('battleResult',false);
  show('battle',false);show('battleIntro',false);show('lobby',true);
 }
+function msRecordActualRematch(){
+ try{
+  const key='mathspeed-v10-trophy-stats',st=JSON.parse(localStorage.getItem(key)||'{}')||{};
+  st.flags={...(st.flags||{}),onlinerematch:1};localStorage.setItem(key,JSON.stringify(st));
+  const k='mathspeed-v7-achievements',a=JSON.parse(localStorage.getItem(k)||'{}')||{};
+  a.unlocked=[...new Set([...(Array.isArray(a.unlocked)?a.unlocked:[]),'onlinerematch'])];
+  localStorage.setItem(k,JSON.stringify(a));
+ }catch(e){console.warn('Rematch trophy record:',e)}
+}
 function watchBattle(){
  if(!roomCode||gameRef)return;
  gameRef=firebase.database().ref('games/'+roomCode);
  gameRef.on('value',snap=>{
   const next=snap.val();
   if(next){
-   if(gameState&&next.initialAt!==gameState.initialAt){selectedCard=null;selectedOp=null;resultDismissedKey=null;log('🃏 新しい対戦データを受信しました')}
+   if(gameState&&next.initialAt!==gameState.initialAt){if(gameState.status==='finished'&&next.status==='playing'&&gameState.hostUid===next.hostUid&&gameState.guestUid===next.guestUid)msRecordActualRematch();selectedCard=null;selectedOp=null;resultDismissedKey=null;log('🃏 新しい対戦データを受信しました')}
    if(next.round!==localRound){selectedCard=null;selectedOp=null;localRound=next.round??0}
    else if(next.version!==localGameVersion&&next.lastActor&&next.lastActor!==(isHost?'host':'guest'))selectedCard=null;
    localGameVersion=next.version??-1;
@@ -688,8 +697,19 @@ function msCoinRewardOnline(g){
  ledger.push({id:unique,date:today,opponent:otherUid,gain,reason});
  data.onlineCoinLedger=ledger.slice(-250);
  data.coins=Math.max(0,Math.floor(Number(data.coins)||0))+gain;
- try{localStorage.setItem(PROFILE_KEY,JSON.stringify(data));return {gain,status:reason,wallet:data.coins}}
- catch{return {gain:0,status:'報酬を保存できませんでした（ブラウザの保存設定を確認）'}}
+ try{
+  localStorage.setItem(PROFILE_KEY,JSON.stringify(data));
+  if(gain>0)try{
+   const k='mathspeed-v10-trophy-stats',st=JSON.parse(localStorage.getItem(k)||'{}')||{};
+   // If this is the first upgraded online fight, import old ledger and current reward in one pass.
+   if(!st.onlineEarnedMigrated){
+    st.onlineEarned=(Number(st.onlineEarned)||0)+ledger.reduce((n,x)=>n+Math.max(0,Number(x?.gain)||0),0);
+    st.onlineEarnedMigrated=true;
+   }else st.onlineEarned=(Number(st.onlineEarned)||0)+gain;
+   localStorage.setItem(k,JSON.stringify(st));
+  }catch(err){console.warn('Online earned trophy:',err)}
+  return {gain,status:reason,wallet:data.coins};
+ }catch{return {gain:0,status:'報酬を保存できませんでした（ブラウザの保存設定を確認）'}}
 }
 
 
@@ -859,7 +879,7 @@ async function requestRematch(){
   if(!prior||prior.uid!==uid||roomCode!==code||!gameState||gameState.initialAt!==matchId)throw Error('参加者情報が変わりました。ページを開き直してね。');
   // Do not change game data here; the other player's explicit vote is required.
   await ref.update({rematchFor:matchId});
-  try{const s=JSON.parse(localStorage.getItem('mathspeed-v10-trophy-stats')||'{}');s.flags={...(s.flags||{}),onlinerematch:1};localStorage.setItem('mathspeed-v10-trophy-stats',JSON.stringify(s));const a=JSON.parse(localStorage.getItem('mathspeed-v7-achievements')||'{}');a.unlocked=[...new Set([...(a.unlocked||[]),'onlinerematch'])];localStorage.setItem('mathspeed-v7-achievements',JSON.stringify(a));}catch(e){}
+  // No trophy here: the opponent still has to accept and the next match must start.
   log('🔄 再戦希望を送信（'+(isHost?'ホスト':'ゲスト')+'）');
  }catch(e){error(e,'再戦希望')}finally{rematchBusy=false;if(gameState&&gameState.status==='finished')renderBattle()}
 }
