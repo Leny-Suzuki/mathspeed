@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>マスピード 3〜4人通信対戦 β0.4</title>
+<title>マスピード 3〜4人通信対戦 β0.5</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} 
 /* Ver.10.12.20: use the established card/operation/center selection pattern. */
@@ -190,10 +190,20 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
 @keyframes msMultiEntry{from{transform:scale(.68) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
 @keyframes msMultiSpark{from{opacity:.38;transform:translateY(5px)}to{opacity:1;transform:translateY(-5px)}}
 @media(prefers-reduced-motion:reduce){#multiRankOverlay .rank-panel,#multiRankOverlay .rank-panel:before{animation:none}}
+/* β0.5: game controls, action feedback and mobile tap optimization */
+.multi-back{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#284b80;border:1.5px solid #f1cf77;border-radius:10px;padding:9px 13px;color:#fff4ce;min-height:42px;font-weight:850;touch-action:manipulation}
+.multi-top-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 10px}
+.multi-audio{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:12px 0 6px;padding:9px 10px;background:#0e1934;border:1px solid #7f96c1;border-radius:12px}
+.multi-audio .btn{min-height:39px;padding:8px 12px;font-size:.92rem}
+.multi-audio button[aria-pressed="true"]{background:#276451;border-color:#90f2bc;color:#fff}
+.multi-audio .tiny-note{margin:0;font-size:.78rem}
+.table-card,.op-buttons button,.multi-back{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.table-card:active:not(:disabled),.op-buttons button:active:not(:disabled){filter:brightness(1.15)}
+@media(max-width:460px){.multi-top-nav{gap:6px}.multi-back{padding:8px 10px;font-size:.88rem}.multi-audio{gap:6px}.multi-audio .tiny-note{font-size:.7rem}}
 </style></head><body>
 <main class="multi-wrap">
-<header><h1>⚡ マスピード <span style="color:#ffe38c">3〜4人通信対戦</span></h1><span class="mode-tag">開発中 β0.4</span></header>
-<p class="tiny-note">既存2人戦のカード・演算・アバター装備を共用。<a class="topLink" href="./security-test.html">← 2人対戦へ戻る</a></p>
+<header><h1>⚡ マスピード <span style="color:#ffe38c">3〜4人通信対戦</span></h1><span class="mode-tag">開発中 β0.5</span></header>
+<div class="multi-top-nav"><span class="tiny-note">既存2人戦のカード・演算・アバター装備を共用。</span><a class="multi-back" id="backToMathspeed" href="./index.html">🏠 マスピードに戻る</a><a class="topLink" href="./security-test.html">← 2人対戦へ</a></div>
 <div id="loading" class="battle-status">⏳ Firebase匿名ログイン中…</div><p id="connection" class="tiny-note">接続待ち</p>
 <div id="message" class="hidden" role="status" aria-live="polite"></div>
 <section id="home">
@@ -212,6 +222,7 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
 </section>
 <section id="battle" class="hidden">
  <div class="battle-topline"><h2 id="battleHeading">3〜4人通信対戦</h2><span class="clock" id="statusBar">対戦準備中…</span></div>
+  <div class="multi-audio" aria-label="サウンド設定"><button id="multiBgm" type="button" class="btn" aria-pressed="true">🎵 BGM ON</button><button id="multiSe" type="button" class="btn" aria-pressed="true">🔊 効果音 ON</button><span class="tiny-note">疾走感のあるオリジナルBGM／音量は端末で調整</span></div>
  <div class="battle-status" id="lastMove">計算してカードを出そう！</div>
  <div class="battle-field"><div class="seat-grid">
   <div class="seat seat-top" id="seat-top"><img alt="奥のプレイヤー"><div class="seat-label">奥</div><div class="seat-count">残り26枚</div><div class="remaining-track"><div class="remaining-fill"></div></div><span class="msCardBadge">⚡</span></div>
@@ -223,10 +234,10 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
  <div class="section-panel battle-controls"><p class="step-title">① 演算を選ぶ（ジョーカーなら不要）</p><div class="op-buttons" id="ops"><button data-op="+">＋</button><button data-op="-">－</button><button data-op="×">×</button><button data-op="÷">÷</button></div>
  <p class="step-title">② 自分のカード → ③ 中央の山を選ぶ</p><div id="stallPickGuide" class="hidden" role="status"></div><div id="hand" class="hand-cards"></div>
  <p id="stockCount" class="tiny-note">山札を自動補充</p><div id="calc" class="battle-message" role="status">演算を選んでね！</div>
- <div class="battle-actions"><button id="hint" class="btn">💡 ヒント</button><button id="cancel" class="btn">選択解除</button></div></div>
- <div id="result" class="hidden"><h2 id="resultText">対戦終了！</h2><p id="ranking"></p><div class="battle-actions"><button id="rematch" class="btn gold">🔁 もう一度対戦</button><span id="voteInfo">再戦希望 0人</span></div></div>
+ <div class="battle-actions"><button id="hint" class="btn">💡 ヒント</button><button id="cancel" class="btn">選択解除</button><a class="multi-back" href="./index.html" data-multi-back>🏠 マスピードに戻る</a></div></div>
+ <div id="result" class="hidden"><h2 id="resultText">対戦終了！</h2><p id="ranking"></p><div class="battle-actions"><button id="rematch" class="btn gold">🔁 もう一度対戦</button><a class="multi-back" href="./index.html" data-multi-back>🏠 マスピードに戻る</a><span id="voteInfo">再戦希望 0人</span></div></div>
  <p class="game-note">全員手詰まり：各自の山札から1枚ずつ候補を消費 → ホストの抽選で2枚を中央に配置 → 選ばれなかったカードも破棄。山札が空なら手札から候補を出すよ。抽選・カードを出す操作はFirebase上で1回だけ確定する。</p>
- <p class="game-note">※ 通信対戦のテスト版。勝敗の順位を確定すると本編プロフィールにマスコインを付与します。報酬は端末内保存のため、ブラウザ変更・データ削除時は保証されません。実績にはまだ連動しません。</p>
+ <p class="game-note">※ 通信対戦のテスト版。順位と人数に応じて本編プロフィールにマスコインを付与します。報酬は端末内保存のため、ブラウザ変更・データ削除時は保証されません。実績にはまだ連動しません。</p>
  </section>
 </main>
 <div id="multiRankOverlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="rankHeading">
@@ -301,12 +312,110 @@ window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars:avatars,catalog,allBa
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-<script>/* マスピード 3〜4人通信対戦 β0.4 / independent from 2P production data.
+<script>/* マスピード 3〜4人通信対戦 β0.5 / independent from 2P production data.
    Every game write uses RTDB transactions; local simulation is exported for tests. */
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const CONFIG={apiKey:'AIzaSyDECW6ejXkBFg0DtutqO2u65yZOmy--Tas',authDomain:'mathspeed-security-test.firebaseapp.com',databaseURL:'https://mathspeed-security-test-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-security-test',appId:'1:982844628630:web:048eae2c2e51ed9094acb7'};
-const MODES=['+','-','×','÷'],SYMBOLS=['♠','♥','♦','♣'],TEXT=['JOKER','A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+// β0.5: ORIGINAL fast-paced 8-bit arcade score, synthesised locally with Web Audio.
+// A user gesture unlocks audio; no external streams, no audio files and no UI audio permissions.
+const MULTI_AUDIO=(()=>{
+ const storeKey='mathspeed-multi-audio-v1';
+ const pref=(()=>{try{return JSON.parse(localStorage.getItem(storeKey)||'null')||{bgm:true,se:true}}catch(e){return {bgm:true,se:true}}})();
+ let bgm=pref.bgm!==false,se=pref.se!==false;
+ let ctx=null,musicBus=null,fxBus=null,noiseBuffer=null,nextTime=0,step=0;
+ let lastCountKey='',lastCountValue=-99,lastFxAt=0;
+ const AC=window.AudioContext||window.webkitAudioContext;
+ const midi=n=>440*Math.pow(2,(n-69)/12);
+ // Eight bars of an ORIGINAL melody; moving eighth-note melody + sixteenth-note percussion.
+ const lead=[76,79,83,79,88,83,79,76,74,79,83,86,83,79,74,71,
+             76,81,84,81,88,84,81,76,74,77,81,84,86,84,81,77,
+             79,83,86,83,91,86,83,79,77,81,84,81,88,84,81,77,
+             76,79,83,79,86,83,79,74,71,74,79,83,81,79,76,74];
+ const bass=[40,40,43,43,45,45,38,38,40,40,43,43,45,47,43,38];
+ function ensure(){
+  if(!AC)return null;
+  if(ctx)return ctx;
+  try{ctx=new AC({latencyHint:'interactive'});musicBus=ctx.createGain();fxBus=ctx.createGain();
+    musicBus.gain.value=bgm ? 0.28 : 0;fxBus.gain.value=.36;
+    musicBus.connect(ctx.destination);fxBus.connect(ctx.destination);
+    noiseBuffer=ctx.createBuffer(1,4096,ctx.sampleRate);
+    const data=noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
+  }catch(e){ctx=null;return null}return ctx;
+ }
+ function unlock(){const c=ensure();if(c&&c.state==='suspended')c.resume().catch(()=>{});return c}
+ function wave(f,t,d,shape,volume,bus,slide=0){
+  if(!ctx||!bus||!Number.isFinite(f)||f<=0)return;
+  const osc=ctx.createOscillator(),env=ctx.createGain();osc.type=shape;
+  osc.frequency.setValueAtTime(f,t);
+  if(slide)osc.frequency.exponentialRampToValueAtTime(Math.max(25,f*slide),t+d);
+  env.gain.setValueAtTime(.0001,t);
+  env.gain.exponentialRampToValueAtTime(Math.max(.0002,volume),t+.008);
+  env.gain.exponentialRampToValueAtTime(.0001,t+d);
+  osc.connect(env).connect(bus);osc.start(t);osc.stop(t+d+.012);
+ }
+ function noise(t,d,volume,cutoff,kind='highpass'){
+  if(!ctx||!noiseBuffer)return;
+  const src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),env=ctx.createGain();
+  src.buffer=noiseBuffer;f.type=kind;f.frequency.setValueAtTime(cutoff,t);
+  env.gain.setValueAtTime(volume,t);env.gain.exponentialRampToValueAtTime(.0001,t+d);
+  src.connect(f).connect(env).connect(musicBus);
+  src.start(t);src.stop(t+d+.012);
+ }
+ const duration=60/164/4;
+ function sequence(t,n){
+  if(n%2===0){const note=lead[(n/2)%lead.length];wave(midi(note),t,duration*1.55,'square',.095,musicBus)}
+  if(n%4===0){wave(midi(bass[Math.floor(n/4)%bass.length]),t,duration*3.2,'sawtooth',.086,musicBus);wave(118,t,.095,'sine',.10,musicBus,.35)}
+  if(n%8===4)noise(t,.11,.17,1800,'bandpass');
+  if(n%2===0)noise(t,.036,.05,5800);
+  if(n%16===14)wave(midi(88),t,duration*1.4,'triangle',.05,musicBus);
+ }
+ function update(playing){
+  if(!bgm||!playing||!ctx||ctx.state!=='running'){nextTime=0;return}
+  if(nextTime===0||nextTime<ctx.currentTime-.25)nextTime=ctx.currentTime+.025;
+  let loops=0;
+  while(nextTime<ctx.currentTime+.16&&loops++<6){sequence(nextTime,step++);nextTime+=duration}
+ }
+ function fx(kind){
+  if(!se)return;
+  const c=unlock();if(!c||c.state!=='running')return;
+  const t=c.currentTime+.008;
+  if(['tap','card'].includes(kind)&&t-lastFxAt<.048)return;
+  lastFxAt=t;
+  if(kind==='tap')wave(690,t,.055,'square',.065,fxBus,.76);
+  else if(kind==='card')wave(520,t,.072,'triangle',.11,fxBus,1.4);
+  else if(kind==='place'){wave(740,t,.11,'square',.15,fxBus,1.3);wave(1000,t+.065,.10,'triangle',.14,fxBus)}
+  else if(kind==='error')wave(210,t,.19,'sawtooth',.16,fxBus,.65);
+  else if(kind==='ready'){wave(660,t,.11,'triangle',.13,fxBus);wave(880,t+.12,.16,'triangle',.15,fxBus)}
+  else if(kind==='count')wave(660,t,.11,'square',.12,fxBus);
+  else if(kind==='go'){wave(784,t,.12,'square',.15,fxBus);wave(1047,t+.13,.19,'square',.14,fxBus)}
+  else if(kind==='stall'){wave(440,t,.13,'sawtooth',.11,fxBus);wave(587,t+.15,.15,'square',.14,fxBus)}
+  else if(kind==='victory'){[784,988,1175,1568].forEach((f,i)=>wave(f,t+i*.095,.21,'triangle',.17,fxBus))}
+  else if(kind==='defeat'){[523,440,349].forEach((f,i)=>wave(f,t+i*.12,.24,'triangle',.15,fxBus))}
+ }
+ function syncCountdown(g){
+  if(!g||g.status!=='playing')return;
+  const key=String(g.startedAt)+':'+String(g.round);
+  if(key!==lastCountKey){lastCountKey=key;lastCountValue=-99;}
+  const left=Math.max(0,Math.ceil((g.startAt-nserver())/1000));
+  if(left!==lastCountValue){lastCountValue=left;if(left>=1&&left<=3)fx('count');else if(left===0)fx('go')}
+ }
+ function toggles(){
+  const b=$('multiBgm'),e=$('multiSe');if(!b||!e)return;
+  b.textContent=bgm?'🎵 BGM ON':'🎵 BGM OFF';b.setAttribute('aria-pressed',String(bgm));
+  e.textContent=se?'🔊 効果音 ON':'🔇 効果音 OFF';e.setAttribute('aria-pressed',String(se));
+ }
+ function set(which){
+  unlock();if(which==='bgm'){bgm=!bgm;nextTime=0;if(musicBus&&ctx)musicBus.gain.setTargetAtTime(bgm ? 0.28 : 0,ctx.currentTime,.025)}
+  else se=!se;
+  try{localStorage.setItem(storeKey,JSON.stringify({bgm,se}))}catch(e){}
+  toggles();if(se)fx('tap');
+ }
+ function reset(){nextTime=0;lastCountKey='';lastCountValue=-99}
+ return {unlock,update,fx,syncCountdown,toggles,set,reset,enabled:()=>({bgm,se})};
+})();
+
+ const MODES=['+','-','×','÷'],SYMBOLS=['♠','♥','♦','♣'],TEXT=['JOKER','A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 const $show=(id,on)=>$(id).classList.toggle('hidden',!on);
 const readJSON=(k,d={})=>{try{return JSON.parse(localStorage.getItem(k)||'null')||d}catch(e){return d}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -437,11 +546,13 @@ function profile(){const p=readJSON('mathspeed-v4-profile'),v=readJSON('mathspee
 function packAvatar(id){const e=COS.load().equipped;return `${id}~${e.back}~${e.frame}`}
 let uid='',roomCode='',seatIndex=-1,host=false,capacity=4,offset=0,meta=null,seats={},game=null;
 let metaRef=null,seatsRef=null,gameRef=null,busy=false,busyStall=false,busyRematch=false,chosenOp=null,chosenIndex=null,statusInfo='',lastView='',lastRound=-1;
-let timer=null,matchView=false,lastActivePhase=null,shownResultKey='',rewardNotice='';
-const PRIZE=[150,100,60,30];
+let timer=null,matchView=false,lastActivePhase=null,shownResultKey='',rewardNotice='',pendingMove=0;
+// 3人戦より4人戦を高報酬にする。2人戦は従来仕様を変更しない。
+ const PRIZES={3:[120,80,40],4:[150,100,60,30]};
+ const prizeFor=(players,place)=>PRIZES[players]?.[place-1]||0;
 function awardRank(g){
  const pos=(g.placements||[]).indexOf(uid);if(pos<0)return '';
- const amount=PRIZE[pos]||0,claimKey=`${roomCode}:${g.startedAt}:${uid}`;
+ const amount=prizeFor(g.ids.length,pos+1),claimKey=`${roomCode}:${g.startedAt}:${uid}`;
  try{
   const k='mathspeed-v4-profile';const p=readJSON(k,{});
   const paid=Array.isArray(p.claimedMultiRewards)?p.claimedMultiRewards:[];
@@ -453,6 +564,7 @@ function awardRank(g){
  return rewardNotice;
 }
 function celebrateRank(g){
+ if(pendingMove>0)return; // do not grant rewards for local provisional snapshots
  const pos=(g.placements||[]).indexOf(uid);if(pos<0)return;
  const key=`${roomCode}:${g.startedAt}:${pos}`;
  awardRank(g);
@@ -469,11 +581,7 @@ function celebrateRank(g){
  $('rankContinue').textContent=g.status==='finished'?'結果画面を見る':'ほかのプレイヤーを観戦する';
  playRankSound(pos===0);
 }
-function playRankSound(won){
- try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C();const notes=won?[523,659,784,1047]:[392,330,262];
- notes.forEach((f,i)=>{const o=ctx.createOscillator(),a=ctx.createGain(),t=ctx.currentTime+i*.13;o.type='triangle';o.frequency.setValueAtTime(f,t);a.gain.setValueAtTime(.0001,t);a.gain.exponentialRampToValueAtTime(.09,t+.02);a.gain.exponentialRampToValueAtTime(.0001,t+.25);o.connect(a).connect(ctx.destination);o.start(t);o.stop(t+.27)});setTimeout(()=>ctx.close().catch(()=>{}),1000);
- }catch(e){}
-}
+function playRankSound(won){MULTI_AUDIO.fx(won?'victory':'defeat')}
 const setMsg=s=>{$('message').textContent=s;$show('message',!!s)};
 const report=(e,place)=>{console.error('[multi]',place,e);setMsg(`⚠️ ${place}：${e?.code||''} ${e?.message||e}`)};
 const isInside=()=>roomCode&&seatIndex>=0;
@@ -485,7 +593,7 @@ const sideOrder=()=>{
  return {top:others[0],left:others[1],right:others[2],bottom:mySeat()};
 };
 function showArea(where){for(const x of ['home','lobby','battle'])$show(x,x===where);matchView=where==='battle'}
-function paintAvatar(box,data){const p=avatarParsed(data?.avatar);const img=box.querySelector('img');img.src=avatarSrc(data?.avatar);img.dataset.msFrame=p.frame;
+function paintAvatar(box,data){const p=avatarParsed(data?.avatar);const img=box.querySelector('img');const avatarKey=String(data?.avatar||'');if(img.dataset.avatarKey!==avatarKey){img.src=avatarSrc(data?.avatar);img.dataset.avatarKey=avatarKey}img.dataset.msFrame=p.frame;
  img.onerror=()=>{img.onerror=null;img.src=avatarSrc('s0')};
  box.querySelector('.msCardBadge').dataset.msBack=p.back;box.querySelector('.msCardBadge').textContent=backIcon(p.back);
  box.querySelector('.seat-label').textContent=data?.name||'参加待ち';
@@ -501,18 +609,18 @@ function localCosPreview(){const avatar=$('avatar').value;const packed=packAvata
 function initProfile(){const p=profile();$('nickname').value=p.name;$('avatar').replaceChildren();p.opts.forEach(x=>{const o=document.createElement('option');o.value=x.id;o.textContent=x.name;$('avatar').append(o)});$('avatar').value=p.avatar;localCosPreview();}
 function memberData(ready=false){const name=($('nickname').value.trim()||'プレイヤー').slice(0,20);return {uid,name,avatar:packAvatar($('avatar').value),ready:!!ready,joinedAt:nserver(),rematchFor:0}}
 function stopWatch(){if(metaRef)metaRef.off();if(seatsRef)seatsRef.off();if(gameRef)gameRef.off();metaRef=seatsRef=gameRef=null;}
-function resetRoom(){stopWatch();$('multiRankOverlay')?.classList.add('hidden');shownResultKey='';rewardNotice='';roomCode='';seatIndex=-1;host=false;meta=null;seats={};game=null;busy=busyStall=busyRematch=false;chosenOp=null;chosenIndex=null;lastView='';lastRound=-1;lastActivePhase=null;showArea('home');setMsg('')}
-function enterRoom(code,idx){stopWatch();shownResultKey='';rewardNotice='';roomCode=code;seatIndex=idx;host=idx===0;chosenOp=null;chosenIndex=null;game=null;lastView='';lastRound=-1;lastActivePhase=null;
+function resetRoom(){stopWatch();$('multiRankOverlay')?.classList.add('hidden');shownResultKey='';rewardNotice='';roomCode='';seatIndex=-1;host=false;meta=null;seats={};game=null;busy=busyStall=busyRematch=false;chosenOp=null;chosenIndex=null;lastView='';lastRound=-1;lastActivePhase=null;pendingMove=0;MULTI_AUDIO.reset();showArea('home');setMsg('')}
+function enterRoom(code,idx){stopWatch();shownResultKey='';rewardNotice='';roomCode=code;seatIndex=idx;host=idx===0;chosenOp=null;chosenIndex=null;game=null;lastView='';lastRound=-1;lastActivePhase=null;pendingMove=0;MULTI_AUDIO.reset();
  $('roomCode').textContent=code;showArea('lobby');$('lobbyInfo').textContent='参加者を読み込み中…';
  metaRef=firebase.database().ref('multiRooms/'+code+'/meta');seatsRef=firebase.database().ref('multiRooms/'+code+'/seats');gameRef=firebase.database().ref('multiGames/'+code);
  metaRef.on('value',snap=>{meta=snap.val();if(!meta){setMsg('この部屋は削除されたか、有効期限が切れています');return}capacity=meta.capacity;renderLobby();if(game)renderBattle();},e=>report(e,'部屋情報'));
  seatsRef.on('value',snap=>{seats=snap.val()||{};renderLobby();if(game)renderBattle();maybeRematch();},e=>report(e,'参加者同期'));
  gameRef.on('value',snap=>{const next=snap.val();if(next&&(next.startedAt!==game?.startedAt||next.round!==game?.round||next.lastActor!==uid)){chosenIndex=null;chosenOp=null}game=next;
-  if(game){showArea('battle');renderBattle();celebrateRank(game);maybeRematch();}else{showArea('lobby');renderLobby()}
+  if(game){showArea('battle');renderBattle();if(!pendingMove)celebrateRank(game);maybeRematch();}else{showArea('lobby');renderLobby()}
  },e=>report(e,'対戦データ'));
  if(timer)clearInterval(timer);timer=setInterval(tick,90);
 }
-async function create(){if(!uid||busy)return;busy=true;$('create').disabled=true;setMsg('ルームを作成中…');try{
+async function create(){MULTI_AUDIO.unlock();if(!uid||busy)return;busy=true;$('create').disabled=true;setMsg('ルームを作成中…');try{
  const cap=Number($('capacity').value);for(let t=0;t<12;t++){
   const code=String(rand(1000000)).padStart(6,'0'),base=firebase.database().ref('multiRooms/'+code),m=base.child('meta');
   const existing=await m.once('value');if(existing.exists())continue;
@@ -523,7 +631,7 @@ async function create(){if(!uid||busy)return;busy=true;$('create').disabled=true
  }
  throw new Error('空いている部屋番号を確保できなかったよ。もう一度試してね');
  }catch(e){report(e,'部屋作成');}finally{busy=false;$('create').disabled=false}}
-async function join(){if(!uid||busy)return;const code=$('joinCode').value.trim();if(!/^\d{6}$/.test(code)){setMsg('6桁の部屋番号を入力してね');return}
+async function join(){MULTI_AUDIO.unlock();if(!uid||busy)return;const code=$('joinCode').value.trim();if(!/^\d{6}$/.test(code)){setMsg('6桁の部屋番号を入力してね');return}
  busy=true;$('join').disabled=true;setMsg('部屋を探しているよ…');try{
  const base=firebase.database().ref('multiRooms/'+code),m=(await base.child('meta').once('value')).val();
  if(!m||m.status!=='waiting'||Number(m.expiresAt)<nserver())throw new Error('参加できる部屋が見つからないよ');
@@ -536,7 +644,7 @@ async function join(){if(!uid||busy)return;const code=$('joinCode').value.trim()
  }
  if(index<0)throw new Error('この部屋は満員だよ');enterRoom(code,index);setMsg('部屋に参加したよ！ 準備完了を押してね。');
  }catch(e){report(e,'部屋参加');}finally{busy=false;$('join').disabled=false}}
-async function saveSeat(ready){if(!isInside()||busy)return;busy=true;try{
+async function saveSeat(ready){if(!isInside()||busy)return;MULTI_AUDIO.unlock();if(ready)MULTI_AUDIO.fx('ready');busy=true;try{
  const ref=firebase.database().ref('multiRooms/'+roomCode+'/seats/'+seatIndex),snap=await ref.once('value'),before=snap.val();
  if(!before||before.uid!==uid)throw new Error('自分の席が見つからないよ');
  await ref.update({name:($('nickname').value.trim()||'プレイヤー').slice(0,20),avatar:packAvatar($('avatar').value),ready:!!ready});
@@ -553,7 +661,7 @@ function renderLobby(){if(!isInside())return;$show('start',host);$('start').disa
  $('ready').textContent=mySeat()?.ready?'準備を取り消す':'✅ 準備完了';$('start').disabled=!(host&&all.length===capacity&&all.every(x=>x.ready)&&meta?.status==='waiting');
  $('roomHelp').textContent=all.length===capacity?'全員揃ったよ！ ホストが対戦を開始しよう。':'6桁の番号を友達に伝えて、参加してもらおう。';
 }
-async function start(){if(!host||!roomCode||busy)return;const all=seatList();if(all.length!==capacity||!all.every(s=>s.ready)){setMsg('全員が準備完了になってからスタートしてね');return}
+async function start(){MULTI_AUDIO.unlock();if(!host||!roomCode||busy)return;const all=seatList();if(all.length!==capacity||!all.every(s=>s.ready)){setMsg('全員が準備完了になってからスタートしてね');return}
  busy=true;try{
  const code=roomCode,ref=firebase.database().ref('multiGames/'+code),existing=await ref.once('value');if(existing.exists())throw new Error('この部屋には対戦データがすでにあるよ');
  const fresh=buildGame(all,uid),res=await ref.transaction(cur=>cur===null?fresh:undefined,undefined,false);
@@ -567,11 +675,20 @@ function renderBattle(){if(!game||!isInside())return;const my=game.players?.[uid
  $('statusBar').textContent=game.status==='finished'?'🏁 全順位が確定！':myPlace>=0?`${myPlace+1}位確定・観戦中`:left?`${left}… マスピード！`:'⚡ 対戦中！';
  $('lastMove').textContent=game.lastMove||'計算してカードを出そう！';$('startCount').textContent=left?String(left):'マスピード！';$show('countdown',left>0&&live);
  const myName=seats[seatIndex]?.name||'あなた';$('battleHeading').textContent=`${capacity}人通信対戦｜${myName}`;
- $('battleCenter').replaceChildren();game.center.forEach((c,lane)=>{const b=document.createElement('button');b.className=`table-card center-card${rank(c)===0?' joker':''}${during&&chosenIndex!==null?' pickable':''}${left&&live?' face-down':''}`;b.dataset.lane=lane;b.disabled=!during||myPlace>=0||chosenIndex===null||busy;b.innerHTML=left&&live?'<span class="card-back-mark"><span class="card-back-symbol">⚡</span><span class="card-back-name">MATHSPEED</span></span>':cardFace(c);b.addEventListener('click',()=>chooseLane(lane));$('battleCenter').append(b)});
+ const centerEl=$('battleCenter');while(centerEl.children.length<2){const lane=centerEl.children.length,b=document.createElement('button');b.dataset.lane=lane;b.addEventListener('click',()=>chooseLane(lane));centerEl.append(b)}
+ game.center.forEach((c,lane)=>{const b=centerEl.children[lane],hidden=!!(left&&live),key=String(c)+':'+Number(hidden);
+  b.className=`table-card center-card${rank(c)===0?' joker':''}${during&&chosenIndex!==null?' pickable':''}${hidden?' face-down':''}`;
+  b.disabled=!during||myPlace>=0||chosenIndex===null||busy;
+  if(b.dataset.cardKey!==key){b.innerHTML=hidden?'<span class="card-back-mark"><span class="card-back-symbol">⚡</span><span class="card-back-name">MATHSPEE D</span></span>'.replace('MATHSPEE D','MATHSPEED'):cardFace(c);b.dataset.cardKey=key}
+ });
  const pickMode=during&&wantsHandPick(game,uid)&&myPlace<0;
  $('stallPickGuide').classList.toggle('hidden',!pickMode);
  $('stallPickGuide').textContent=pickMode?(Number.isInteger(game.stallPicks?.[uid])?'✅ 自分の候補は選択済み。全員の選択を待ってね（変更もできるよ）':'⚡ 全員手詰まり！ 山札が空なので自分の手札から候補を1枚タップしてね'):' ';
- $('hand').replaceChildren();hand4(my).forEach((c,i)=>{const b=document.createElement('button');b.className=cardClass(c)+(chosenIndex===i?' selected':'')+(pickMode?' stall-select':'')+(pickMode&&game.stallPicks?.[uid]===i?' picked':'');b.innerHTML=cardFace(c);b.disabled=!c||!during||busy||myPlace>=0;b.title=`手札${i+1}：${cardName(c)}`;b.onclick=()=>pickMode?chooseStallCard(i):chooseCard(i);$('hand').append(b)});
+ const handEl=$('hand');while(handEl.children.length<4){const i=handEl.children.length,b=document.createElement('button');b.onclick=()=>wantsHandPick(game,uid)?chooseStallCard(i):chooseCard(i);handEl.append(b)}
+ hand4(my).forEach((c,i)=>{const b=handEl.children[i];b.className=cardClass(c)+(chosenIndex===i?' selected':'')+(pickMode?' stall-select':'')+(pickMode&&game.stallPicks?.[uid]===i?' picked':'');
+  if(b.dataset.cardKey!==String(c)){b.innerHTML=cardFace(c);b.dataset.cardKey=String(c)}
+  b.disabled=!c||!during||busy||myPlace>=0;b.title=`手札${i+1}：${cardName(c)}`;
+ });
  $('stockCount').textContent=`残り ${count(my)}枚（山札 ${deckCards(my).length}枚）`;
  document.querySelectorAll('.op-buttons [data-op]').forEach(b=>{b.classList.toggle('active',chosenOp===b.dataset.op);b.disabled=!during||busy||myPlace>=0||pickMode});
  $('calc').textContent=statusInfo||'演算 → 自分のカード → 中央の山を選ぼう！';
@@ -579,7 +696,7 @@ function renderBattle(){if(!game||!isInside())return;const my=game.players?.[uid
  if(game.status==='finished'){
   const ranked=(game.placements||game.ids).map((id,i)=>({id,place:i+1,name:seatList().find(s=>s.uid===id)?.name||'プレイヤー'}));
   $('resultText').textContent='🏁 全員の順位が決定！';
-  $('ranking').textContent=ranked.map(x=>`${x.place}位 ${x.name}（${PRIZE[x.place-1]}コイン）`).join(' ／ ');
+  $('ranking').textContent=ranked.map(x=>`${x.place}位 ${x.name}（${prizeFor(game.ids.length,x.place)}コイン）`).join(' ／ ');
   $show('result',true);
  }else $show('result',false);
  const voted=seatList().filter(s=>Number(s.rematchFor)===Number(game.startedAt));
@@ -587,12 +704,12 @@ function renderBattle(){if(!game||!isInside())return;const my=game.players?.[uid
  $('rematch').textContent=Number(mySeat()?.rematchFor)===Number(game.startedAt)?'✅ 再戦希望を送信済み':'🔁 もう一度対戦';
  $('voteInfo').textContent=`再戦希望 ${voted.length}/${capacity}人`;
 }
-function chooseOp(op){if(!game||nserver()<game.startAt||game.status!=='playing'||!activeIds(game).includes(uid)||wantsHandPick(game,uid))return;chosenOp=op;chosenIndex=null;statusInfo='次は自分のカードを選ぼう';renderBattle()}
+function chooseOp(op){if(!game||nserver()<game.startAt||game.status!=='playing'||!activeIds(game).includes(uid)||wantsHandPick(game,uid))return;chosenOp=op;chosenIndex=null;MULTI_AUDIO.fx('tap');statusInfo='次は自分のカードを選ぼう';renderBattle()}
 function chooseCard(index){if(!game||busy||game.status!=='playing'||nserver()<game.startAt||!activeIds(game).includes(uid))return;const c=hand4(game.players[uid])[index];if(!c)return;
- const moves=legalMoves(game,c);if(!moves.length){statusInfo='今はこのカードを出せないよ';renderBattle();return}
+ const moves=legalMoves(game,c);if(!moves.length){MULTI_AUDIO.fx('error');statusInfo='今はこのカードを出せないよ';renderBattle();return}
  if(rank(c)!==0&&!moves.some(m=>m.op===null)&&!chosenOp){statusInfo='先に計算の演算を選んでね';renderBattle();return}
  if(!moves.some(m=>m.op===null||m.op===chosenOp)){statusInfo='その演算では出せないよ';renderBattle();return}
- chosenIndex=index;statusInfo='中央の左か右、どちらの山に出す？';renderBattle();}
+ chosenIndex=index;MULTI_AUDIO.fx('card');statusInfo='中央の左か右、どちらの山に出す？';renderBattle();}
 async function chooseStallCard(index){
  if(!game||busy||!wantsHandPick(game,uid))return;
  const card=hand4(game.players[uid])[index];if(!card)return;
@@ -604,14 +721,17 @@ async function chooseStallCard(index){
 }
 async function chooseLane(lane){if(!game||busy||chosenIndex===null||!activeIds(game).includes(uid))return;const idx=chosenIndex,card=hand4(game.players[uid])[idx],op=chosenOp;
  if(!card||!legalMoves(game,card).some(m=>m.lane===lane&&(m.op===null||m.op===op))){statusInfo='この山には出せないよ';renderBattle();return}
- busy=true;try{const ref=firebase.database().ref('multiGames/'+roomCode),result=await ref.transaction(cur=>cur?applyMove(cur,uid,idx,card,lane,op,nserver()):undefined,undefined,false);
- if(result.committed){chosenIndex=null;statusInfo='✅ 正解！ カードを出したよ！'}else statusInfo='⚠️ 中央のカードが変わったみたい！ もう一度選んでね';
- }catch(e){report(e,'カード操作');statusInfo='通信エラー。もう一度選んでね'}finally{busy=false;renderBattle()}}
+ busy=true;pendingMove++;let confirmedMove=false;MULTI_AUDIO.fx('place');
+ // Firebase reports an optimistic local value immediately, then validates it server-side.
+ // Keep reward effects paused until acknowledgement. The RTDB SDK automatically rolls back rejected moves.
+ try{const ref=firebase.database().ref('multiGames/'+roomCode),result=await ref.transaction(cur=>cur?applyMove(cur,uid,idx,card,lane,op,nserver()):undefined,undefined,true);
+ if(result.committed){confirmedMove=true;chosenIndex=null;statusInfo='✅ 正解！ カードを出したよ！'}else{MULTI_AUDIO.fx('error');statusInfo='⚠️ 中央のカードが変わったみたい！ もう一度選んでね'}
+ }catch(e){report(e,'カード操作');MULTI_AUDIO.fx('error');statusInfo='通信エラー。もう一度選んでね'}finally{pendingMove=Math.max(0,pendingMove-1);busy=false;if(confirmedMove&&game)celebrateRank(game);renderBattle()}}
 async function autoSettle(){if(busyStall||!game||game.status!=='playing'||nserver()<game.startAt||!everyoneStuck(game)||!stallReady(game))return;
  busyStall=true;try{
   const seed=(Number(game.startedAt)+Math.imul((Number(game.round)||0)+1,2654435761))>>>0,ref=firebase.database().ref('multiGames/'+roomCode);
   const res=await ref.transaction(cur=>cur?applyStall(cur,seed,nserver()):undefined,undefined,false);
-  if(res.committed)statusInfo='全員手詰まり！ 抽選した2枚でマスピード！';
+  if(res.committed){MULTI_AUDIO.fx('stall');statusInfo='全員手詰まり！ 抽選した2枚でマスピード！';}
  }catch(e){report(e,'手詰まり抽選')}finally{busyStall=false}}
 async function rematch(){if(!game||game.status!=='finished'||busyRematch||Number(mySeat()?.rematchFor)===Number(game.startedAt))return;
  busyRematch=true;try{await firebase.database().ref('multiRooms/'+roomCode+'/seats/'+seatIndex+'/rematchFor').set(game.startedAt);setMsg('再戦希望を送信したよ！')}
@@ -623,7 +743,7 @@ async function maybeRematch(){if(!host||busyRematch||!game||game.status!=='finis
  const fresh=buildGame(all,uid,cur),res=await ref.transaction(g=>g&&g.status==='finished'&&g.startedAt===cur.startedAt?fresh:undefined,undefined,false);
  if(res.committed){statusInfo='再戦スタート！';for(let i=0;i<capacity;i++)firebase.database().ref('multiRooms/'+roomCode+'/seats/'+i+'/rematchFor').set(0).catch(console.error)}
  }catch(e){report(e,'再戦開始')}finally{busyRematch=false}}
-function tick(){if(!game||!isInside())return;const left=Math.max(0,Math.ceil((game.startAt-nserver())/1000));if(game.status==='playing'){
+function tick(){if(!game||!isInside()){MULTI_AUDIO.update(false);return;}MULTI_AUDIO.syncCountdown(game);MULTI_AUDIO.update(matchView&&game.status==='playing'&&nserver()>=game.startAt);const left=Math.max(0,Math.ceil((game.startAt-nserver())/1000));if(game.status==='playing'){
   $('statusBar').textContent=(game.placements||[]).includes(uid)?`${game.placements.indexOf(uid)+1}位確定・観戦中`:left?`${left}… マスピード！`:'⚡ 対戦中！';$('startCount').textContent=left?String(left):'マスピード！';
   $show('countdown',left>0);$('centerNote').textContent=left?'カードは「ド！」まで非公開':'中央2枚を計算してカードを出そう！';
   if(lastRound!==game.round||lastActivePhase!==(left===0)){lastRound=game.round;lastActivePhase=(left===0);renderBattle()}
@@ -635,6 +755,8 @@ $('capacity').onchange=e=>{$('capacityNote').textContent=e.target.value+'人対�
 $('avatar').onchange=localCosPreview;$('nickname').oninput=()=>{};
 $('ready').onclick=()=>saveSeat(!mySeat()?.ready);$('saveAppearance').onclick=()=>saveSeat(false);$('start').onclick=start;
 $('rankContinue').onclick=()=>$('multiRankOverlay').classList.add('hidden');
+ $('multiBgm').onclick=()=>MULTI_AUDIO.set('bgm');$('multiSe').onclick=()=>MULTI_AUDIO.set('se');MULTI_AUDIO.toggles();
+ document.querySelectorAll('#backToMathspeed,[data-multi-back]').forEach(link=>link.addEventListener('click',ev=>{if(game?.status==='playing'&&roomCode&&!window.confirm('対戦を途中で離れますか？ 部屋と対戦記録は残ります。'))ev.preventDefault();}));
 $('ops').onclick=e=>{const btn=e.target.closest('button[data-op]');if(btn)chooseOp(btn.dataset.op)};
 $('cancel').onclick=()=>{chosenIndex=null;chosenOp=null;statusInfo='選択を解除したよ';renderBattle()};
 $('hint').onclick=()=>{if(!game?.players?.[uid])return;let hit=null;hand4(game.players[uid]).forEach((c,i)=>{if(!c||hit)return;const m=legalMoves(game,c)[0];if(m)hit={c,i,m}});statusInfo=hit?`${cardName(hit.c)}：${hit.m.eq}（中央${hit.m.lane+1}）`:'出せるカードがないよ。全員手詰まりなら自動抽選するよ';renderBattle()};
