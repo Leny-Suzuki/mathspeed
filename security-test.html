@@ -149,7 +149,33 @@ body[data-ms-back="b4"] #hand .table-card,body[data-ms-back="b4"] #playerHand .c
 .ms36-mode-panel .ms36-secret-icon{border:2px solid #eacb75;background:#33446c;color:#ffe99d;display:grid;place-items:center;font-size:44px;border-radius:18px;width:100px;height:100px;margin:16px auto;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .ms36-mode-panel .ms36-secret-icon:focus-visible{outline:3px solid #fff0ad;outline-offset:5px}
 </style>
-</head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
+<style>
+/* MS48 additional frame and card backs */
+[data-ms-back="b13"]{background-image:url("assets/gacha/cardbacks/character_01.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b14"]{background-image:url("assets/gacha/cardbacks/character_02.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b15"]{background-image:url("assets/gacha/cardbacks/character_03.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b16"]{background-image:url("assets/gacha/cardbacks/character_04.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b17"]{background-image:url("assets/gacha/cardbacks/character_05.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b18"]{background-image:url("assets/gacha/cardbacks/character_06.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b19"]{background-image:url("assets/gacha/cardbacks/character_07.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b20"]{background-image:url("assets/gacha/cardbacks/character_08.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b21"]{background-image:url("assets/gacha/cardbacks/character_09.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b22"]{background-image:url("assets/gacha/cardbacks/character_10.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b23"]{background-image:url("assets/gacha/cardbacks/character_11.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b24"]{background-image:url("assets/gacha/cardbacks/character_12.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b25"]{background-image:url("assets/gacha/cardbacks/character_13.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b26"]{background-image:url("assets/gacha/cardbacks/character_14.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b27"]{background-image:url("assets/gacha/cardbacks/character_15.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b28"]{background-image:url("assets/gacha/cardbacks/character_16.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b29"]{background-image:url("assets/gacha/cardbacks/character_17.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b30"]{background-image:url("assets/gacha/cardbacks/character_18.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b31"]{background-image:url("assets/gacha/cardbacks/character_19.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-back="b32"]{background-image:url("assets/gacha/cardbacks/character_20.png")!important;background-size:100% 100%!important;background-position:center!important;color:transparent!important;}
+[data-ms-frame="f11"]{border:4px solid #277be7!important;box-shadow:0 0 0 2px #e8bf5a,0 0 12px #277be7!important;}
+[data-ms-frame="f12"]{border:4px solid #de374e!important;box-shadow:0 0 0 2px #e5e8ee,0 0 12px #de374e!important;}
+[data-ms-frame="f13"]{border:4px solid #a54dea!important;box-shadow:0 0 0 2px #f6bd4d,0 0 12px #a54dea!important;}
+[data-ms-frame="f14"]{border:4px solid #22c885!important;box-shadow:0 0 0 2px #e6b65a,0 0 12px #22c885!important;}
+</style></head><body><nav class="msModeNav" aria-label="ゲームモードの切り替え">
   <a id="msBackToAdventure" href="./index.html">← 冒険モードに戻る</a>
   <strong>🌐 友達と通信対戦</strong>
 </nav>
@@ -245,7 +271,7 @@ function parseAvatar(text){const val=String(text||'s0');const m=/^([se][0-9](?:_
  return m?{avatar:m[1],back:m[2]||'b0',frame:m[3]||'f0'}:{avatar:'s0',back:'b0',frame:'f0'};}
 function theme(){const e=load().equipped;document.body.dataset.msBack=e.back;document.body.dataset.msFrame=e.frame;}
 window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars,catalog,allBacks,allFrames,load,save,draw,equip,has,ownAvatars,name,avatarArt,encodeAvatar,parseAvatar,theme};
-})();</script>
+})();</script><script id="msRarity48Share">(()=>{const C=window.MasCosmetics;if(!C)return;const chars=[{"id":"b13","name":"キャラカード 1","rarity":"R","icon":"🃏"},{"id":"b14","name":"キャラカード 2","rarity":"R","icon":"🃏"},{"id":"b15","name":"キャラカード 3","rarity":"R","icon":"🃏"},{"id":"b16","name":"キャラカード 4","rarity":"R","icon":"🃏"},{"id":"b17","name":"キャラカード 5","rarity":"R","icon":"🃏"},{"id":"b18","name":"キャラカード 6","rarity":"R","icon":"🃏"},{"id":"b19","name":"キャラカード 7","rarity":"R","icon":"🃏"},{"id":"b20","name":"キャラカード 8","rarity":"R","icon":"🃏"},{"id":"b21","name":"キャラカード 9","rarity":"R","icon":"🃏"},{"id":"b22","name":"キャラカード 10","rarity":"R","icon":"🃏"},{"id":"b23","name":"キャラカード 11","rarity":"SR","icon":"🃏"},{"id":"b24","name":"キャラカード 12","rarity":"SR","icon":"🃏"},{"id":"b25","name":"キャラカード 13","rarity":"SR","icon":"🃏"},{"id":"b26","name":"キャラカード 14","rarity":"SR","icon":"🃏"},{"id":"b27","name":"キャラカード 15","rarity":"SR","icon":"🃏"},{"id":"b28","name":"キャラカード 16","rarity":"SR","icon":"🃏"},{"id":"b29","name":"キャラカード 17","rarity":"SR","icon":"🃏"},{"id":"b30","name":"キャラカード 18","rarity":"SR","icon":"🃏"},{"id":"b31","name":"キャラカード 19","rarity":"SR","icon":"🃏"},{"id":"b32","name":"キャラカード 20","rarity":"SSR","icon":"🃏"}];const frames=[{"id":"f11","name":"青金の双彩フレーム","rarity":"R","icon":"🔶"},{"id":"f12","name":"紅銀の双彩フレーム","rarity":"R","icon":"🔶"},{"id":"f13","name":"紫金の双彩フレーム","rarity":"R","icon":"🔶"},{"id":"f14","name":"翠金の双彩フレーム","rarity":"R","icon":"🔶"}];for(const x of chars){if(!C.backs.some(y=>y.id===x.id)){C.backs.push(x);C.allBacks.push(x);C.catalog.push({...x,type:"back"})}}for(const x of frames){if(!C.frames.some(y=>y.id===x.id)){C.frames.push(x);C.allFrames.push(x);C.catalog.push({...x,type:"frame"})}}})();</script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script><script>
 'use strict';
 const config={apiKey:'AIzaSyDECW6ejXkBFg0DtutqO2u65yZOmy--Tas',authDomain:'mathspeed-security-test.firebaseapp.com',databaseURL:'https://mathspeed-security-test-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-security-test',appId:'1:982844628630:web:048eae2c2e51ed9094acb7'};
