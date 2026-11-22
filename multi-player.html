@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>マスピード 3〜4人通信対戦 β0.5</title>
+<title>マスピード 3〜4人通信対戦 β0.6</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#22335c,#080f26 80%);color:#f6e9c6;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}.panel{width:min(600px,100%);border:2px solid #d9b663;border-radius:18px;background:#142344;padding:24px;box-shadow:0 20px 70px #0008}h1{font-size:1.55rem;margin:0 0 8px}p{line-height:1.65}.muted{color:#b8c7df;font-size:.92rem}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{background:#32558e;border:1px solid #e1bf6b;color:white;border-radius:10px;padding:12px 16px;font-size:1rem;cursor:pointer;min-height:48px}.btn:disabled{opacity:.45;cursor:default}.btn.gold{background:#84612b}.code{font-size:2.6rem;letter-spacing:.2em;text-align:center;color:#ffe08b;font-weight:800;margin:14px 0}.input{width:100%;font-size:1.7rem;letter-spacing:.25em;text-align:center;background:#0c1730;color:white;border:1px solid #c8a65b;border-radius:10px;padding:12px;margin:10px 0}.hidden{display:none}.status{background:#0b1831;border-radius:10px;padding:12px;margin-top:16px;min-height:56px;white-space:pre-wrap;overflow-wrap:anywhere}.section{margin:18px 0}.small{font-size:.8rem;color:#aebdd4}.log{font-size:.82rem;max-height:300px;overflow:auto;line-height:1.55}.label{font-weight:700;margin-top:20px}.good{color:#a7efbb}a{color:#b6d8ff}.players{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.player{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0b1831;padding:12px;border-radius:12px;min-width:0;text-align:center}.portrait{width:110px;height:110px;object-fit:contain;image-rendering:pixelated}.player strong{overflow-wrap:anywhere}.player span{font-size:.84rem}.player .small{color:#aebdd4}@media(max-width:450px){.portrait{width:90px;height:90px}} .pile{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0b1831;border:2px solid #d9b663;border-radius:12px;min-width:110px;height:150px}.pile strong{font-size:2.8rem;color:#ffe08b}.pile small{color:#b8c7df}.playcard{background:#fff7df;color:#142344;border:2px solid #e1bf6b;border-radius:12px;font-weight:800;font-size:1.7rem;min-width:66px;height:95px;cursor:pointer}.playcard.selected{outline:4px solid #78e5a2}.playcard:disabled{opacity:.45}.battle-meta{font-size:.92rem;color:#ffe08b}#battle{margin-top:20px;border-top:1px solid #6c7590;padding-top:10px} 
 /* Ver.10.12.20: use the established card/operation/center selection pattern. */
@@ -190,7 +190,7 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
 @keyframes msMultiEntry{from{transform:scale(.68) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
 @keyframes msMultiSpark{from{opacity:.38;transform:translateY(5px)}to{opacity:1;transform:translateY(-5px)}}
 @media(prefers-reduced-motion:reduce){#multiRankOverlay .rank-panel,#multiRankOverlay .rank-panel:before{animation:none}}
-/* β0.5: game controls, action feedback and mobile tap optimization */
+/* β0.6: game controls, action feedback and mobile tap optimization */
 .multi-back{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:#284b80;border:1.5px solid #f1cf77;border-radius:10px;padding:9px 13px;color:#fff4ce;min-height:42px;font-weight:850;touch-action:manipulation}
 .multi-top-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 10px}
 .multi-audio{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:12px 0 6px;padding:9px 10px;background:#0e1934;border:1px solid #7f96c1;border-radius:12px}
@@ -202,7 +202,7 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
 @media(max-width:460px){.multi-top-nav{gap:6px}.multi-back{padding:8px 10px;font-size:.88rem}.multi-audio{gap:6px}.multi-audio .tiny-note{font-size:.7rem}}
 </style></head><body>
 <main class="multi-wrap">
-<header><h1>⚡ マスピード <span style="color:#ffe38c">3〜4人通信対戦</span></h1><span class="mode-tag">開発中 β0.5</span></header>
+<header><h1>⚡ マスピード <span style="color:#ffe38c">3〜4人通信対戦</span></h1><span class="mode-tag">開発中 β0.6</span></header>
 <div class="multi-top-nav"><span class="tiny-note">既存2人戦のカード・演算・アバター装備を共用。</span><a class="multi-back" id="backToMathspeed" href="./index.html">🏠 マスピードに戻る</a><a class="topLink" href="./security-test.html">← 2人対戦へ</a></div>
 <div id="loading" class="battle-status">⏳ Firebase匿名ログイン中…</div><p id="connection" class="tiny-note">接続待ち</p>
 <div id="message" class="hidden" role="status" aria-live="polite"></div>
@@ -210,14 +210,14 @@ body{display:block!important;place-items:unset!important;padding:0!important;min
  <div class="section-panel"><h2>🎭 キャラクターと装備</h2>
   <div class="formrow"><label>プレイヤー名 <input id="nickname" maxlength="20" placeholder="なまえ"></label><label>キャラクター <select id="avatar"></select></label></div>
   <div class="profile-preview"><img id="myPreview" alt="装備中キャラ"><span>本編のキャラ・フレーム・裏面設定を読み込み</span><span id="myBack" class="msCardBadge" title="装備中カード裏面">⚡</span></div>
-  <p class="tiny-note">カード裏面とキャラフレームは本編で装備したものを使うよ。変更した場合はこのページを更新してね。</p>
+  <p class="tiny-note">カード裏面とキャラフレームは本編で装備したものを使うよ。ロビー参加時・準備完了時に装備を反映するよ。</p>
  </div>
  <div class="section-panel"><h2>🏠 部屋を作る</h2><div class="formrow"><select id="capacity" aria-label="人数"><option value="3">3人対戦</option><option value="4" selected>4人対戦</option></select><button id="create" class="btn gold">部屋を作る</button></div><p class="tiny-note" id="capacityNote">4人対戦の部屋を作るよ</p></div>
  <div class="section-panel"><h2>🚪 友達の部屋に参加</h2><div class="formrow"><input id="joinCode" type="text" inputmode="numeric" maxlength="6" placeholder="6桁のルーム番号"><button id="join" class="btn">参加する</button></div></div>
 </section>
 <section id="lobby" class="section-panel hidden"><div class="lobby-header"><div><div class="tiny-note">ルーム番号</div><div id="roomCode">------</div></div><div class="formrow"><button id="copy" class="btn">番号をコピー</button><button id="leave" class="btn">退出</button></div></div>
  <h2 id="lobbyInfo">参加者を待っています…</h2><div id="lobbyPlayers"></div><p class="tiny-note" id="roomHelp">友達に番号を伝えよう</p>
- <div class="formrow"><button id="saveAppearance" class="btn">🎨 装備を更新</button><button id="ready" class="btn">✅ 準備完了</button><button id="start" class="btn gold hidden">⚡ 全員でスタート！</button></div>
+ <div class="formrow"><button id="ready" class="btn">✅ 準備完了</button><button id="start" class="btn gold hidden">⚡ 全員でスタート！</button></div>
  <p class="tiny-note">全員が準備完了になったら、ホストがスタートできるよ。</p>
 </section>
 <section id="battle" class="hidden">
@@ -312,12 +312,12 @@ window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars:avatars,catalog,allBa
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-<script>/* マスピード 3〜4人通信対戦 β0.5 / independent from 2P production data.
+<script>/* マスピード 3〜4人通信対戦 β0.6 / independent from 2P production data.
    Every game write uses RTDB transactions; local simulation is exported for tests. */
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
 const CONFIG={apiKey:'AIzaSyDECW6ejXkBFg0DtutqO2u65yZOmy--Tas',authDomain:'mathspeed-security-test.firebaseapp.com',databaseURL:'https://mathspeed-security-test-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'mathspeed-security-test',appId:'1:982844628630:web:048eae2c2e51ed9094acb7'};
-// β0.5: ORIGINAL fast-paced 8-bit arcade score, synthesised locally with Web Audio.
+// β0.6: ORIGINAL fast-paced 8-bit arcade score, synthesised locally with Web Audio.
 // A user gesture unlocks audio; no external streams, no audio files and no UI audio permissions.
 const MULTI_AUDIO=(()=>{
  const storeKey='mathspeed-multi-audio-v1';
@@ -378,6 +378,7 @@ const MULTI_AUDIO=(()=>{
  }
  function fx(kind){
   if(!se)return;
+  try{
   const c=unlock();if(!c||c.state!=='running')return;
   const t=c.currentTime+.008;
   if(['tap','card'].includes(kind)&&t-lastFxAt<.048)return;
@@ -392,6 +393,7 @@ const MULTI_AUDIO=(()=>{
   else if(kind==='stall'){wave(440,t,.13,'sawtooth',.11,fxBus);wave(587,t+.15,.15,'square',.14,fxBus)}
   else if(kind==='victory'){[784,988,1175,1568].forEach((f,i)=>wave(f,t+i*.095,.21,'triangle',.17,fxBus))}
   else if(kind==='defeat'){[523,440,349].forEach((f,i)=>wave(f,t+i*.12,.24,'triangle',.15,fxBus))}
+  }catch(e){console.warn('[multi audio] sound effect unavailable',e)}
  }
  function syncCountdown(g){
   if(!g||g.status!=='playing')return;
@@ -675,7 +677,8 @@ function renderBattle(){if(!game||!isInside())return;const my=game.players?.[uid
  $('statusBar').textContent=game.status==='finished'?'🏁 全順位が確定！':myPlace>=0?`${myPlace+1}位確定・観戦中`:left?`${left}… マスピード！`:'⚡ 対戦中！';
  $('lastMove').textContent=game.lastMove||'計算してカードを出そう！';$('startCount').textContent=left?String(left):'マスピード！';$show('countdown',left>0&&live);
  const myName=seats[seatIndex]?.name||'あなた';$('battleHeading').textContent=`${capacity}人通信対戦｜${myName}`;
- const centerEl=$('battleCenter');while(centerEl.children.length<2){const lane=centerEl.children.length,b=document.createElement('button');b.dataset.lane=lane;b.addEventListener('click',()=>chooseLane(lane));centerEl.append(b)}
+ const centerEl=$('battleCenter');while(centerEl.children.length<2){const lane=centerEl.children.length,b=document.createElement('button');b.dataset.lane=lane;centerEl.append(b)}
+ for(let lane=0;lane<2;lane++){const b=centerEl.children[lane];if(b.dataset.laneHandler!=='ready'){b.dataset.lane=String(lane);b.addEventListener('click',()=>chooseLane(lane));b.dataset.laneHandler='ready'}}
  game.center.forEach((c,lane)=>{const b=centerEl.children[lane],hidden=!!(left&&live),key=String(c)+':'+Number(hidden);
   b.className=`table-card center-card${rank(c)===0?' joker':''}${during&&chosenIndex!==null?' pickable':''}${hidden?' face-down':''}`;
   b.disabled=!during||myPlace>=0||chosenIndex===null||busy;
@@ -722,9 +725,9 @@ async function chooseStallCard(index){
 async function chooseLane(lane){if(!game||busy||chosenIndex===null||!activeIds(game).includes(uid))return;const idx=chosenIndex,card=hand4(game.players[uid])[idx],op=chosenOp;
  if(!card||!legalMoves(game,card).some(m=>m.lane===lane&&(m.op===null||m.op===op))){statusInfo='この山には出せないよ';renderBattle();return}
  busy=true;pendingMove++;let confirmedMove=false;MULTI_AUDIO.fx('place');
- // Firebase reports an optimistic local value immediately, then validates it server-side.
- // Keep reward effects paused until acknowledgement. The RTDB SDK automatically rolls back rejected moves.
- try{const ref=firebase.database().ref('multiGames/'+roomCode),result=await ref.transaction(cur=>cur?applyMove(cur,uid,idx,card,lane,op,nserver()):undefined,undefined,true);
+ // Confirm moves server-side first: local provisional events could race with the UI and stall transactions.
+ // Keep the reduced DOM updates from β0.6 so interaction remains snappy.
+ try{const ref=firebase.database().ref('multiGames/'+roomCode),result=await ref.transaction(cur=>cur?applyMove(cur,uid,idx,card,lane,op,nserver()):undefined,undefined,false);
  if(result.committed){confirmedMove=true;chosenIndex=null;statusInfo='✅ 正解！ カードを出したよ！'}else{MULTI_AUDIO.fx('error');statusInfo='⚠️ 中央のカードが変わったみたい！ もう一度選んでね'}
  }catch(e){report(e,'カード操作');MULTI_AUDIO.fx('error');statusInfo='通信エラー。もう一度選んでね'}finally{pendingMove=Math.max(0,pendingMove-1);busy=false;if(confirmedMove&&game)celebrateRank(game);renderBattle()}}
 async function autoSettle(){if(busyStall||!game||game.status!=='playing'||nserver()<game.startAt||!everyoneStuck(game)||!stallReady(game))return;
@@ -743,7 +746,7 @@ async function maybeRematch(){if(!host||busyRematch||!game||game.status!=='finis
  const fresh=buildGame(all,uid,cur),res=await ref.transaction(g=>g&&g.status==='finished'&&g.startedAt===cur.startedAt?fresh:undefined,undefined,false);
  if(res.committed){statusInfo='再戦スタート！';for(let i=0;i<capacity;i++)firebase.database().ref('multiRooms/'+roomCode+'/seats/'+i+'/rematchFor').set(0).catch(console.error)}
  }catch(e){report(e,'再戦開始')}finally{busyRematch=false}}
-function tick(){if(!game||!isInside()){MULTI_AUDIO.update(false);return;}MULTI_AUDIO.syncCountdown(game);MULTI_AUDIO.update(matchView&&game.status==='playing'&&nserver()>=game.startAt);const left=Math.max(0,Math.ceil((game.startAt-nserver())/1000));if(game.status==='playing'){
+function tick(){if(!game||!isInside()){try{MULTI_AUDIO.update(false)}catch(e){}return;}try{MULTI_AUDIO.syncCountdown(game);MULTI_AUDIO.update(matchView&&game.status==='playing'&&nserver()>=game.startAt)}catch(e){console.warn('[multi audio] update failed',e)};const left=Math.max(0,Math.ceil((game.startAt-nserver())/1000));if(game.status==='playing'){
   $('statusBar').textContent=(game.placements||[]).includes(uid)?`${game.placements.indexOf(uid)+1}位確定・観戦中`:left?`${left}… マスピード！`:'⚡ 対戦中！';$('startCount').textContent=left?String(left):'マスピード！';
   $show('countdown',left>0);$('centerNote').textContent=left?'カードは「ド！」まで非公開':'中央2枚を計算してカードを出そう！';
   if(lastRound!==game.round||lastActivePhase!==(left===0)){lastRound=game.round;lastActivePhase=(left===0);renderBattle()}
@@ -753,7 +756,8 @@ function tick(){if(!game||!isInside()){MULTI_AUDIO.update(false);return;}MULTI_A
 $('create').onclick=create;$('join').onclick=join;
 $('capacity').onchange=e=>{$('capacityNote').textContent=e.target.value+'人対戦の部屋を作るよ'};
 $('avatar').onchange=localCosPreview;$('nickname').oninput=()=>{};
-$('ready').onclick=()=>saveSeat(!mySeat()?.ready);$('saveAppearance').onclick=()=>saveSeat(false);$('start').onclick=start;
+window.addEventListener('focus',()=>{try{if(!isInside())initProfile();else if(!mySeat()?.ready)localCosPreview()}catch(e){console.warn('[multi] appearance refresh',e)}});
+$('ready').onclick=()=>saveSeat(!mySeat()?.ready);$('start').onclick=start;
 $('rankContinue').onclick=()=>$('multiRankOverlay').classList.add('hidden');
  $('multiBgm').onclick=()=>MULTI_AUDIO.set('bgm');$('multiSe').onclick=()=>MULTI_AUDIO.set('se');MULTI_AUDIO.toggles();
  document.querySelectorAll('#backToMathspeed,[data-multi-back]').forEach(link=>link.addEventListener('click',ev=>{if(game?.status==='playing'&&roomCode&&!window.confirm('対戦を途中で離れますか？ 部屋と対戦記録は残ります。'))ev.preventDefault();}));
