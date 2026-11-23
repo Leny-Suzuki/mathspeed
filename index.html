@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><!-- Character-art verified 10.12.61: original, alpha-checked PNGs for s1/s2/s5, all 3 stages. Keep these assets in future updates. -->
 <!-- Ver.8.5: audited against 8.4; player sprites inherited from 8.3; battle progression and version display fixed. -->
-<title>マスピード Ver.10.12.63｜冒険＆オンライン対戦</title><style>
+<title>マスピード Ver.10.12.64｜冒険＆オンライン対戦</title><style>
 :root{font-family:system-ui,sans-serif;color:#20332c;background:#eef5ef}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:auto;padding:12px}header,.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:4px 0}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}select,.smallbtn{padding:9px;border:1px solid #bccfc2;border-radius:10px;background:white}.table{background:#176448;border-radius:18px;padding:13px;color:white;margin:12px 0}.hand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.card{position:relative;background:white;color:#17211b;border:2px solid #dce4de;border-radius:10px;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #0002;padding:4px}.card .rank{font-size:clamp(23px,6vw,34px);font-weight:850}.card .suit{font-size:21px}.red{color:#cf3048}.joker{background:#292e50;color:#ffe19b;border-color:#d8b65e}.joker .rank{font-size:clamp(15px,4vw,22px)}.empty{border:2px dashed #ffffff66;border-radius:10px;min-height:94px;display:grid;place-items:center;color:#ffffffaa}.userempty{border:2px dashed #c6d3c9;color:#85978a}.selected{outline:4px solid #ffcf4d;outline-offset:1px}.center{display:flex;justify-content:center;gap:18px;margin:14px 0}.center button{width:104px;min-height:132px}.center button.ready{outline:4px solid #ffcf4d;outline-offset:2px}.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.ops button{border:1px solid #bfd2c6;border-radius:12px;background:white;font-size:26px;font-weight:bold;min-height:54px}.ops button.active{background:#176448;color:white}.panel{background:white;border:1px solid #d2e0d6;border-radius:15px;padding:13px;margin:10px 0}.muted{font-size:12px;opacity:.8}.msg{background:#e0eee5;padding:12px;border-radius:12px;min-height:52px;font-size:14px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.controls button{padding:10px 13px;border-radius:10px;border:1px solid #bfd2c6;background:white}.controls .primary{background:#176448;color:white}.meter{height:6px;background:#ffffff4a;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;background:#ffcf4d}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:20px;z-index:2}.overlay.show{display:flex}.dialog{background:white;padding:26px;border-radius:18px;text-align:center;width:min(100%,390px)}.dialog h2{font-size:27px}#playerHand button{width:100%}#cpuHand .card{min-height:88px}@media(min-width:600px){.card{min-height:115px}.center button{width:120px;min-height:150px}}
 
 /* Explicit control colors for Safari, iPadOS and dark-mode browsers */
@@ -198,7 +198,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 }
 #titleOverlay .titleInfo{left:35%;top:87%;width:34%;background:#091a3bca}
 #titleOverlay .titlePanel.titleArt::after{
-  content:"Ver.10.12.63";display:flex;position:absolute;right:0;top:0;
+  content:"Ver.10.12.64";display:flex;position:absolute;right:0;top:0;
   z-index:2;box-sizing:border-box;width:13.5%;min-width:90px;max-width:190px;
   height:6%;min-height:28px;align-items:center;justify-content:center;
   padding:0 6px;background:#11102f;border-bottom:1px solid #6e568d;
@@ -260,7 +260,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
   background:linear-gradient(180deg,#399abe,#244e82); outline:3px solid #fff2b7;
   outline-offset:2px;
 }
-#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.63"}
+#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.64"}
 @media(max-width:650px) and (orientation:portrait) {
   #titleOverlay .titleActions {bottom:18%;height:24%;}
   #titleOverlay .titleOnlineButton {
@@ -705,7 +705,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 #titleOverlay{background:#091b36}
 #titleOverlay .titlePanel.titleArt{width:min(100vw,177.78dvh);height:auto;max-height:100dvh;min-height:0;aspect-ratio:16/9;background:#142b50;overflow:hidden;}
 #titleOverlay .titleImage{inset:0;background-image:url('./assets/title_a109.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat;background-position:center!important;animation:none!important;filter:none!important}
-#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.63"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
+#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.64"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
 #titleOverlay .ms108Home{left:31%;width:38%;top:47%;bottom:2%;max-height:none;padding:0;gap:clamp(4px,.7vw,9px);justify-content:flex-start;background:transparent;border:0;border-radius:0;box-shadow:none;}
 #titleOverlay .ms108HomeEyebrow{background:#0d2c51ac;border:1px solid #efc77c88;border-radius:8px;padding:3px 9px;font-size:clamp(9px,.83vw,12px);text-shadow:0 1px #000}
 #titleOverlay .ms108HeroButton{min-height:clamp(46px,7.5vw,77px)!important;justify-content:center!important;text-align:center!important;gap:0!important;background:linear-gradient(135deg,#0d4199,#155dc1 48%,#072f77)!important;border:3px ridge #fce1a2!important;border-radius:8px!important;padding:5px!important;box-shadow:0 4px 0 #102442aa,inset 0 2px #ffffff4d,0 0 17px #f3c97580!important}
@@ -905,6 +905,14 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
 #msGachaCinematic[data-phase="reveal"] .msCineTierMark{visibility:visible;opacity:1}
 #devGachaPreview .devCinemaControls{display:flex;flex-wrap:wrap;gap:7px}
 #devGachaPreview #ms49DemoButtons button{padding:9px 12px;min-width:75px}
+</style><style id="msSecretBaseTitleCss">
+#titleOverlay .msBaseTitleRow{display:flex;gap:8px;width:100%;align-items:stretch;min-width:0}
+#titleOverlay .msBaseTitleRow>.ms108HelpEntry{width:50%;flex:1 1 0;min-width:0;min-height:39px;padding:6px 8px!important;gap:6px;font-size:clamp(11px,1.45vw,15px);justify-content:flex-start}
+#titleOverlay .msBaseTitleRow>.ms108HelpEntry>span:first-child{font-size:clamp(16px,2vw,22px)}
+#titleOverlay .msBaseTitleRow>.ms108HelpEntry>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:0;white-space:nowrap}
+#titleOverlay .msBaseTitleRow>.ms108HelpEntry small{font-size:clamp(8px,1vw,10px);white-space:nowrap}
+#titleOverlay .ms108SecretEntry{background:linear-gradient(135deg,#256d61,#184a4d)!important;border-color:#9dcf9e!important}
+@media(max-width:420px){#titleOverlay .msBaseTitleRow{gap:5px}#titleOverlay .msBaseTitleRow>.ms108HelpEntry{padding:5px!important;gap:4px;font-size:11px}#titleOverlay .msBaseTitleRow>.ms108HelpEntry small{font-size:8px}}
 </style></head><body><div id="titleOverlay"><div class="titlePanel titleArt" role="region" aria-label="マスピード タイトル画面">
 <div class="titleImage" role="img" aria-label="金色のマスピードロゴ、海と城、冒険者と青いスライムが描かれたRPG風タイトル画面"></div>
 
@@ -922,9 +930,9 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
     <button type="button" id="ms108OpenMarket"><span aria-hidden="true">🎲</span><span>ショップ・ガチャ<small>集めて着せ替え</small></span></button>
     <button type="button" id="ms108OpenRecords"><span aria-hidden="true">📖</span><span>図鑑・実績<small>冒険の記録</small></span></button>
   </div>
-  <button type="button" id="ms108OpenHelp" class="ms108HelpEntry"><span aria-hidden="true">📘</span><span>遊び方 <small>はじめての人はここ！　ルール・練習・モード案内</small></span><span aria-hidden="true">❯</span></button>
+  <div class="msBaseTitleRow"><button type="button" id="ms108OpenHelp" class="ms108HelpEntry"><span aria-hidden="true">📘</span><span>遊び方 <small>ルール・練習</small></span></button><button type="button" id="ms108OpenBase" class="ms108HelpEntry ms108SecretEntry"><span aria-hidden="true">🏡</span><span>ひみつきち <small>家具・音楽・ねこ</small></span></button></div>
   <div class="ms108HomeFooter"><span id="ms108Coins">🪙 マスコイン ―</span><button type="button" id="ms108Settings">⚙ 設定</button></div>
-  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>🎉 ミニゲーム・3〜4人対戦・第2章が公開！</span><span aria-hidden="true">›</span></button>
+  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>🎉 新登場「ひみつきち」！ ミニゲーム・第2章も公開中</span><span aria-hidden="true">›</span></button>
 </nav>
 <div class="titleUtilities"></div><div class="titleActions"><button class="menuButton" id="menuNew">はじめから</button><button class="menuButton" id="menuContinue">つづきから</button><button class="menuButton" id="menuShop">ショップ</button><button class="menuButton" id="menuSoundTest" aria-label="設定を開く">設定</button></div><button type="button" class="titleGachaStandalone" id="menuGacha">🎲 ガチャ・コレクション</button>
 <button class="titleMapButton" id="menuMap">🗺 ワールドマップ・図鑑</button>
@@ -1647,6 +1655,14 @@ const defs=[{"id":"firstplay","name":"はじめの一歩","desc":"1回対戦す�
 {id:'mental10',name:'暗算王を圧倒せし者',desc:'第1章の暗算王に、相手のカードを10枚以上残して勝つ',tier:'gold',kind:'mental10',target:1,group:'圧勝'},
 {id:'teacher5',name:'師を超えた弟子',desc:'第1章の数学教師に、相手のカードを5枚以上残して勝つ',tier:'gold',kind:'teacher5',target:1,group:'圧勝'},
 {id:'teacher10',name:'真の計算王',desc:'第1章の数学教師に、相手のカードを10枚以上残して勝つ',tier:'platinum',kind:'teacher10',target:1,group:'圧勝'});
+// Shared purchasing milestones: existing enemy avatars (up to ten) plus secret base store purchases.
+defs.push(
+ {id:'shopall1',name:'はじめてのお買い物',desc:'ショップで合計1個購入（敵アバター・ひみつきち共通）',tier:'bronze',kind:'totalpurchases',target:1,group:'買い物'},
+ {id:'shopall10',name:'買い物上手',desc:'ショップで合計10個購入',tier:'bronze',kind:'totalpurchases',target:10,group:'買い物'},
+ {id:'shopall25',name:'お買い物名人',desc:'ショップで合計25個購入',tier:'silver',kind:'totalpurchases',target:25,group:'買い物'},
+ {id:'shopall50',name:'お店の常連さん',desc:'ショップで合計50個購入',tier:'gold',kind:'totalpurchases',target:50,group:'買い物'},
+ {id:'shopall100',name:'伝説の買い物王',desc:'ショップで合計100個購入',tier:'platinum',kind:'totalpurchases',target:100,group:'買い物'}
+);
 const rewards={bronze:500,silver:1500,gold:3000,platinum:5000},tierNames={bronze:'銅',silver:'銀',gold:'金',platinum:'プラチナ'};
 let data={plays:0,wins:0,enemyPlays:{},unlocked:[],title:''},stats={ops:{'+':0,'-':0,'×':0,'÷':0},cards:0,jokers:0,levelwins:{},streaks:{5:0,7:0,9:0,10:0},avatarwins:{},teacheravatars:[],teacher:0,earned:0,buys:0,gacha:0,onlinewins:0,onlineplays:0,sessionOps:{'+':0,'-':0,'×':0,'÷':0},lastCard:'',lastEnemy:-1,losses:0,flags:{}};
 try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&typeof d==='object')data={...data,...d,enemyPlays:d.enemyPlays||{},unlocked:Array.isArray(d.unlocked)?d.unlocked:[]}}catch(e){}
@@ -1721,7 +1737,20 @@ function miniProgress(){
   slimeMeters:Math.max(finite(profile.slimeBestMeters),finite(mini.slimeMeters))
  };
 }
-function value(d){const k=d.kind;if(k==='ep2complete'){try{return JSON.parse(localStorage.getItem('mathspeed-v4-profile')||'{}')?.episode2?.completed?1:0}catch(e){return 0}}
+function integratedPurchases(){
+ try{const b=JSON.parse(localStorage.getItem('mathspeed-secret-base-main-v1')||'null');return b&&Number.isFinite(Number(b.purchaseCount))?Math.max(0,Math.floor(Number(b.purchaseCount))):0}catch(e){return 0}
+}
+function allShopPurchases(){
+ // Future shops may report their paid purchases under a separate byShop key.
+ let byShop={};try{const l=JSON.parse(localStorage.getItem('mathspeed-shop-purchases-v1')||'null');if(l&&typeof l.byShop==='object')byShop=l.byShop||{}}catch(e){}
+ let total=0;for(const [id,count] of Object.entries(byShop)){
+  if(id==='avatars'||id==='secretBase')continue; // Both have dedicated existing save sources.
+  total+=Math.max(0,Math.floor(Number(count)||0));
+ }
+ const secretBase=Math.max(integratedPurchases(),Math.max(0,Math.floor(Number(byShop.secretBase)||0)));
+ return Math.max(0,Number(stats.buys)||0)+secretBase+total;
+}
+function value(d){const k=d.kind;if(k==='totalpurchases')return allShopPurchases();if(k==='ep2complete'){try{return JSON.parse(localStorage.getItem('mathspeed-v4-profile')||'{}')?.episode2?.completed?1:0}catch(e){return 0}}
 if(k==='ep1complete'){try{const p=JSON.parse(localStorage.getItem('mathspeed-v4-profile')||'{}');return (Array.isArray(p.defeated)&&p.defeated.length>=10)||data.unlocked.includes('clear')?1:0}catch(e){return data.unlocked.includes('clear')?1:0}}if(['mental5','mental10','teacher5','teacher10'].includes(k))return stats.flags[k]?1:0;if(k==='towerfloor')return miniProgress().towerFloor;
 if(k==='slimedistance')return miniProgress().slimeMeters;if(k==='plays'||k==='wins')return data[k]||0;if(k==='repeat')return Math.max(0,...Object.values(data.enemyPlays));if(k==='clear')return data.unlocked.includes('clear')?1:0;if(k.startsWith('op')&&k.length===3)return stats.ops[k.slice(2)]||0;if(k.startsWith('levelwins'))return Object.entries(stats.levelwins).reduce((n,[level,w])=>n+(Number(level)>=Number(k.slice(9))?w:0),0);if(k.startsWith('streak'))return stats.streaks[k.slice(6)]||0;if(k==='allops')return Math.min(...Object.values(stats.sessionOps));if(k==='avatarwins')return Object.values(stats.avatarwins).filter(x=>x>0).length;if(k==='sameavatar')return Math.max(0,...Object.values(stats.avatarwins));if(k==='teacheravatars')return stats.teacheravatars.length;if(k==='teacher')return stats.teacher;if(k==='evolve1'||k==='evolve3'||k==='evolveall')return stats.flags[k]?1:0;if(k==='gachacollect')return Math.max(stats.flags[k]?6:0,cosmeticSnapshot().avatars);if(k==='cardcollect')return Math.max(stats.flags[k]?10:0,cosmeticSnapshot().backs);if(k==='lastjoker'||k==='comeback'||k==='slimeteacher'||k==='legendteacher'||k==='longwin'||k.startsWith('speed')||k==='onlinerematch')return stats.flags[k]?1:0;if(k==='allcomplete')return defs.every(x=>x.id===d.id||x.id==='ep2clear'||['ep1clear','mental5','mental10','teacher5','teacher10'].includes(x.id)||data.unlocked.includes(x.id))?1:0;if(k==='earned')return (Number(stats.earned)||0)+(Number(stats.onlineEarned)||0);return stats[k]||0}
 function evaluate(){mergeOnlineStats();syncCosmetics();syncShopEvolution();let fresh=[];for(const d of defs){if(value(d)>=d.target&&!data.unlocked.includes(d.id)){data.unlocked.push(d.id);fresh.push(d)}}if(!data.title&&data.unlocked.length)data.title=defs.find(d=>data.unlocked.includes(d.id))?.name||'';save();render();if(fresh.length){queue.push(...fresh);setTimeout(next,1200)}}
@@ -1919,11 +1948,12 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  $('ms108OpenHelp').addEventListener('click',()=>{openDialog('ms108HelpDialog',$('ms108OpenHelp'));if(window.ms108HelpOpen)window.ms108HelpOpen();});
  $('ms108OpenOnline').addEventListener('click',()=>delegate('menuOnline'));
  $('ms108Settings').addEventListener('click',()=>delegate('menuSoundTest'));
- $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.10.12.63 のお知らせ\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'}],$('ms109News')));
+ $('ms108OpenBase').addEventListener('click',()=>{window.location.href='secret-base.html'});
+ $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.10.12.64 のお知らせ\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n🏡 新コンテンツ「ひみつきち」公開！ 家具・マット・レコードをマスコインで集め、アバターを着せ替えよう。レコードプレイヤーを置くとBGMも楽しめる！ しあわせねこ・れあねこ・きせきねこが訪ねてくるかも。\n\n🏆 買い物実績も追加！ 敵アバターとひみつきちの購入を合算して100回まで挑戦できます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'},{label:'🏡 ひみつきちへ',action:'secretbase'}],$('ms109News')));
  function openQuick(title,help,actions,btn){
   $('ms108QuickHeading').textContent=title;$('ms108QuickHelp').textContent=help;
   const wrap=$('ms108QuickActions');wrap.replaceChildren();
-  for(const a of actions){const b=document.createElement('button');b.type='button';b.textContent=a.label;b.addEventListener('click',()=>{if(a.action==='trophies'){closeAll(false);$('editProfile').click();if(typeof window.msShowProfileTab==='function')window.msShowProfileTab('trophies')}else delegate(a.action)});wrap.append(b)}
+  for(const a of actions){const b=document.createElement('button');b.type='button';b.textContent=a.label;b.addEventListener('click',()=>{if(a.action==='trophies'){closeAll(false);$('editProfile').click();if(typeof window.msShowProfileTab==='function')window.msShowProfileTab('trophies')}else if(a.action==='secretbase'){window.location.href='secret-base.html'}else delegate(a.action)});wrap.append(b)}
   openDialog('ms108QuickDialog',btn);
  }
  $('ms108OpenMarket').addEventListener('click',()=>openQuick('ショップ・ガチャ','集める・買う・着せ替える',[
