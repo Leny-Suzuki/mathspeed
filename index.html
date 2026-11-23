@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><!-- Character-art verified 10.12.61: original, alpha-checked PNGs for s1/s2/s5, all 3 stages. Keep these assets in future updates. -->
 <!-- Ver.8.5: audited against 8.4; player sprites inherited from 8.3; battle progression and version display fixed. -->
-<title>マスピード Ver.10.12.62｜冒険＆オンライン対戦</title><style>
+<title>マスピード Ver.10.12.63｜冒険＆オンライン対戦</title><style>
 :root{font-family:system-ui,sans-serif;color:#20332c;background:#eef5ef}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:auto;padding:12px}header,.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:4px 0}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}select,.smallbtn{padding:9px;border:1px solid #bccfc2;border-radius:10px;background:white}.table{background:#176448;border-radius:18px;padding:13px;color:white;margin:12px 0}.hand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.card{position:relative;background:white;color:#17211b;border:2px solid #dce4de;border-radius:10px;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #0002;padding:4px}.card .rank{font-size:clamp(23px,6vw,34px);font-weight:850}.card .suit{font-size:21px}.red{color:#cf3048}.joker{background:#292e50;color:#ffe19b;border-color:#d8b65e}.joker .rank{font-size:clamp(15px,4vw,22px)}.empty{border:2px dashed #ffffff66;border-radius:10px;min-height:94px;display:grid;place-items:center;color:#ffffffaa}.userempty{border:2px dashed #c6d3c9;color:#85978a}.selected{outline:4px solid #ffcf4d;outline-offset:1px}.center{display:flex;justify-content:center;gap:18px;margin:14px 0}.center button{width:104px;min-height:132px}.center button.ready{outline:4px solid #ffcf4d;outline-offset:2px}.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.ops button{border:1px solid #bfd2c6;border-radius:12px;background:white;font-size:26px;font-weight:bold;min-height:54px}.ops button.active{background:#176448;color:white}.panel{background:white;border:1px solid #d2e0d6;border-radius:15px;padding:13px;margin:10px 0}.muted{font-size:12px;opacity:.8}.msg{background:#e0eee5;padding:12px;border-radius:12px;min-height:52px;font-size:14px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.controls button{padding:10px 13px;border-radius:10px;border:1px solid #bfd2c6;background:white}.controls .primary{background:#176448;color:white}.meter{height:6px;background:#ffffff4a;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;background:#ffcf4d}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:20px;z-index:2}.overlay.show{display:flex}.dialog{background:white;padding:26px;border-radius:18px;text-align:center;width:min(100%,390px)}.dialog h2{font-size:27px}#playerHand button{width:100%}#cpuHand .card{min-height:88px}@media(min-width:600px){.card{min-height:115px}.center button{width:120px;min-height:150px}}
 
 /* Explicit control colors for Safari, iPadOS and dark-mode browsers */
@@ -198,7 +198,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 }
 #titleOverlay .titleInfo{left:35%;top:87%;width:34%;background:#091a3bca}
 #titleOverlay .titlePanel.titleArt::after{
-  content:"Ver.10.12.62";display:flex;position:absolute;right:0;top:0;
+  content:"Ver.10.12.63";display:flex;position:absolute;right:0;top:0;
   z-index:2;box-sizing:border-box;width:13.5%;min-width:90px;max-width:190px;
   height:6%;min-height:28px;align-items:center;justify-content:center;
   padding:0 6px;background:#11102f;border-bottom:1px solid #6e568d;
@@ -260,7 +260,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
   background:linear-gradient(180deg,#399abe,#244e82); outline:3px solid #fff2b7;
   outline-offset:2px;
 }
-#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.62"}
+#titleOverlay .titlePanel.titleArt::after {content:"Ver.10.12.63"}
 @media(max-width:650px) and (orientation:portrait) {
   #titleOverlay .titleActions {bottom:18%;height:24%;}
   #titleOverlay .titleOnlineButton {
@@ -705,7 +705,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 #titleOverlay{background:#091b36}
 #titleOverlay .titlePanel.titleArt{width:min(100vw,177.78dvh);height:auto;max-height:100dvh;min-height:0;aspect-ratio:16/9;background:#142b50;overflow:hidden;}
 #titleOverlay .titleImage{inset:0;background-image:url('./assets/title_a109.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat;background-position:center!important;animation:none!important;filter:none!important}
-#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.62"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
+#titleOverlay .titlePanel.titleArt::after{content:"Ver.10.12.63"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
 #titleOverlay .ms108Home{left:31%;width:38%;top:47%;bottom:2%;max-height:none;padding:0;gap:clamp(4px,.7vw,9px);justify-content:flex-start;background:transparent;border:0;border-radius:0;box-shadow:none;}
 #titleOverlay .ms108HomeEyebrow{background:#0d2c51ac;border:1px solid #efc77c88;border-radius:8px;padding:3px 9px;font-size:clamp(9px,.83vw,12px);text-shadow:0 1px #000}
 #titleOverlay .ms108HeroButton{min-height:clamp(46px,7.5vw,77px)!important;justify-content:center!important;text-align:center!important;gap:0!important;background:linear-gradient(135deg,#0d4199,#155dc1 48%,#072f77)!important;border:3px ridge #fce1a2!important;border-radius:8px!important;padding:5px!important;box-shadow:0 4px 0 #102442aa,inset 0 2px #ffffff4d,0 0 17px #f3c97580!important}
@@ -924,7 +924,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
   </div>
   <button type="button" id="ms108OpenHelp" class="ms108HelpEntry"><span aria-hidden="true">📘</span><span>遊び方 <small>はじめての人はここ！　ルール・練習・モード案内</small></span><span aria-hidden="true">❯</span></button>
   <div class="ms108HomeFooter"><span id="ms108Coins">🪙 マスコイン ―</span><button type="button" id="ms108Settings">⚙ 設定</button></div>
-  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>ガチャが5段階レアリティに進化！ 新デザイン＆開封演出も登場</span><span aria-hidden="true">›</span></button>
+  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>🎉 ミニゲーム・3〜4人対戦・第2章が公開！</span><span aria-hidden="true">›</span></button>
 </nav>
 <div class="titleUtilities"></div><div class="titleActions"><button class="menuButton" id="menuNew">はじめから</button><button class="menuButton" id="menuContinue">つづきから</button><button class="menuButton" id="menuShop">ショップ</button><button class="menuButton" id="menuSoundTest" aria-label="設定を開く">設定</button></div><button type="button" class="titleGachaStandalone" id="menuGacha">🎲 ガチャ・コレクション</button>
 <button class="titleMapButton" id="menuMap">🗺 ワールドマップ・図鑑</button>
@@ -1919,7 +1919,7 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  $('ms108OpenHelp').addEventListener('click',()=>{openDialog('ms108HelpDialog',$('ms108OpenHelp'));if(window.ms108HelpOpen)window.ms108HelpOpen();});
  $('ms108OpenOnline').addEventListener('click',()=>delegate('menuOnline'));
  $('ms108Settings').addEventListener('click',()=>delegate('menuSoundTest'));
- $('ms109News').addEventListener('click',()=>openQuick('🎲 ガチャ＆コレクションが大幅進化！','新登場！ ガチャが5段階のレアリティに進化しました。排出率：N 58% ／ UC 30% ／ R 8% ／ SR 3% ／ SSR 1%。\n\n✨ SR・SSRの演出が出たら必ずキャラクター！ すでに所持している景品は重複せず、未所持の景品が当たります。同じレアリティを集めきった場合は200コインが還元されます。\n\n🃏 既存キャラクターをモチーフにしたカード裏面20種類と2色フレーム4種類が仲間入り。カード裏面・フレームはN〜R。SRは限定キャラ3体、SSRは八丈島の限定キャラ3体だけ！\n\n🌈 N〜SSRで開封演出が変化。レアリティ別の専用開封演出を楽しめます。\n\n🎟 1回500マスコイン。全景品を集めると「コンプリート」表示になります。',[{label:'🎲 ガチャ・コレクションを見る',action:'menuGacha'},{label:'🏆 プロフィール・実績を見る',action:'trophies'}],$('ms109News')));
+ $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.10.12.63 のお知らせ\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'}],$('ms109News')));
  function openQuick(title,help,actions,btn){
   $('ms108QuickHeading').textContent=title;$('ms108QuickHelp').textContent=help;
   const wrap=$('ms108QuickActions');wrap.replaceChildren();
