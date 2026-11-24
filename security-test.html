@@ -405,7 +405,76 @@ function msPaintCosmetics(imgId,packed){
   badge.dataset.msBack=c.back;badge.textContent=({b0:'⚡',b1:'🔥',b2:'❄️',b3:'🌟',b4:'👑'})[c.back]||'⚡';}
 }
 function lobbyPath(){return 'lobbies/'+roomCode+'/'+(isHost?'host':'guest')}
-async function writeLobby(ready){if(!roomCode||!uid)return;const id=$('character').value;const allowed=readLocalPlayer().options.some(o=>o.id===id);if(!allowed){message('未解放のキャラクターは選択できません。');return}const name=($('nickname').value.trim()||'プレイヤー').slice(0,20);const data={uid,name,avatar:window.MasCosmetics.encodeAvatar(id),ready:!!ready};await firebase.database().ref(lobbyPath()).set(data);lobbyReady=!!ready;updateMyPreview();log('ロビー情報を送信：'+heroName(id)+' / '+(ready?'準備完了':'準備中'))}
+// Ver.11.0.1: non-destructive diagnostics for one-device lobby permission failures.
+// Log only authorization comparisons, not raw Firebase UIDs or student names.
+const LOBBY_AVATAR_RULE=/^([se][0-9](_[12])?|g[0-5])(~b([0-9]|1[0-2])~f([0-9]|10))?$/;
+let lobbyDiagnosticBusy=false;
+function lobbyPreflight(data){
+ const signed=firebase.auth().currentUser;
+ const rawId=$('character').value;
+ const allowed=readLocalPlayer().options.some(o=>o.id===rawId);
+ const fields=Object.keys(data).sort().join(',');
+ const issues=[];
+ if(!signed||!uid||signed.uid!==uid)issues.push('認証UIDが現在の通信セッションと一致しない');
+ if(!/^\d{6}$/.test(roomCode||''))issues.push('部屋番号が6桁ではない');
+ if(!data.uid||data.uid!==uid)issues.push('送信UIDが異なる');
+ if(!data.name||data.name.length>20)issues.push('名前が1～20文字の条件外');
+ if(!LOBBY_AVATAR_RULE.test(data.avatar))issues.push('キャラIDがFirebaseの許可形式外');
+ if(!allowed)issues.push('選択キャラがローカル解放一覧にない');
+ if(typeof data.ready!=='boolean')issues.push('readyが真偽値ではない');
+ log('🔎 送信前検査：'+(issues.length?'注意あり':'基本項目OK')+' / キャラID='+String(data.avatar)+' / 名前の長さ='+data.name.length+' / ready='+data.ready);
+ log('🔎 送信欄：'+fields+' / キャラ形式='+(LOBBY_AVATAR_RULE.test(data.avatar)?'OK':'NG')+' / ローカル解放='+allowed+' / 匿名認証='+(signed?.isAnonymous?'有効':'無効・未確認')+' / UID一致='+(!!signed&&signed.uid===uid));
+ if(issues.length)issues.forEach(issue=>log('⚠️ 送信前の注意：'+issue));
+ return issues;
+}
+async function explainLobbyPermission(data,e){
+ if(lobbyDiagnosticBusy)return;
+ lobbyDiagnosticBusy=true;
+ try{
+  log('―― ロビー書き込み拒否の追加診断（データは変更しません）――');
+  log('❌ 書き込み先：'+lobbyPath()+' / エラー：'+String(e?.code||'不明'));
+  const signed=firebase.auth().currentUser;
+  log('⑥ 現在のFirebase認証：'+(signed?'ログイン済み':'未ログイン')+' / 内部UIDとの一致='+(!!signed&&signed.uid===uid));
+  const roomSnap=await firebase.database().ref('rooms/'+roomCode).once('value');
+  const room=roomSnap.val();
+  if(!room){log('⑦ 部屋が存在しない：再度部屋を作成して試してね');return}
+  const seat=isHost?'hostUid':'guestUid';
+  const correct=room[seat]===signed?.uid;
+  const seconds=Math.round((Number(room.expiresAt)-nowServer())/1000);
+  log('⑦ 部屋の記録：役割='+(isHost?'ホスト':'ゲスト')+' / 認証UIDと部屋UIDの一致='+correct+' / 状態='+String(room.status)+' / 残り='+seconds+'秒');
+  if(!correct)log('🧭 原因候補：部屋の'+(isHost?'ホスト':'ゲスト')+'UIDと現在の認証が不一致。別タブや再ログインの影響を確認してね');
+  if(seconds<=0)log('🧭 原因候補：部屋の有効期限切れ。新しい部屋を作ってね');
+  if(correct&&seconds>0){
+   try{
+    const s=await firebase.database().ref(lobbyPath()).once('value');
+    const item=s.val();
+    log('⑧ 既存ロビー：'+(item?'登録済み':'未登録')+(item?' / UID一致='+(item.uid===signed?.uid)+' / キャラID='+String(item.avatar||'(なし)'):'') );
+    if(item&&item.uid!==signed?.uid)log('🧭 原因候補：古いUIDのロビーデータが残っている');
+   }catch(readErr){log('⑧ 既存ロビーの読み取り不可：'+String(readErr?.code||'不明'))}
+  }
+  if(correct&&seconds>0&&LOBBY_AVATAR_RULE.test(data.avatar)&&data.name.length<=20){
+   log('🧭 キャラID・名前・UID・期限は一見正常。Firebaseルールの他の検証条件、または公開済みルールの差分が原因候補');
+  }
+ }catch(diagErr){log('⚠️ 追加診断で読み取り失敗：'+String(diagErr?.code||diagErr?.message||'不明'))}
+ finally{lobbyDiagnosticBusy=false;log('―― 診断終了。ログをコピーして先生へ ――')}
+}
+async function writeLobby(ready){
+ if(!roomCode||!uid)return;
+ const id=$('character').value;
+ const allowed=readLocalPlayer().options.some(o=>o.id===id);
+ if(!allowed){log('⚠️ ロビー送信中止：未解放のキャラクターを選択');message('未解放のキャラクターは選択できません。');return}
+ const name=($('nickname').value.trim()||'プレイヤー').slice(0,20);
+ const data={uid,name,avatar:window.MasCosmetics.encodeAvatar(id),ready:!!ready};
+ const issues=lobbyPreflight(data);
+ if(issues.length){message('ロビー送信前に問題が見つかりました。診断ログを先生に見せてね。');return}
+ try{
+  await firebase.database().ref(lobbyPath()).set(data);
+  lobbyReady=!!ready;updateMyPreview();log('✅ ロビー情報を送信：'+heroName(id)+' / '+(ready?'準備完了':'準備中'));
+ }catch(e){
+  await explainLobbyPermission(data,e);
+  throw e;
+ }
+}
 function stopLobby(){duelMusicPause(true);stopBattle();if(lobbyRef){lobbyRef.off();lobbyRef=null}show('lobby',false);lobbyReady=false;remoteLobby=null;lobbyState=null}
 async function startLobby(code,host){stopLobby();initLobbyChoices();show('lobby',true);watchBattle();$('lobbyRoom').textContent='（'+code+'）';lobbyRef=firebase.database().ref('lobbies/'+code);lobbyRef.on('value',snap=>{const all=snap.val()||{};lobbyState=all;const mine=all[host?'host':'guest'];const other=all[host?'guest':'host'];remoteLobby=other;
  $('otherName').textContent=other?.name||'参加待ち';$('otherCharacter').textContent=other?heroName(other.avatar):'---';$('otherArt').src=msAvatarArt(other?.avatar);msPaintCosmetics('otherArt',other?.avatar);$('otherArt').style.opacity=other?1:.3;$('otherReady').textContent=other?(other.ready?'✅ 準備完了':'⏳ 準備中'):'未接続';
