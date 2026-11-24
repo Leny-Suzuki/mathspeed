@@ -267,7 +267,7 @@ function ownAvatars(){return load().owned.avatars.slice()}
 function name(id){return catalog.find(x=>x.id===id)?.name||'謎のキャラクター'}
 function avatarArt(id){if(/^g[0-5]$/.test(String(id)))return './assets/avatars/'+id+'.png';return arts[id]||null}
 function encodeAvatar(avatar){const s=load();return avatar+'~'+s.equipped.back+'~'+s.equipped.frame}
-function parseAvatar(text){const val=String(text||'s0');const m=/^([se][0-9](?:_[12])?|g[0-2])(?:~(b[0-4])~(f[0-4]))?$/.exec(val);
+function parseAvatar(text){const val=String(text||'s0');const m=/^([se][0-9](?:_[12])?|g[0-5])(?:~(b(?:[0-9]|1[0-2]))~(f(?:[0-9]|1[0-2])))?$/.exec(val);
  return m?{avatar:m[1],back:m[2]||'b0',frame:m[3]||'f0'}:{avatar:'s0',back:'b0',frame:'f0'};}
 function theme(){const e=load().equipped;document.body.dataset.msBack=e.back;document.body.dataset.msFrame=e.frame;}
 window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars,catalog,allBacks,allFrames,load,save,draw,equip,has,ownAvatars,name,avatarArt,encodeAvatar,parseAvatar,theme};
@@ -389,7 +389,7 @@ function readLocalPlayer(){
  return {name,selected,options};
 }
 function initLobbyChoices(){if(lobbyInitialized)return;lobbyInitialized=true;const player=readLocalPlayer();$('nickname').value=player.name;$('character').replaceChildren();for(const item of player.options){const option=document.createElement('option');option.value=item.id;option.textContent=item.name+(item.id.includes('_')?'（進化）':'');$('character').append(option)}$('character').value=player.selected;updateMyPreview()}
-function updateMyPreview(){const id=$('character').value;const name=$('nickname').value.trim()||'プレイヤー';$('myArt').src=msAvatarArt(id);msPaintCosmetics('myArt',window.MasCosmetics.encodeAvatar(id));$('myName').textContent=name;$('myCharacter').textContent=heroName(id);$('myReady').textContent=lobbyReady?'✅ 準備完了':'⏳ 準備中'}
+function updateMyPreview(){const id=$('character').value;const name=$('nickname').value.trim()||'プレイヤー';$('myArt').src=msAvatarArt(id);msPaintCosmetics('myArt',firebaseLobbyAvatar(id));$('myName').textContent=name;$('myCharacter').textContent=heroName(id);$('myReady').textContent=lobbyReady?'✅ 準備完了':'⏳ 準備中'}
 function heroName(packed){const id=window.MasCosmetics.parseAvatar(packed).avatar;
   if(/^g[0-2]$/.test(id))return window.MasCosmetics.name(id);
   const m=/^([se])([0-9])(?:_([12]))?$/.exec(id);
@@ -405,9 +405,28 @@ function msPaintCosmetics(imgId,packed){
   badge.dataset.msBack=c.back;badge.textContent=({b0:'⚡',b1:'🔥',b2:'❄️',b3:'🌟',b4:'👑'})[c.back]||'⚡';}
 }
 function lobbyPath(){return 'lobbies/'+roomCode+'/'+(isHost?'host':'guest')}
-// Ver.11.0.1: non-destructive diagnostics for one-device lobby permission failures.
+// Ver.11.0.2: non-destructive diagnostics for one-device lobby permission failures.
 // Log only authorization comparisons, not raw Firebase UIDs or student names.
 const LOBBY_AVATAR_RULE=/^([se][0-9](_[12])?|g[0-5])(~b([0-9]|1[0-2])~f([0-9]|10))?$/;
+const LOBBY_BASE_AVATAR=/^(?:[se][0-9](?:_[12])?|g[0-5])$/;
+const LOBBY_BACK_ALLOWED=/^b(?:[0-9]|1[0-2])$/;
+const LOBBY_FRAME_ALLOWED=/^f(?:[0-9]|10)$/;
+// Form the Firebase-ready avatar explicitly, independent of any older cached encoder.
+// Invalid cosmetic IDs are only substituted in the *network payload*, never the saved equipment.
+function firebaseLobbyAvatar(id){
+ const equipped=window.MasCosmetics?.load?.()?.equipped||{};
+ const back=LOBBY_BACK_ALLOWED.test(equipped.back||'')?equipped.back:'b0';
+ const frame=LOBBY_FRAME_ALLOWED.test(equipped.frame||'')?equipped.frame:'f0';
+ const raw=window.MasCosmetics?.encodeAvatar?.(id);
+ const base=LOBBY_BASE_AVATAR.test(id)?id:'s0';
+ const packed=base+'~'+back+'~'+frame;
+ if(raw!==packed){
+  log('🔧 アバター送信形式を補正：'+String(raw)+' → '+packed);
+  if(equipped.back!==back||equipped.frame!==frame)log('ℹ️ 現在のFirebaseルール非対応の着せ替えは通信画面だけ標準表示。所持データ・装備設定は保持');
+ }
+ return packed;
+}
+
 let lobbyDiagnosticBusy=false;
 function lobbyPreflight(data){
  const signed=firebase.auth().currentUser;
@@ -464,7 +483,7 @@ async function writeLobby(ready){
  const allowed=readLocalPlayer().options.some(o=>o.id===id);
  if(!allowed){log('⚠️ ロビー送信中止：未解放のキャラクターを選択');message('未解放のキャラクターは選択できません。');return}
  const name=($('nickname').value.trim()||'プレイヤー').slice(0,20);
- const data={uid,name,avatar:window.MasCosmetics.encodeAvatar(id),ready:!!ready};
+ const data={uid,name,avatar:firebaseLobbyAvatar(id),ready:!!ready};
  const issues=lobbyPreflight(data);
  if(issues.length){message('ロビー送信前に問題が見つかりました。診断ログを先生に見せてね。');return}
  try{
