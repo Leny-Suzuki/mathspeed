@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101d35">
-<title>全国ランキング｜マスピード Ver.11.1.0 正式接続</title>
+<title>全国ランキング｜マスピード Ver.11.1.1 正式接続</title>
 <style>
 :root{color-scheme:dark;--ink:#121d34;--panel:#1e3150;--gold:#f2cc76;--mint:#a4e6d5;--cream:#fff4db;--mute:#b4cbdf;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:var(--cream);background:var(--ink)}
 *{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 50% -12%,#385779 0,#1e3453 31%,#111e35 75%);padding:14px 14px 65px}button,input{font:inherit}button{cursor:pointer}a{color:inherit}.wrap{max-width:760px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.back{color:#f4e5c9;text-decoration:none;border:2px solid #9b957b;background:#203851;border-radius:9px;padding:9px 13px;font-weight:850;font-size:12px}.version{font:800 11px/1.2 monospace;letter-spacing:.08em;color:#b9e8d8}
@@ -17,11 +17,15 @@
 .testScope{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 12px;font-size:12px;color:#d3e7e9;font-weight:850}
 .testScope select{flex:1;min-width:min(100%,230px);border:2px solid #7baca9;border-radius:9px;padding:10px 12px;color:#fff4d8;background:#213a50;font:800 12px/1.5 system-ui,sans-serif;cursor:pointer}
 .testScope select:focus-visible{outline:3px solid #fae8af;outline-offset:2px}
+
+/* Keep the hero shadow separate from the game tabs */
+.hero{margin-bottom:25px}
+.tabs{margin-top:4px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="top"><a class="back" href="./index.html">← マスピード</a><span class="version">RANKING PREVIEW / Ver.11.1.0</span></nav>
+  <nav class="top"><a class="back" href="./index.html">← マスピード</a><span class="version">NATIONAL RANKING / Ver.11.1.1</span></nav>
   <header class="hero"><div class="text"><span class="eyebrow">MATHSPEED · NATIONAL RECORDS</span><h1>🏆 全国ランキング</h1><p>日本中の挑戦者と、記録だけで勝負！<br>名前・プロフィールは公開しません。</p></div><div class="crest" aria-hidden="true"><span>🏆</span></div></header>
   
   <div class="tabs" role="tablist" aria-label="ミニゲームを選ぶ">
@@ -36,7 +40,7 @@
   </section>
   
   <div class="links"><a href="./slime-adventure.html">🟢 計算スライムで遊ぶ</a><a href="./addition-kids-tower.html">➕ 足し算キッズで遊ぶ</a></div>
-  <p class="footer">アップデート後に終了した新しいプレイだけを全国ランキングに登録。<br>古い記録は全国ランキングに送信しません。既存の自己ベストはそのまま維持します。<br>正式接続 Ver.11.1.0 ｜ オンラインランキングは未接続</p>
+  <p class="footer">アップデート後に終了した新しいプレイだけを全国ランキングに登録。<br>古い記録は全国ランキングに送信しません。既存の自己ベストはそのまま維持します。<br>正式接続 Ver.11.1.1 ｜ Firebase全国ランキング</p>
 </div>
 <div class="celebrate" id="celebrate" hidden role="dialog" aria-modal="true" aria-labelledby="winHeading"><div class="winPanel"><div class="winMedal" id="winMedal">🥇</div><h2 id="winHeading">全国ランキングにランクイン！</h2><p id="winDetail"></p><button class="btn" id="closeWin" type="button">ランキングを見る</button></div></div>
 

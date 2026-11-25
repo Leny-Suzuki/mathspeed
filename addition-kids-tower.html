@@ -323,8 +323,17 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-<script src="./ranking-firebase-config.js?v=11.1.0"></script>
-<script src="./ranking-client.js?v=11.1.0"></script>
+<script src="./ranking-firebase-config.js?v=11.1.1"></script>
+<script src="./ranking-client.js?v=11.1.1"></script>
+
+<style id="msRankWinStyle">
+#msRankingResult.msRankWin{display:block!important;margin:14px auto!important;padding:15px 16px!important;border:3px solid #f6d479!important;border-radius:15px!important;background:linear-gradient(125deg,#514027,#263f56)!important;color:#fff5d2!important;text-align:center!important;font-weight:900!important;font-size:clamp(19px,4vw,28px)!important;line-height:1.45!important;box-shadow:0 0 0 3px #fff4b022,0 9px 22px #0005!important;animation:msRankWinPop .5s ease-out both!important}
+#msRankingResult.msRankWin:before{content:'✨ 🏆 ✨';display:block;font-size:26px;letter-spacing:6px;margin-bottom:5px}
+@keyframes msRankWinPop{0%{transform:scale(.88);opacity:0}65%{transform:scale(1.04);opacity:1}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){#msRankingResult.msRankWin{animation:none!important}}
+</style>
+
+<script>window.MSShowRankResult=function(el,result){if(!el)return;el.classList.remove('msRankWin');if(result&&result.updated&&result.rank&&result.rank<=3){el.textContent='全国'+result.rank+'位にランクイン！';void el.offsetWidth;el.classList.add('msRankWin')}else if(result&&result.rank){el.textContent='🏆 全国'+result.rank+'位をキープ！'}else{el.textContent='🌏 全国記録を送信しました（TOP3圏外）'}};</script>
 </head>
 <body>
 <div class="wrap">
@@ -848,7 +857,7 @@ const sound=(()=>{
     if(!rankNote){rankNote=document.createElement('p');rankNote.id='msRankingResult';rankNote.setAttribute('aria-live','polite');rankNote.style.cssText='color:#f9e5a2;font-weight:800;text-align:center';document.getElementById('resultScreen').appendChild(rankNote)}
     rankNote.textContent='🌏 全国ランキングへ送信中…';
     if(window.MSRanking)window.MSRanking.submit('tower',Math.floor(state.floor)).then(v=>{
-      rankNote.textContent=v.rank&&v.updated?'🏆 全国'+v.rank+'位にランクイン！':v.rank?'🏆 全国'+v.rank+'位をキープ！':'🌏 全国記録を送信しました（TOP3圏外）';
+      window.MSShowRankResult?window.MSShowRankResult(rankNote,v):(rankNote.textContent=v.rank?'🏆 全国'+v.rank+'位にランクイン！':'🌏 全国記録を送信しました');
     }).catch(e=>{rankNote.textContent='📡 全国ランキングに送信できませんでした';console.warn('tower ranking',e)});
     else rankNote.textContent='📡 ランキング接続を読み込めませんでした';
   }
