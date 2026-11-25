@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><!-- Character-art verified 10.12.61: original, alpha-checked PNGs for s1/s2/s5, all 3 stages. Keep these assets in future updates. -->
 <!-- Ver.8.5: audited against 8.4; player sprites inherited from 8.3; battle progression and version display fixed. -->
-<title>マスピード Ver.11.0.6｜冒険＆オンライン対戦</title><style>
+<title>マスピード Ver.11.0.7｜冒険＆オンライン対戦</title><style>
 :root{font-family:system-ui,sans-serif;color:#20332c;background:#eef5ef}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:auto;padding:12px}header,.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:4px 0}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}select,.smallbtn{padding:9px;border:1px solid #bccfc2;border-radius:10px;background:white}.table{background:#176448;border-radius:18px;padding:13px;color:white;margin:12px 0}.hand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.card{position:relative;background:white;color:#17211b;border:2px solid #dce4de;border-radius:10px;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #0002;padding:4px}.card .rank{font-size:clamp(23px,6vw,34px);font-weight:850}.card .suit{font-size:21px}.red{color:#cf3048}.joker{background:#292e50;color:#ffe19b;border-color:#d8b65e}.joker .rank{font-size:clamp(15px,4vw,22px)}.empty{border:2px dashed #ffffff66;border-radius:10px;min-height:94px;display:grid;place-items:center;color:#ffffffaa}.userempty{border:2px dashed #c6d3c9;color:#85978a}.selected{outline:4px solid #ffcf4d;outline-offset:1px}.center{display:flex;justify-content:center;gap:18px;margin:14px 0}.center button{width:104px;min-height:132px}.center button.ready{outline:4px solid #ffcf4d;outline-offset:2px}.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.ops button{border:1px solid #bfd2c6;border-radius:12px;background:white;font-size:26px;font-weight:bold;min-height:54px}.ops button.active{background:#176448;color:white}.panel{background:white;border:1px solid #d2e0d6;border-radius:15px;padding:13px;margin:10px 0}.muted{font-size:12px;opacity:.8}.msg{background:#e0eee5;padding:12px;border-radius:12px;min-height:52px;font-size:14px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.controls button{padding:10px 13px;border-radius:10px;border:1px solid #bfd2c6;background:white}.controls .primary{background:#176448;color:white}.meter{height:6px;background:#ffffff4a;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;background:#ffcf4d}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:20px;z-index:2}.overlay.show{display:flex}.dialog{background:white;padding:26px;border-radius:18px;text-align:center;width:min(100%,390px)}.dialog h2{font-size:27px}#playerHand button{width:100%}#cpuHand .card{min-height:88px}@media(min-width:600px){.card{min-height:115px}.center button{width:120px;min-height:150px}}
 
 /* Explicit control colors for Safari, iPadOS and dark-mode browsers */
@@ -198,7 +198,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 }
 #titleOverlay .titleInfo{left:35%;top:87%;width:34%;background:#091a3bca}
 #titleOverlay .titlePanel.titleArt::after{
-  content:"Ver.11.0.6";display:flex;position:absolute;right:0;top:0;
+  content:"Ver.11.0.7";display:flex;position:absolute;right:0;top:0;
   z-index:2;box-sizing:border-box;width:13.5%;min-width:90px;max-width:190px;
   height:6%;min-height:28px;align-items:center;justify-content:center;
   padding:0 6px;background:#11102f;border-bottom:1px solid #6e568d;
@@ -260,7 +260,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
   background:linear-gradient(180deg,#399abe,#244e82); outline:3px solid #fff2b7;
   outline-offset:2px;
 }
-#titleOverlay .titlePanel.titleArt::after {content:"Ver.11.0.6"}
+#titleOverlay .titlePanel.titleArt::after {content:"Ver.11.0.7"}
 @media(max-width:650px) and (orientation:portrait) {
   #titleOverlay .titleActions {bottom:18%;height:24%;}
   #titleOverlay .titleOnlineButton {
@@ -705,7 +705,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 #titleOverlay{background:#091b36}
 #titleOverlay .titlePanel.titleArt{width:min(100vw,177.78dvh);height:auto;max-height:100dvh;min-height:0;aspect-ratio:16/9;background:#142b50;overflow:hidden;}
 #titleOverlay .titleImage{inset:0;background-image:url('./assets/title_a109.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat;background-position:center!important;animation:none!important;filter:none!important}
-#titleOverlay .titlePanel.titleArt::after{content:"Ver.11.0.6"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
+#titleOverlay .titlePanel.titleArt::after{content:"Ver.11.0.7"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
 #titleOverlay .ms108Home{left:31%;width:38%;top:47%;bottom:2%;max-height:none;padding:0;gap:clamp(4px,.7vw,9px);justify-content:flex-start;background:transparent;border:0;border-radius:0;box-shadow:none;}
 #titleOverlay .ms108HomeEyebrow{background:#0d2c51ac;border:1px solid #efc77c88;border-radius:8px;padding:3px 9px;font-size:clamp(9px,.83vw,12px);text-shadow:0 1px #000}
 #titleOverlay .ms108HeroButton{min-height:clamp(46px,7.5vw,77px)!important;justify-content:center!important;text-align:center!important;gap:0!important;background:linear-gradient(135deg,#0d4199,#155dc1 48%,#072f77)!important;border:3px ridge #fce1a2!important;border-radius:8px!important;padding:5px!important;box-shadow:0 4px 0 #102442aa,inset 0 2px #ffffff4d,0 0 17px #f3c97580!important}
@@ -914,7 +914,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
 #titleOverlay .ms108SecretEntry{background:linear-gradient(135deg,#256d61,#184a4d)!important;border-color:#9dcf9e!important}
 @media(max-width:420px){#titleOverlay .msBaseTitleRow{gap:5px}#titleOverlay .msBaseTitleRow>.ms108HelpEntry{padding:5px!important;gap:4px;font-size:11px}#titleOverlay .msBaseTitleRow>.ms108HelpEntry small{font-size:8px}}
 
-/* Ver.11.0.6: The original "遊び方" rule hides last-child spans.
+/* Ver.11.0.7: The original "遊び方" rule hides last-child spans.
    Both split buttons have exactly two spans, so explicitly restore labels. */
 #titleOverlay .msBaseTitleRow > .ms108HelpEntry > span:nth-child(2){
   display:flex!important;
@@ -946,7 +946,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
   display:none!important;
 }
 
-/* Ver.11.0.6: title actions are intentionally single-line. */
+/* Ver.11.0.7: title actions are intentionally single-line. */
 #titleOverlay .msBaseTitleRow > .ms108HelpEntry > span:nth-child(2){align-items:center!important;justify-content:center!important;text-align:center!important;}
 </style>
 <style id="ms113RankEntryCss">
@@ -982,7 +982,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
   const btn=document.getElementById('menuCoin');
   btn?.addEventListener('click',e=>{e.preventDefault();document.getElementById('ms108OpenMinis')?.click()});
 })();</script>
-<a href="./security-test.html?v=11.0.6" class="titleOnlineButton" id="menuOnline" aria-label="友達と通信対戦モードへ進む">🌐 友達と通信対戦</a>
+<a href="./security-test.html?v=11.0.7" class="titleOnlineButton" id="menuOnline" aria-label="友達と通信対戦モードへ進む">🌐 友達と通信対戦</a>
 <p id="menuInfo" class="titleInfo" aria-live="polite"></p>
 </div></div>
 <!-- Ver.10.12.61: Section selection. These are navigational shells, not new games. -->
@@ -1764,7 +1764,7 @@ try{const d=JSON.parse(localStorage.getItem(EXTRA)||'null');if(d&&typeof d==='ob
   const persisted=safeRead(KEY);
   if(Array.isArray(persisted.unlocked))data.unlocked=[...new Set([...data.unlocked,...persisted.unlocked])];
  };
- const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));localStorage.setItem(EXTRA,JSON.stringify(stats))}catch(e){}};let queue=[],showing=false;
+ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));localStorage.setItem(EXTRA,JSON.stringify(stats))}catch(e){}};let queue=[],showing=false,matchInProgress=false;
 // Official mini-game milestones: read game saves, not unrelated gameplay counters.
 function miniProgress(){
  const safe=key=>{try{const v=JSON.parse(localStorage.getItem(key)||'null');return v&&typeof v==='object'?v:{};}catch(e){return {};}};
@@ -1796,7 +1796,7 @@ if(k==='ep1complete'){try{const p=JSON.parse(localStorage.getItem('mathspeed-v4-
 if(k==='slimedistance')return miniProgress().slimeMeters;if(k==='plays'||k==='wins')return data[k]||0;if(k==='repeat')return Math.max(0,...Object.values(data.enemyPlays));if(k==='clear')return data.unlocked.includes('clear')?1:0;if(k.startsWith('op')&&k.length===3)return stats.ops[k.slice(2)]||0;if(k.startsWith('levelwins'))return Object.entries(stats.levelwins).reduce((n,[level,w])=>n+(Number(level)>=Number(k.slice(9))?w:0),0);if(k.startsWith('streak'))return stats.streaks[k.slice(6)]||0;if(k==='allops')return Math.min(...Object.values(stats.sessionOps));if(k==='avatarwins')return Object.values(stats.avatarwins).filter(x=>x>0).length;if(k==='sameavatar')return Math.max(0,...Object.values(stats.avatarwins));if(k==='teacheravatars')return stats.teacheravatars.length;if(k==='teacher')return stats.teacher;if(k==='evolve1'||k==='evolve3'||k==='evolveall')return stats.flags[k]?1:0;if(k==='gachacollect')return Math.max(stats.flags[k]?6:0,cosmeticSnapshot().avatars);if(k==='cardcollect')return Math.max(stats.flags[k]?10:0,cosmeticSnapshot().backs);if(k==='lastjoker'||k==='comeback'||k==='slimeteacher'||k==='legendteacher'||k==='longwin'||k.startsWith('speed')||k==='onlinerematch')return stats.flags[k]?1:0;if(k==='allcomplete')return defs.every(x=>x.id===d.id||x.id==='ep2clear'||['ep1clear','mental5','mental10','teacher5','teacher10'].includes(x.id)||data.unlocked.includes(x.id))?1:0;if(k==='earned')return (Number(stats.earned)||0)+(Number(stats.onlineEarned)||0);return stats[k]||0}
 function evaluate(){mergeOnlineStats();syncCosmetics();syncShopEvolution();let fresh=[];for(const d of defs){if(value(d)>=d.target&&!data.unlocked.includes(d.id)){data.unlocked.push(d.id);fresh.push(d)}}if(!data.title&&data.unlocked.length)data.title=defs.find(d=>data.unlocked.includes(d.id))?.name||'';save();render();if(fresh.length){queue.push(...fresh);setTimeout(next,1200)}}
 function card(c,op){if(!c)return;stats.cards++;if(c.r===0){stats.jokers++;stats.lastCard='joker'}else{stats.lastCard='normal';if(op in stats.ops){stats.ops[op]++;stats.sessionOps[op]++}}evaluate()}
-function record(winner,level,meta={}){data.plays++;if(winner==='player')data.wins++;
+function record(winner,level,meta={}){matchInProgress=false;data.plays++;if(winner==='player')data.wins++;
 if(meta.mode==='episode2'){
  // Chapter 2 has custom CPU speeds, so do not count its battles as Episode 1 CPU levels.
  // General play/win counts and ordinary card/operation stats remain valid.
@@ -1805,18 +1805,20 @@ if(meta.mode==='episode2'){
  stats.lastEnemy=-1;stats.losses=0;stats.sessionOps={'+':0,'-':0,'×':0,'÷':0};stats.lastCard='';evaluate();return;
 }
 data.enemyPlays[level]=(data.enemyPlays[level]||0)+1;const lv=Number(level)+1;const win=winner==='player';if(win){stats.levelwins[lv]=(stats.levelwins[lv]||0)+1;const remaining=Math.max(0,Math.floor(Number(meta.cpuRemaining)||0));if(lv===9){if(remaining>=5)stats.flags.mental5=1;if(remaining>=10)stats.flags.mental10=1;}if(lv===10){if(remaining>=5)stats.flags.teacher5=1;if(remaining>=10)stats.flags.teacher10=1;}const av=canonicalAvatar(meta.avatar||'s0');stats.avatarwins[av]=(stats.avatarwins[av]||0)+1;if(lv===10){stats.teacher++;if(!stats.teacheravatars.includes(av))stats.teacheravatars.push(av);if(av==='s0'||av==='s0@0')stats.flags.slimeteacher=1;if(/legend|伝説/i.test(av))stats.flags.legendteacher=1}if(stats.lastEnemy===level&&stats.losses>=5)stats.flags.comeback=1;stats.losses=0;if(meta.lastCard==='joker')stats.flags.lastjoker=1;if(Number(meta.elapsed)>=180)stats.flags.longwin=1;if(lv>=5)for(const sec of [60,45,30])if(Number(meta.elapsed)>0&&meta.elapsed<=sec)stats.flags['speed'+sec]=1}else{stats.losses=stats.lastEnemy===level?stats.losses+1:1}stats.lastEnemy=level;for(const threshold of [5,7,9,10])stats.streaks[threshold]=win&&lv>=threshold?(stats.streaks[threshold]||0)+1:0;stats.earned+=Number(meta.earned)||0;if(win&&lv===10&&!data.unlocked.includes('clear'))data.unlocked.push('clear');stats.sessionOps={'+':0,'-':0,'×':0,'÷':0};stats.lastCard='';evaluate()}
-function next(){if(showing||!queue.length)return;showing=true;const d=queue.shift();$('awardSymbol').textContent={bronze:'🥉',silver:'🥈',gold:'🥇',platinum:'🏆'}[d.tier];$('awardName').textContent=d.name;$('awardCondition').textContent=d.desc;$('achievementToast').classList.add('visible')}
+function next(){if(showing||!queue.length||matchInProgress||document.getElementById('overlay')?.classList.contains('show'))return;showing=true;const d=queue.shift();$('awardSymbol').textContent={bronze:'🥉',silver:'🥈',gold:'🥇',platinum:'🏆'}[d.tier];$('awardName').textContent=d.name;$('awardCondition').textContent=d.desc;$('achievementToast').classList.add('visible')}
 function dismiss(){const el=$('achievementToast');if(!el)return;el.classList.remove('visible');if(showing){showing=false;setTimeout(next,250)}}
 function render(){if(!$('achievementStats'))return;syncCosmetics();syncShopEvolution();try{const fresh=JSON.parse(localStorage.getItem(EXTRA)||'null');if(fresh&&typeof fresh==='object'){stats.onlinewins=Math.max(stats.onlinewins||0,Number(fresh.onlinewins)||0);stats.onlineplays=Math.max(stats.onlineplays||0,Number(fresh.onlineplays)||0);stats.flags={...stats.flags,...fresh.flags};}const updated=JSON.parse(localStorage.getItem(KEY)||'null');if(updated&&Array.isArray(updated.unlocked))data.unlocked=[...new Set([...data.unlocked,...updated.unlocked])];if(defs.every(d=>d.id==='allcomplete'||d.id==='ep2clear'||data.unlocked.includes(d.id))&&!data.unlocked.includes('allcomplete')){data.unlocked.push('allcomplete');save();}}catch(e){}const ep2TrophyVisible=(()=>{try{return sessionStorage.getItem('mathspeed-ep2-preview')==='yes'}catch(e){return false}})();const visibleDefs=defs.filter(d=>d.id!=='ep2clear'||ep2TrophyVisible);const pct=data.plays?Math.round(data.wins/data.plays*100):0,claimed=window.MasTrophyWallet?.claimed()||[];$('achievementStats').innerHTML=`<div><b>${data.plays}</b>対戦数</div><div><b>${data.wins}</b>勝利数</div><div><b>${pct}%</b>勝率</div>`;$('achievementCount').textContent=`${visibleDefs.filter(d=>data.unlocked.includes(d.id)).length} / ${visibleDefs.length}`;
 $('achievementGrid').innerHTML=visibleDefs.map(d=>{const got=data.unlocked.includes(d.id),done=claimed.includes(d.id),v=value(d),r=rewards[d.tier];return `<button type="button" data-trophy="${d.id}" class="achievementTile ${got?'':'locked'} ${got&&!done?'claimable':''}" ${got&&!done?'':'disabled'}><span class="medal">${got?({bronze:'🥉',silver:'🥈',gold:'🥇',platinum:'🏆'}[d.tier]):'🔒'}</span><b>${d.name}</b><small>${d.desc}</small><small>${tierNames[d.tier]}・🪙${r.toLocaleString()}</small><small>${got?(done?'✓ 報酬受取済み':'🎁 タップして報酬受取'):Math.min(v,d.target).toLocaleString()+' / '+d.target.toLocaleString()}</small></button>`}).join('');const opts=visibleDefs.filter(d=>data.unlocked.includes(d.id));$('achievementTitle').innerHTML='<option value="">称号なし</option>'+opts.map(d=>`<option value="${d.id}">${d.name}</option>`).join('');const current=defs.find(d=>d.name===data.title&&data.unlocked.includes(d.id));$('achievementTitle').value=current?.id||'';const bar=$('profileName');if(bar){let t=$('profileBarAchievement');if(!t){t=document.createElement('div');t.id='profileBarAchievement';t.className='achTitle';bar.insertAdjacentElement('afterend',t)}t.textContent=data.title?'🏆 '+data.title:''}}
 $('achievementGrid')?.addEventListener('click',e=>{const btn=e.target.closest('[data-trophy]');if(!btn)return;const d=defs.find(x=>x.id===btn.dataset.trophy);if(!d||!data.unlocked.includes(d.id))return;const amount=rewards[d.tier];if(window.MasTrophyWallet?.claim(d.id,amount)){render();const notice=$('trophyRewardNotice');if(notice){notice.textContent=`🎉 ${d.name}：${amount.toLocaleString()}マスコイン獲得！`;notice.hidden=false}}else render()});
 $('achievementTitle')?.addEventListener('change',e=>{const d=defs.find(x=>x.id===e.target.value);data.title=d?.name||'';save();render()});$('achievementDismiss')?.addEventListener('click',dismiss);
+const awardResultOverlay=document.getElementById('overlay');if(awardResultOverlay){new MutationObserver(()=>{if(!awardResultOverlay.classList.contains('show')&&!matchInProgress)setTimeout(next,350)}).observe(awardResultOverlay,{attributes:true,attributeFilter:['class']});}
+
 window.MasAchievements={record,render,card,
 recordSlimeDistance:(meters)=>{
  const m=Number(meters);if(!Number.isFinite(m)||m<0||m>1000000)return false;
  try{const key='mathspeed-mini-progress-v1',o=JSON.parse(localStorage.getItem(key)||'{}')||{};
  o.slimeMeters=Math.max(Number(o.slimeMeters)||0,Math.floor(m));localStorage.setItem(key,JSON.stringify(o));evaluate();return true;}catch(e){return false}
-},syncCosmetics:()=>evaluate(),syncShop:()=>evaluate(),syncEvolution:()=>evaluate(),newMatch:()=>{stats.sessionOps={'+':0,'-':0,'×':0,'÷':0};stats.lastCard='';save()},lastCard:()=>stats.lastCard,increment:(kind,n=1)=>{if(kind==='earned')stats.earned+=n;else stats[kind]=(stats[kind]||0)+n;evaluate()},flag:(kind)=>{stats.flags[kind]=1;evaluate()}};window.addEventListener('focus',()=>evaluate());window.addEventListener('pageshow',()=>evaluate());evaluate();
+},syncCosmetics:()=>evaluate(),syncShop:()=>evaluate(),syncEvolution:()=>evaluate(),newMatch:()=>{matchInProgress=true;stats.sessionOps={'+':0,'-':0,'×':0,'÷':0};stats.lastCard='';save()},lastCard:()=>stats.lastCard,increment:(kind,n=1)=>{if(kind==='earned')stats.earned+=n;else stats[kind]=(stats[kind]||0)+n;evaluate()},flag:(kind)=>{stats.flags[kind]=1;evaluate()}};window.addEventListener('focus',()=>evaluate());window.addEventListener('pageshow',()=>evaluate());evaluate();
 })();</script><div id="evolutionToast"><div class="evoModal"><div style="color:#f6d37a;font-weight:900">✦ CLASS EVOLUTION ✦</div><h2>新しい姿を解放！</h2><img id="evolutionImage" alt="進化したキャラクター"><h2 id="evolutionName"></h2><p>プロフィールから自由に選べるよ！</p><button onclick="document.getElementById('evolutionToast').classList.remove('show')">やった！</button><div id="devEvoModalNav" hidden><p id="devEvoTransition" aria-live="polite"></p><div class="devEvoModalButtons"><button id="devEvoModalPrev" type="button">◀ 前の進化</button><button id="devEvoModalNext" type="button">次の進化 ▶</button></div><small>開発者モードのテスト用。戦績や解放状態は変わりません。</small></div></div></div>
 <style id="devModeStyles">
 #devModeOverlay{position:fixed;inset:0;z-index:100;background:#060d20ee;display:none;align-items:center;justify-content:center;padding:12px;color:#f6e7c4}#devModeOverlay.show{display:flex}#devModePanel{background:#14213f;border:2px solid #e8c36d;border-radius:12px;padding:18px;width:min(94vw,680px);max-height:90vh;overflow:auto}#devModePanel h2{color:#f6d37a;margin:0 0 10px}#devModePanel button{background:#304575;color:#fff;-webkit-text-fill-color:#fff;border:1px solid #d4ae5d;border-radius:6px;padding:9px;margin:3px}#devModePanel input{background:#fff;color:#17243a;padding:10px;border-radius:6px;font-size:22px;width:130px;letter-spacing:5px}#devGallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:9px;margin-top:12px}.devSprite{text-align:center;border:1px solid #9b824c;background:#1b2b4c;border-radius:6px;padding:5px}.devSprite img{width:90px;height:90px;object-fit:contain;image-rendering:pixelated}.devSprite small{display:block;font-size:10px;line-height:1.4}.devNote{font-size:12px;color:#c7d4e8;line-height:1.6}
@@ -1990,7 +1992,7 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  $('ms108OpenOnline').addEventListener('click',()=>delegate('menuOnline'));
  $('ms108Settings').addEventListener('click',()=>delegate('menuSoundTest'));
  $('ms108OpenBase').addEventListener('click',()=>{window.location.href='secret-base.html'});
- $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.11.0.6 のお知らせ\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n🏡 新コンテンツ「ひみつきち」公開！ 家具・マット・レコードをマスコインで集め、アバターを着せ替えよう。レコードプレイヤーを置くとBGMも楽しめる！ しあわせねこ・れあねこ・きせきねこが訪ねてくるかも。\n\n🏆 買い物実績も追加！ 敵アバターとひみつきちの購入を合算して100回まで挑戦できます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'},{label:'🏡 ひみつきちへ',action:'secretbase'}],$('ms109News')));
+ $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.11.0.7 のお知らせ\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n🏡 新コンテンツ「ひみつきち」公開！ 家具・マット・レコードをマスコインで集め、アバターを着せ替えよう。レコードプレイヤーを置くとBGMも楽しめる！ しあわせねこ・れあねこ・きせきねこが訪ねてくるかも。\n\n🏆 買い物実績も追加！ 敵アバターとひみつきちの購入を合算して100回まで挑戦できます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'},{label:'🏡 ひみつきちへ',action:'secretbase'}],$('ms109News')));
  function openQuick(title,help,actions,btn){
   $('ms108QuickHeading').textContent=title;$('ms108QuickHelp').textContent=help;
   const wrap=$('ms108QuickActions');wrap.replaceChildren();
@@ -2204,7 +2206,7 @@ render();
  <div class="ms36-mode-panel">
   <h2 id="ms36ModeHeading">🌐 通信対戦モード</h2>
   <p>人数を選んで対戦しよう！</p>
-  <a class="ms36-mode-btn" id="ms36ModeDuel" href="./security-test.html?v=11.0.6">⚔️ 2人通信対戦<small>これまでどおり遊べるよ</small></a>
+  <a class="ms36-mode-btn" id="ms36ModeDuel" href="./security-test.html?v=11.0.7">⚔️ 2人通信対戦<small>これまでどおり遊べるよ</small></a>
   <a class="ms36-mode-btn" id="ms36ModeMulti" href="./multi-player.html">👥 3〜4人通信対戦<small>3人または4人で友達と遊ぼう</small></a>
   <button type="button" class="ms36-mode-btn back" id="ms36ModeClose">← 戻る</button>
  </div>
