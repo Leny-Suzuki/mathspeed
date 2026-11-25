@@ -320,6 +320,11 @@
 .audioBar button{font-size:12px;padding:6px 12px;min-height:30px}
 @media(max-width:760px){.audioBar{justify-content:center}}
 </style>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+<script src="./ranking-firebase-config.js?v=11.1.0"></script>
+<script src="./ranking-client.js?v=11.1.0"></script>
 </head>
 <body>
 <div class="wrap">
@@ -839,6 +844,13 @@ const sound=(()=>{
     ui.finalCoins.textContent = payment.saved?payment.earned:"保存失敗";
     const note=document.getElementById('rewardStatus');if(note)note.textContent=payment.saved?'プレイするたび報酬がもらえるよ！ 何回でも挑戦OK':'保存に失敗しました。ブラウザの保存設定を確認してね。';
     showScreen('result');
+    let rankNote=document.getElementById('msRankingResult');
+    if(!rankNote){rankNote=document.createElement('p');rankNote.id='msRankingResult';rankNote.setAttribute('aria-live','polite');rankNote.style.cssText='color:#f9e5a2;font-weight:800;text-align:center';document.getElementById('resultScreen').appendChild(rankNote)}
+    rankNote.textContent='🌏 全国ランキングへ送信中…';
+    if(window.MSRanking)window.MSRanking.submit('tower',Math.floor(state.floor)).then(v=>{
+      rankNote.textContent=v.rank&&v.updated?'🏆 全国'+v.rank+'位にランクイン！':v.rank?'🏆 全国'+v.rank+'位をキープ！':'🌏 全国記録を送信しました（TOP3圏外）';
+    }).catch(e=>{rankNote.textContent='📡 全国ランキングに送信できませんでした';console.warn('tower ranking',e)});
+    else rankNote.textContent='📡 ランキング接続を読み込めませんでした';
   }
 
   function renderTrophies(target, showLocked){
