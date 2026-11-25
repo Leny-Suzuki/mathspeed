@@ -855,6 +855,7 @@ const sound=(()=>{
     showScreen('result');
     let rankNote=document.getElementById('msRankingResult');
     if(!rankNote){rankNote=document.createElement('p');rankNote.id='msRankingResult';rankNote.setAttribute('aria-live','polite');rankNote.style.cssText='color:#f9e5a2;font-weight:800;text-align:center';document.getElementById('resultScreen').appendChild(rankNote)}
+      if(!document.getElementById('msRankLink')){const link=document.createElement('a');link.id='msRankLink';link.href='./mini-ranking.html';link.textContent='🏆 全国ランキングを見る';link.style.cssText='display:block;max-width:320px;margin:14px auto;padding:12px 16px;text-align:center;border:2px solid #f0d489;border-radius:10px;background:#203d59;color:#fff3c8;font-weight:900;text-decoration:none';document.getElementById('resultScreen').appendChild(link);}
     rankNote.textContent='🌏 全国ランキングへ送信中…';
     if(window.MSRanking)window.MSRanking.submit('tower',Math.floor(state.floor)).then(v=>{
       window.MSShowRankResult?window.MSShowRankResult(rankNote,v):(rankNote.textContent=v.rank?'🏆 全国'+v.rank+'位にランクイン！':'🌏 全国記録を送信しました');
