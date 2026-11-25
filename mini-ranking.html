@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101d35">
+<title>全国ランキング｜マスピード Ver.11.0.6 画面試作</title>
+<style>
+:root{color-scheme:dark;--ink:#121d34;--panel:#1e3150;--gold:#f2cc76;--mint:#a4e6d5;--cream:#fff4db;--mute:#b4cbdf;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:var(--cream);background:var(--ink)}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 50% -12%,#385779 0,#1e3453 31%,#111e35 75%);padding:14px 14px 65px}button,input{font:inherit}button{cursor:pointer}a{color:inherit}.wrap{max-width:760px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.back{color:#f4e5c9;text-decoration:none;border:2px solid #9b957b;background:#203851;border-radius:9px;padding:9px 13px;font-weight:850;font-size:12px}.version{font:800 11px/1.2 monospace;letter-spacing:.08em;color:#b9e8d8}
+.hero{padding:18px 20px 19px;border:3px solid #d3ad67;box-shadow:inset 0 0 0 2px #fff3b220,0 8px 0 #091727,0 15px 26px #041128aa;border-radius:17px;background:linear-gradient(140deg,#26425e 0,#21334e 59%,#3b3457 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:15px}.hero:before{content:"";position:absolute;inset:7px;border:1px dashed #eed49352;border-radius:10px;pointer-events:none}.hero .text{position:relative;z-index:1}.eyebrow{display:block;font:900 11px/1.5 monospace;letter-spacing:.19em;color:#b5e9d4}.hero h1{margin:4px 0 4px;font-size:clamp(22px,5.8vw,33px);letter-spacing:.04em;text-shadow:2px 3px #152139}.hero p{font-size:12px;color:#e6e0d0;line-height:1.7;margin:4px 0 0}.hero .crest{position:relative;flex:0 0 88px;height:90px;display:grid;place-items:center;border:2px solid #f3d48d;border-radius:12px;background:linear-gradient(#5c5273,#304261);box-shadow:0 5px 0 #172238}.crest span{font-size:52px;filter:drop-shadow(0 5px 1px #1a2439)}
+.previewFlag{margin:17px 0 13px;border:1px solid #537e8b;background:#183747;padding:11px 13px;border-radius:10px;font-size:12px;color:#d2eef0;line-height:1.7}.previewFlag b{color:#ffe49a}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.tab{display:flex;align-items:center;justify-content:center;gap:7px;min-height:55px;background:#253d59;color:#cbdde8;border:2px solid #5c788d;border-radius:11px;font-weight:900;font-size:clamp(11px,2.6vw,14px);padding:9px 6px;box-shadow:0 4px 0 #111d32}.tab[aria-selected="true"]{background:#496759;border-color:#e7d18c;color:#fffbe9;box-shadow:0 3px 0 #2d403a, inset 0 0 0 1px #e7d18c52}.tab:focus-visible,.btn:focus-visible,.back:focus-visible,input:focus-visible{outline:3px solid #fae8af;outline-offset:3px}
+.main{background:linear-gradient(155deg,#273e5c,#1c2c45);border:2px solid #71879a;border-radius:15px;padding:clamp(12px,3vw,23px);box-shadow:0 7px 0 #0c192c}.mainHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 2px 12px}.mainHead h2{margin:2px 0 2px;font-size:clamp(17px,4vw,21px)}.mainHead p{margin:0;color:#c3d5dc;font-size:12px}.alltime{white-space:nowrap;background:#182c39;border:1px solid #79b9a3;border-radius:7px;color:#a6e8cc;padding:6px 9px;font-size:11px;font-weight:900}
+.list{display:flex;flex-direction:column;gap:9px}.rank{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:center;min-height:79px;background:linear-gradient(115deg,#2b3d58,#20304a);border:2px solid #60768b;border-radius:11px;padding:10px 15px;position:relative;overflow:hidden}.rank:after{content:"";width:84px;height:84px;border-radius:50%;position:absolute;right:-50px;top:-44px;background:#f9e6a510}.rank.first{border-color:#d9b66a;background:linear-gradient(110deg,#55482d,#48445a 41%,#26354a)}.rank.second{border-color:#a9bfcb}.rank.third{border-color:#b48b74}.medal{font-size:38px;text-align:center;line-height:1;filter:drop-shadow(0 4px 0 #101a30)}.rankName{font-size:15px;font-weight:950}.rankNote{font-size:10px;color:#b9c9cf;margin-top:3px}.rankScore{white-space:nowrap;text-align:right;font:950 clamp(21px,5.2vw,29px)/1.2 ui-monospace,monospace;letter-spacing:-.04em;color:#fff7da;text-shadow:1px 2px #151f32}.rankScore small{font-size:13px;margin-left:3px;color:#eed69e;letter-spacing:0}.rank.you{outline:2px solid #a3efc2;outline-offset:-5px}.noNames{font-size:11px;color:#c8dfd9;text-align:center;margin:13px 3px 2px;line-height:1.7}
+.myBest{margin:15px 0 0;background:linear-gradient(90deg,#173e42,#253a4f);border:1px solid #68aa9b;border-radius:10px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}.myBest small{display:block;color:#bedfd5;font-size:10px;font-weight:850;margin-bottom:2px}.myBest b{font-size:14px}.myBest strong{white-space:nowrap;font-size:22px;font-weight:950;color:#fff2ba;font-family:ui-monospace,monospace}
+.demo{margin-top:24px;background:#192b41;border:2px dashed #6d95a3;border-radius:15px;padding:17px 18px}.demo h3{margin:0 0 5px;font-size:16px}.demo p{font-size:11px;color:#bcd1da;line-height:1.8;margin:0 0 13px}.testForm{display:flex;gap:10px;flex-wrap:wrap}.field{flex:1;min-width:120px;display:flex;align-items:stretch;background:#0f2135;border:2px solid #648599;border-radius:9px;overflow:hidden}.field input{width:100%;border:0;background:transparent;color:#fff5d5;font-size:19px;font-weight:900;padding:12px;min-width:0;outline:0}.field span{align-content:center;color:#c8dcda;padding-right:13px;font-weight:900}.btn{border:2px solid #f4dfaa;border-bottom-color:#98733b;border-radius:9px;background:linear-gradient(#ffedb2,#e1b45b);color:#40301c;font-weight:950;padding:11px 16px;min-height:48px}.btn:hover{filter:brightness(1.07)}.btn.secondary{background:#2a4059;border-color:#7198a8;color:#ecf9e9;font-size:12px;min-height:40px;padding:9px 13px}.demoFoot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;flex-wrap:wrap}.demoStatus{font-size:12px;color:#c9e8db;min-height:1.5em}.footer{font-size:11px;color:#aabfcc;text-align:center;margin-top:19px;line-height:1.8}.links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}.links a{display:inline-block;text-decoration:none;border:1px solid #80978d;background:#2a4453;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:800}
+.celebrate{position:fixed;inset:0;z-index:50;background:#081427d9;display:grid;place-items:center;padding:20px}.celebrate[hidden]{display:none}.winPanel{width:min(90vw,410px);position:relative;text-align:center;background:linear-gradient(#3f526d,#273752);border:3px solid #f5d794;border-radius:17px;box-shadow:0 14px 48px #020a1ae8,inset 0 0 0 3px #ffffff19;padding:27px 20px 23px;animation:pop .38s cubic-bezier(.17,1.6,.43,1) both}.winPanel:before{content:"✦　✧　✦　✧　✦";position:absolute;top:10px;left:0;right:0;font-size:15px;color:#ffdd80;animation:twinkle 1.7s infinite alternate}.winMedal{font-size:78px;line-height:1.4;animation:float 1.7s ease-in-out infinite}.winPanel h2{font-size:24px;margin:0 0 6px;color:#ffebaa}.winPanel p{font-size:13px;color:#daeff0;line-height:1.8;white-space:pre-line}.winPanel .btn{margin-top:11px;width:100%}@keyframes pop{from{transform:scale(.68);opacity:0}to{transform:scale(1);opacity:1}}@keyframes twinkle{to{opacity:.25}}@keyframes float{50%{transform:translateY(-5px)}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}@media(max-width:480px){.hero{padding:14px}.hero .crest{flex-basis:62px;height:68px}.crest span{font-size:39px}.rank{grid-template-columns:38px minmax(0,1fr) auto;gap:7px;padding:10px}.medal{font-size:31px}.rankName{font-size:13px}.rankScore{font-size:21px}.rankScore small{font-size:11px}.mainHead{align-items:center}.alltime{font-size:10px;padding:6px}.myBest{padding:12px}.myBest strong{font-size:18px}.tab{font-size:11px}.testForm .btn{width:100%}}
+.testScope{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 12px;font-size:12px;color:#d3e7e9;font-weight:850}
+.testScope select{flex:1;min-width:min(100%,230px);border:2px solid #7baca9;border-radius:9px;padding:10px 12px;color:#fff4d8;background:#213a50;font:800 12px/1.5 system-ui,sans-serif;cursor:pointer}
+.testScope select:focus-visible{outline:3px solid #fae8af;outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top"><a class="back" href="./index.html">← マスピード</a><span class="version">RANKING PREVIEW / Ver.11.0.6</span></nav>
+  <header class="hero"><div class="text"><span class="eyebrow">MATHSPEED · NATIONAL RECORDS</span><h1>🏆 全国ランキング</h1><p>日本中の挑戦者と、記録だけで勝負！<br>名前・プロフィールは公開しません。</p></div><div class="crest" aria-hidden="true"><span>🏆</span></div></header>
+  <div class="previewFlag" role="status"><b>🧪 画面デザイン確認用の試作版です。</b> 表示中の記録は架空のサンプルです。<br>Firebaseには接続せず、本物の自己ベストも変更しません。</div>
+  <div class="tabs" role="tablist" aria-label="ミニゲームを選ぶ">
+    <button class="tab" role="tab" id="tabSlime" aria-selected="true" aria-controls="rankPanel" data-game="slime" type="button"><span aria-hidden="true">🟢</span> 計算スライムの冒険</button>
+    <button class="tab" role="tab" id="tabTower" aria-selected="false" aria-controls="rankPanel" data-game="tower" type="button"><span aria-hidden="true">➕</span> 足し算キッズの無限階層</button>
+  </div>
+  <section class="main" id="rankPanel" role="tabpanel" aria-labelledby="tabSlime">
+    <div class="mainHead"><div><h2 id="gameName">計算スライムの冒険</h2><p id="metricDesc">走った距離で競う（単位：m）</p></div><span class="alltime">歴代 TOP 3</span></div>
+    <div class="list" id="rankList" aria-live="polite"></div>
+    <p class="noNames">🔒 公開するのは順位と記録だけ。名前・アバター・個人情報は表示しません。</p>
+    <div class="myBest"><div><small>自分のベスト（試作）</small><b>自分として試した最高記録</b></div><strong id="myBest">—</strong></div>
+  </section>
+  <section class="demo" aria-labelledby="demoHeading"><h3 id="demoHeading">🎮 ランキングの動きを試す</h3><p>最初は<b>「別の挑戦者」</b>として試せるよ。3500mのあと3000mなら3位！<br>同じプレイヤーの自己ベスト更新も切り替えて確認できるよ。実際のゲームの記録・コインには影響しません。</p>
+    <div class="testScope"><label for="demoWho">この記録は</label><select id="demoWho" aria-label="テストする記録のプレイヤー"><option value="guest">別の挑戦者として試す（順位の変化を見る）</option><option value="me">自分の記録として試す（自己ベスト更新）</option></select></div>
+    <div class="testForm" id="testForm"><label class="field"><input id="demoScore" type="text" inputmode="numeric" maxlength="18" autocomplete="off" placeholder="例：3500 / 3500m" aria-label="試す記録。3500、3500m、3500メートルが使えます"><span id="unit">m</span></label><button type="button" id="tryRankBtn" class="btn">🏆 この記録で試す</button></div>
+    <p id="scriptHelp" style="color:#ffe8aa;font-size:12px;line-height:1.65">⚠ この画面ではスクリプトがまだ動いていません。ボタンが反応しない場合はHTMLをダウンロードし、ChromeやSafariで開いてください。</p><noscript><p style="color:#ffe8aa">JavaScriptが無効なので演出を実行できません。HTMLをダウンロードしてChrome・Safariなどのブラウザで開いてね。</p></noscript><div class="demoFoot"><div class="demoStatus" id="demoStatus" role="status">数字を入力して「この記録で試す」を押してね！</div><button class="btn secondary" id="resetBtn" type="button">↻ サンプルに戻す</button></div>
+  </section>
+  <div class="links"><a href="./slime-adventure.html">🟢 計算スライムで遊ぶ</a><a href="./addition-kids-tower.html">➕ 足し算キッズで遊ぶ</a></div>
+  <p class="footer">正式公開後に開始した新しいプレイだけを全国ランキングに登録予定。<br>古い記録は全国ランキングに送信しません。既存の自己ベストはそのまま維持します。<br>画面試作 Ver.11.0.6 ｜ オンラインランキングは未接続</p>
+</div>
+<div class="celebrate" id="celebrate" hidden role="dialog" aria-modal="true" aria-labelledby="winHeading"><div class="winPanel"><div class="winMedal" id="winMedal">🥇</div><h2 id="winHeading">全国ランキングにランクイン！</h2><p id="winDetail"></p><button class="btn" id="closeWin" type="button">ランキングを見る</button></div></div>
+<script>
+(()=>{
+'use strict';
+const DEF={slime:{name:'計算スライムの冒険',unit:'m',desc:'走った距離で競う（単位：m）',placeholder:'例：3500 / 3500m',max:100000,seed:[3280,2950,2710]},tower:{name:'足し算キッズの無限階層',unit:'階',desc:'60秒間に到達した階層で競う',placeholder:'例：45 / 45階',max:999,seed:[42,38,35]}};
+let game='slime';
+// Everything here is simulated, memory-only ranking data. Nothing is sent to Firebase.
+let best={slime:null,tower:null};
+let challengers={slime:[],tower:[]};
+let nextId=1;
+const $=id=>document.getElementById(id),medals=['🥇','🥈','🥉'];
+const label=(n,g)=>n==null?'—':`${Number(n).toLocaleString('ja-JP')} ${DEF[g].unit}`;
+const buildRows=g=>{
+ const rows=DEF[g].seed.map((score,i)=>({score,key:'seed'+i,order:i}));
+ rows.push(...challengers[g]);
+ if(best[g]!==null)rows.push({score:best[g],key:'me',order:0});
+ // First arrival wins a tie, regardless of which demo mode was selected.
+ rows.sort((a,b)=>b.score-a.score||a.order-b.order);
+ return rows;
+};
+const ranks=g=>buildRows(g).slice(0,3);
+function render(){
+ const info=DEF[game];
+ $('gameName').textContent=info.name;
+ $('metricDesc').textContent=info.desc;
+ $('unit').textContent=info.unit;
+ $('demoScore').placeholder=info.placeholder;
+ $('myBest').textContent=label(best[game],game);
+ $('rankPanel').setAttribute('aria-labelledby',game==='slime'?'tabSlime':'tabTower');
+ for(const b of document.querySelectorAll('[data-game]'))b.setAttribute('aria-selected',b.dataset.game===game?'true':'false');
+ $('rankList').replaceChildren(...ranks(game).map((v,i)=>{
+  const node=document.createElement('article');
+  node.className='rank '+['first','second','third'][i]+(v.key==='me'?' you':'');
+  const icon=document.createElement('div');icon.className='medal';icon.textContent=medals[i];
+  const left=document.createElement('div');
+  const nm=document.createElement('div');nm.className='rankName';nm.textContent=(i+1)+'位';
+  const note=document.createElement('div');note.className='rankNote';
+  note.textContent=v.key==='me'?'自分の仮の自己ベスト':v.key.startsWith('guest')?'別の挑戦者の仮記録':'最初のサンプル記録';
+  left.append(nm,note);
+  const val=document.createElement('div');val.className='rankScore';val.textContent=Number(v.score).toLocaleString('ja-JP');
+  const unit=document.createElement('small');unit.textContent=' '+info.unit;val.append(unit);
+  node.append(icon,left,val);
+  return node;
+ }));
+}
+let clickCount=0;
+function readScore(){
+ const raw=$('demoScore').value.normalize('NFKC').trim().replace(/[\s,，]/g,'').replace(game==='slime'?/(?:m|メートル|メーター)$/i:/階$/,'');
+ if(!/^\d+$/.test(raw))return NaN;
+ return Number(raw);
+}
+function openResult(medal,heading,detail){
+ $('winMedal').textContent=medal;
+ $('winHeading').textContent=heading;
+ $('winDetail').textContent=detail;
+ $('celebrate').hidden=false;
+ $('celebrate').dataset.lastAttempt=String(clickCount);
+ $('closeWin').focus();
+}
+function submitScore(){
+ clickCount++;
+ const num=readScore();
+ if(!Number.isSafeInteger(num)||num<1||num>DEF[game].max){
+  $('demoStatus').textContent='⚠ 1〜'+DEF[game].max.toLocaleString('ja-JP')+'の整数で入力してね。';
+  $('demoScore').focus();return;
+ }
+ const who=$('demoWho').value;
+ let key,replay=false,unchanged=false;
+ if(who==='me'){
+  if(best[game]===null||num>best[game])best[game]=num;
+  else if(num<best[game])unchanged=true;
+  else replay=true;
+  key='me';
+ }else{
+  // Replaying the same sample score shows the same result without fabricating a duplicate player.
+  let old=challengers[game].find(x=>x.score===num);
+  if(old){key=old.key;replay=true}
+  else{
+   key='guest'+nextId;
+   challengers[game].push({score:num,key,order:nextId+100});
+   nextId++;
+  }
+ }
+ const rows=buildRows(game);
+ const position=rows.findIndex(x=>x.key===key);
+ render();
+ const footer='\n※これは画面確認用の仮の記録です。Firebaseには送信されません。';
+ if(unchanged){
+  openResult('🎮','自己ベストは更新されなかったよ！',label(num,game)+' の挑戦。自己ベストは '+label(best[game],game)+' のまま！'+footer);
+  $('demoStatus').textContent='✅ 自分の挑戦：自己ベスト未更新（順位はそのまま）';
+ }else if(position>=0&&position<3){
+  const repeat=replay?'\n※同じ記録なのでランキングは変更していません。':'';
+  openResult(medals[position],'全国'+(position+1)+'位にランクイン！',label(num,game)+' の仮の記録！'+repeat+footer);
+  $('demoStatus').textContent='✅ '+(who==='me'?'自分':'別の挑戦者')+'の記録 → 仮の全国'+(position+1)+'位！（'+clickCount+'回目）';
+ }else{
+  openResult('🎮','今回はTOP3圏外！',label(num,game)+' の仮の記録！'+footer);
+  $('demoStatus').textContent='✅ この記録はTOP3圏外（'+clickCount+'回目）';
+ }
+}
+$('tryRankBtn').addEventListener('click',submitScore);
+$('demoScore').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();submitScore()}});
+for(const b of document.querySelectorAll('[data-game]'))b.addEventListener('click',()=>{
+ game=b.dataset.game;$('demoScore').value='';
+ $('demoStatus').textContent='数字を入力して「この記録で試す」を押してね！';render();
+});
+$('resetBtn').addEventListener('click',()=>{
+ best={slime:null,tower:null};challengers={slime:[],tower:[]};nextId=1;clickCount=0;
+ $('demoScore').value='';$('demoWho').value='guest';
+ $('demoStatus').textContent='サンプルの記録に戻したよ。';$('celebrate').hidden=true;render();
+});
+const close=()=>{$('celebrate').hidden=true;$('demoScore').focus()};
+$('closeWin').addEventListener('click',close);
+$('celebrate').addEventListener('click',e=>{if(e.target===$('celebrate'))close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('celebrate').hidden)close()});
+render();document.body.dataset.demoReady='true';$('scriptHelp').hidden=true;
+})();
+</script>
+</body>
+</html>
