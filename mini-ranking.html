@@ -4,7 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#101d35">
 <title>全国ランキング｜マスピード Ver.11.1.1 正式接続</title>
-<style>
+<style>.tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}@media(max-width:520px){.tabs{grid-template-columns:1fr!important;gap:6px!important}.tabs .tab{padding:7px 6px!important}}
 :root{color-scheme:dark;--ink:#121d34;--panel:#1e3150;--gold:#f2cc76;--mint:#a4e6d5;--cream:#fff4db;--mute:#b4cbdf;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;color:var(--cream);background:var(--ink)}
 *{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 50% -12%,#385779 0,#1e3453 31%,#111e35 75%);padding:14px 14px 65px}button,input{font:inherit}button{cursor:pointer}a{color:inherit}.wrap{max-width:760px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.back{color:#f4e5c9;text-decoration:none;border:2px solid #9b957b;background:#203851;border-radius:9px;padding:9px 13px;font-weight:850;font-size:12px}.version{font:800 11px/1.2 monospace;letter-spacing:.08em;color:#b9e8d8}
 .hero{padding:18px 20px 19px;border:3px solid #d3ad67;box-shadow:inset 0 0 0 2px #fff3b220,0 8px 0 #091727,0 15px 26px #041128aa;border-radius:17px;background:linear-gradient(140deg,#26425e 0,#21334e 59%,#3b3457 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:15px}.hero:before{content:"";position:absolute;inset:7px;border:1px dashed #eed49352;border-radius:10px;pointer-events:none}.hero .text{position:relative;z-index:1}.eyebrow{display:block;font:900 11px/1.5 monospace;letter-spacing:.19em;color:#b5e9d4}.hero h1{margin:4px 0 4px;font-size:clamp(22px,5.8vw,33px);letter-spacing:.04em;text-shadow:2px 3px #152139}.hero p{font-size:12px;color:#e6e0d0;line-height:1.7;margin:4px 0 0}.hero .crest{position:relative;flex:0 0 88px;height:90px;display:grid;place-items:center;border:2px solid #f3d48d;border-radius:12px;background:linear-gradient(#5c5273,#304261);box-shadow:0 5px 0 #172238}.crest span{font-size:52px;filter:drop-shadow(0 5px 1px #1a2439)}
@@ -25,12 +25,13 @@
 </head>
 <body>
 <div class="wrap">
-  <nav class="top"><a class="back" href="./index.html">← マスピード</a><span class="version">NATIONAL RANKING / Ver.11.1.2</span></nav>
+  <nav class="top"><a class="back" href="./index.html">← マスピード</a><span class="version">NATIONAL RANKING / Ver.11.2.0</span></nav>
   <header class="hero"><div class="text"><span class="eyebrow">MATHSPEED · NATIONAL RECORDS</span><h1>🏆 全国ランキング</h1><p>日本中の挑戦者と、記録だけで勝負！<br>名前・プロフィールは公開しません。</p></div><div class="crest" aria-hidden="true"><span>🏆</span></div></header>
   
   <div class="tabs" role="tablist" aria-label="ミニゲームを選ぶ">
     <button class="tab" role="tab" id="tabSlime" aria-selected="true" aria-controls="rankPanel" data-game="slime" type="button"><span aria-hidden="true">🟢</span> 計算スライムの冒険</button>
     <button class="tab" role="tab" id="tabTower" aria-selected="false" aria-controls="rankPanel" data-game="tower" type="button"><span aria-hidden="true">➕</span> 足し算キッズの無限階層</button>
+    <button class="tab" role="tab" id="tabSeiken" aria-selected="false" aria-controls="rankPanel" data-game="seiken" type="button"><span aria-hidden="true">👊</span> かけ算ファイターの正拳突き</button>
   </div>
   <section class="main" id="rankPanel" role="tabpanel" aria-labelledby="tabSlime">
     <div class="mainHead"><div><h2 id="gameName">計算スライムの冒険</h2><p id="metricDesc">走った距離で競う（単位：m）</p></div><span class="alltime">歴代 TOP 3</span></div>
@@ -39,8 +40,8 @@
     <div class="myBest"><div><small>自分の全国ベスト</small><b>この端末の匿名プレイヤーの記録</b></div><strong id="myBest">—</strong></div>
   </section>
   
-  <div class="links"><a href="./slime-adventure.html">🟢 計算スライムで遊ぶ</a><a href="./addition-kids-tower.html">➕ 足し算キッズで遊ぶ</a></div>
-  <p class="footer">アップデート後に終了した新しいプレイだけを全国ランキングに登録。<br>古い記録は全国ランキングに送信しません。既存の自己ベストはそのまま維持します。<br>正式接続 Ver.11.1.1 ｜ Firebase全国ランキング</p>
+  <div class="links"><a href="./slime-adventure.html">🟢 計算スライムで遊ぶ</a><a href="./addition-kids-tower.html">➕ 足し算キッズで遊ぶ</a><a href="./kakezan-fighter.html">👊 かけ算ファイターで遊ぶ</a></div>
+  <p class="footer">アップデート後に終了した新しいプレイだけを全国ランキングに登録。<br>古い記録は全国ランキングに送信しません。既存の自己ベストはそのまま維持します。<br>正式接続 Ver.11.2.0 ｜ Firebase全国ランキング</p>
 </div>
 <div class="celebrate" id="celebrate" hidden role="dialog" aria-modal="true" aria-labelledby="winHeading"><div class="winPanel"><div class="winMedal" id="winMedal">🥇</div><h2 id="winHeading">全国ランキングにランクイン！</h2><p id="winDetail"></p><button class="btn" id="closeWin" type="button">ランキングを見る</button></div></div>
 
@@ -50,9 +51,9 @@
 <script src="./ranking-firebase-config.js?v=11.1.0"></script>
 <script src="./ranking-client.js?v=11.1.0"></script>
 <script>
-(()=>{'use strict';const $=id=>document.getElementById(id);let game='slime';
-const meta={slime:{name:'計算スライムの冒険',desc:'走った距離で競う（単位：m）',unit:'m'},tower:{name:'足し算キッズの無限階層',desc:'60秒間に到達した階層で競う',unit:'階'}};
-const fmt=(n,g)=>n===null?'—':Number(n).toLocaleString('ja-JP')+' '+meta[g].unit;
+(()=>{'use strict';const $=id=>document.getElementById(id);let game=new URLSearchParams(location.search).get('game')==='seiken'?'seiken':'slime';
+const meta={slime:{name:'計算スライムの冒険',desc:'走った距離で競う（単位：m）',unit:'m'},tower:{name:'足し算キッズの無限階層',desc:'60秒間に到達した階層で競う',unit:'階'},seiken:{name:'かけ算ファイターの正拳突き',desc:'81マス中50正解・5ミス未満でK.O.／最短タイム順',unit:'秒'}};
+const fmt=(n,g)=>n===null?'—':g==='seiken'?Number(n/100).toFixed(2)+' 秒':Number(n).toLocaleString('ja-JP')+' '+meta[g].unit;
 async function render(){const g=game,info=meta[g];$('gameName').textContent=info.name;$('metricDesc').textContent=info.desc;
 const list=$('rankList');list.textContent='読み込み中…';$('myBest').textContent='…';
 for(const b of document.querySelectorAll('[data-game]')){const selected=b.dataset.game===g;b.setAttribute('aria-selected',selected?'true':'false');b.classList.toggle('active',selected)}
