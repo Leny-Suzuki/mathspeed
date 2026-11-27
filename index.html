@@ -1,6 +1,6 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><!-- Character-art verified 10.12.61: original, alpha-checked PNGs for s1/s2/s5, all 3 stages. Keep these assets in future updates. -->
 <!-- Ver.8.5: audited against 8.4; player sprites inherited from 8.3; battle progression and version display fixed. -->
-<title>マスピード Ver.11.2.19｜冒険＆オンライン対戦</title><style>
+<title>マスピード Ver.11.2.20｜冒険＆オンライン対戦</title><style>
 :root{font-family:system-ui,sans-serif;color:#20332c;background:#eef5ef}*{box-sizing:border-box}body{margin:0}main{max-width:720px;margin:auto;padding:12px}header,.bar{display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:4px 0}button,select{font:inherit;touch-action:manipulation}button{cursor:pointer}select,.smallbtn{padding:9px;border:1px solid #bccfc2;border-radius:10px;background:white}.table{background:#176448;border-radius:18px;padding:13px;color:white;margin:12px 0}.hand{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.card{position:relative;background:white;color:#17211b;border:2px solid #dce4de;border-radius:10px;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #0002;padding:4px}.card .rank{font-size:clamp(23px,6vw,34px);font-weight:850}.card .suit{font-size:21px}.red{color:#cf3048}.joker{background:#292e50;color:#ffe19b;border-color:#d8b65e}.joker .rank{font-size:clamp(15px,4vw,22px)}.empty{border:2px dashed #ffffff66;border-radius:10px;min-height:94px;display:grid;place-items:center;color:#ffffffaa}.userempty{border:2px dashed #c6d3c9;color:#85978a}.selected{outline:4px solid #ffcf4d;outline-offset:1px}.center{display:flex;justify-content:center;gap:18px;margin:14px 0}.center button{width:104px;min-height:132px}.center button.ready{outline:4px solid #ffcf4d;outline-offset:2px}.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}.ops button{border:1px solid #bfd2c6;border-radius:12px;background:white;font-size:26px;font-weight:bold;min-height:54px}.ops button.active{background:#176448;color:white}.panel{background:white;border:1px solid #d2e0d6;border-radius:15px;padding:13px;margin:10px 0}.muted{font-size:12px;opacity:.8}.msg{background:#e0eee5;padding:12px;border-radius:12px;min-height:52px;font-size:14px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.controls button{padding:10px 13px;border-radius:10px;border:1px solid #bfd2c6;background:white}.controls .primary{background:#176448;color:white}.meter{height:6px;background:#ffffff4a;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;background:#ffcf4d}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:20px;z-index:2}.overlay.show{display:flex}.dialog{background:white;padding:26px;border-radius:18px;text-align:center;width:min(100%,390px)}.dialog h2{font-size:27px}#playerHand button{width:100%}#cpuHand .card{min-height:88px}@media(min-width:600px){.card{min-height:115px}.center button{width:120px;min-height:150px}}
 
 /* Explicit control colors for Safari, iPadOS and dark-mode browsers */
@@ -198,7 +198,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
 }
 #titleOverlay .titleInfo{left:35%;top:87%;width:34%;background:#091a3bca}
 #titleOverlay .titlePanel.titleArt::after{
-  content:"Ver.11.2.19";display:flex;position:absolute;right:0;top:0;
+  content:"Ver.11.2.20";display:flex;position:absolute;right:0;top:0;
   z-index:2;box-sizing:border-box;width:13.5%;min-width:90px;max-width:190px;
   height:6%;min-height:28px;align-items:center;justify-content:center;
   padding:0 6px;background:#11102f;border-bottom:1px solid #6e568d;
@@ -260,7 +260,7 @@ body:has(#titleOverlay:not(.hidden)) #soundToggle{display:none!important}
   background:linear-gradient(180deg,#399abe,#244e82); outline:3px solid #fff2b7;
   outline-offset:2px;
 }
-#titleOverlay .titlePanel.titleArt::after {content:"Ver.11.2.19"}
+#titleOverlay .titlePanel.titleArt::after {content:"Ver.11.2.20"}
 @media(max-width:650px) and (orientation:portrait) {
   #titleOverlay .titleActions {bottom:18%;height:24%;}
   #titleOverlay .titleOnlineButton {
@@ -705,7 +705,7 @@ button.ms108MiniCard:hover{background:#2c4b72;border-color:#f4cc7a}
 #titleOverlay{background:#091b36}
 #titleOverlay .titlePanel.titleArt{width:min(100vw,177.78dvh);height:auto;max-height:100dvh;min-height:0;aspect-ratio:16/9;background:#142b50;overflow:hidden;}
 #titleOverlay .titleImage{inset:0;background-image:url('./assets/title_a109.webp')!important;background-size:100% 100%!important;background-repeat:no-repeat;background-position:center!important;animation:none!important;filter:none!important}
-#titleOverlay .titlePanel.titleArt::after{content:"Ver.11.2.19"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
+#titleOverlay .titlePanel.titleArt::after{content:"Ver.11.2.20"!important;display:flex!important;right:0.8%;top:1.2%;width:auto;max-width:none;min-width:0;height:auto;min-height:0;padding:5px 12px;background:#141d44e8;border:2px solid #efc46e;border-radius:8px;color:#fff3d0;font-family:Georgia,serif;font-size:clamp(12px,1.55vw,22px);font-weight:900;text-shadow:0 2px #141b37;z-index:12}
 #titleOverlay .ms108Home{left:31%;width:38%;top:47%;bottom:2%;max-height:none;padding:0;gap:clamp(4px,.7vw,9px);justify-content:flex-start;background:transparent;border:0;border-radius:0;box-shadow:none;}
 #titleOverlay .ms108HomeEyebrow{background:#0d2c51ac;border:1px solid #efc77c88;border-radius:8px;padding:3px 9px;font-size:clamp(9px,.83vw,12px);text-shadow:0 1px #000}
 #titleOverlay .ms108HeroButton{min-height:clamp(46px,7.5vw,77px)!important;justify-content:center!important;text-align:center!important;gap:0!important;background:linear-gradient(135deg,#0d4199,#155dc1 48%,#072f77)!important;border:3px ridge #fce1a2!important;border-radius:8px!important;padding:5px!important;box-shadow:0 4px 0 #102442aa,inset 0 2px #ffffff4d,0 0 17px #f3c97580!important}
@@ -955,7 +955,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
 </style>
 
 <style id="msEp3MapFinalStyles">
-/* Ver.11.2.19: one authentic portrait per stage; no duplicate characters on map background. */
+/* Ver.11.2.20: one authentic portrait per stage; no duplicate characters on map background. */
 #worldMap[data-chapter="3"]{isolation:isolate;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:67px 12px 18px!important;background:radial-gradient(ellipse at 18% 10%,#4d8db4a0,transparent 46%),radial-gradient(ellipse at 83% 80%,#8054b588,transparent 48%),linear-gradient(165deg,#123d6c,#243c67 52%,#20284f)!important;border:3px double #ffe09b!important;box-shadow:inset 0 0 38px #080c45,0 0 18px #95d9ff55;overflow:hidden}
 #worldMap[data-chapter="3"]::before{content:"✦　✧　✦　✧　✦";position:absolute;top:8px;color:#fff3bd80;font-size:20px}
 #worldMap[data-chapter="3"]::after{content:"";position:absolute;inset:62px 16% 15px;z-index:0;pointer-events:none;background:repeating-linear-gradient(135deg,transparent 0 36px,#ffeba617 37px 39px,transparent 40px 76px);border-radius:25%;opacity:.65}
@@ -1028,7 +1028,17 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
 #ep3StageIntro #ep3IntroFight{background:#946a23;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:17px}
 #ep3StageIntro #ep3IntroCancel{font-size:12px;padding:8px}
 </style>
-</head><body><div id="titleOverlay"><div class="titlePanel titleArt" role="region" aria-label="マスピード タイトル画面">
+<style id="msEp3PublicReleaseCss">
+/* Official release: chapter 3 is visible to everyone but requires chapter 2 completion. */
+#msEp3ChapterCard{border-color:#719a91;background:linear-gradient(115deg,#163b39ec,#1e3653ec),url("assets/episode3/opening_06.webp") center/cover}
+#msEp3ChapterCard .ms108ChapterStamp{color:#fae4a3}
+#msEp3ChapterCard .msEp3UnlockTag{display:inline-flex;align-items:center;justify-content:center;border:1px solid #a4a7b7;border-radius:20px;padding:5px 11px;background:#252e46;color:#e3e6ed;font-size:11px;font-weight:800;text-align:center}
+#msEp3ChapterCard:not(.ep3Unlocked){border-color:#596076!important;background:linear-gradient(115deg,#24283eed,#18213aed),url("assets/episode3/opening_06.webp") center/cover!important}
+#msEp3ChapterCard:not(.ep3Unlocked) #msEp3Pitch{opacity:.85}
+#msEp3ChapterCard:not(.ep3Unlocked) .ms108StoryActions,#msEp3ChapterCard:not(.ep3Unlocked) #ms108Ep3Progress{display:none!important}
+#msEp3ChapterCard.ep3Unlocked .msEp3UnlockTag{background:#275c4c;border-color:#9ad9ab;color:#fff8dc}
+#msEp3ChapterCard.ep3Unlocked{border-color:#a2d9ac}
+</style></head><body><div id="titleOverlay"><div class="titlePanel titleArt" role="region" aria-label="マスピード タイトル画面">
 <div class="titleImage" role="img" aria-label="金色のマスピードロゴ、海と城、冒険者と青いスライムが描かれたRPG風タイトル画面"></div>
 
 <!-- Ver.10.12.61: New home layout. Original menu actions remain for compatibility. -->
@@ -1047,7 +1057,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
   </div>
   <div class="msBaseTitleRow"><button type="button" id="ms108OpenHelp" class="ms108HelpEntry"><span aria-hidden="true">📘</span><span>遊び方 </span></button><button type="button" id="ms108OpenBase" class="ms108HelpEntry ms108SecretEntry"><span aria-hidden="true">🏡</span><span>ひみつきち </span></button></div>
   <div class="ms108HomeFooter"><span id="ms108Coins">🪙 マスコイン ―</span><button type="button" id="ms108Settings">⚙ 設定</button></div>
-  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>👊 新ミニゲーム「かけ算ファイターの正拳突き」公開！ 全国ランキングも追加</span><span aria-hidden="true">›</span></button>
+  <button type="button" id="ms109News" class="ms109News"><b>お知らせ</b><span>✨ 第3章「封印術師の試練」開幕！ 第2章クリアで魔法王国への扉が開く！</span><span aria-hidden="true">›</span></button>
 </nav>
 <div class="titleUtilities"></div><div class="titleActions"><button class="menuButton" id="menuNew">はじめから</button><button class="menuButton" id="menuContinue">つづきから</button><button class="menuButton" id="menuShop">ショップ</button><button class="menuButton" id="menuSoundTest" aria-label="設定を開く">設定</button></div><button type="button" class="titleGachaStandalone" id="menuGacha">🎲 ガチャ・コレクション</button>
 <button class="titleMapButton" id="menuMap">🗺 ワールドマップ・図鑑</button>
@@ -1073,7 +1083,19 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
         </div>
       </article>
       <article class="ms108StoryCard ms108SecondChapter" id="msEp2ChapterCard"><div class="ms108ChapterStamp">Ⅱ</div><div class="ms108StoryBody"><div class="ms108CardRow"><b id="msEp2CardTitle">第2章 — 新たなる冒険</b><button type="button" id="msEp2Secret" class="msEp2SecretTag" aria-label="第1章クリアで解放">第1章クリアで解放</button></div><p id="msEp2Pitch">第1章の全10ステージをクリアすると遊べるようになるよ。</p><div class="ms108ProgressLine" id="ms108Ep2Progress">撃破記録を読み込み中…</div><div class="ms108StoryActions"><button type="button" id="msEp2Continue" hidden>▶ つづきから</button><button type="button" id="msEp2Map">🗺 第2章マップ・図鑑</button><button type="button" id="msEp2New">📜 第2章をはじめる</button></div></div></article>
-      <div class="ms108FutureStrip">✦ 第3章以降もここに追加していく予定です ✦</div>
+      <article class="ms108StoryCard ms108ThirdChapter" id="msEp3ChapterCard">
+        <div class="ms108ChapterStamp">Ⅲ</div>
+        <div class="ms108StoryBody">
+          <div class="ms108CardRow"><b>第3章 — 封印術師の試練</b><span class="msEp3UnlockTag" id="msEp3StatusTag">第2章クリアで解放</span></div>
+          <p id="msEp3Pitch">第2章の全10ステージをクリアすると、魔法王国への扉が開く！</p>
+          <div class="ms108ProgressLine" id="ms108Ep3Progress">第3章の撃破記録を読み込み中…</div>
+          <div class="ms108StoryActions">
+            <button type="button" id="msEp3Map">🗺 第3章マップ・つづきから</button>
+            <button type="button" id="msEp3New">📜 第3章をはじめる</button>
+          </div>
+        </div>
+      </article>
+      <div class="ms108FutureStrip">✦ 新しい冒険は、まだまだ続く！ ✦</div>
     </div>
     <button type="button" class="ms108BackButton" data-ms108-close>← タイトルへ戻る</button>
   </div>
@@ -1173,7 +1195,7 @@ body.msEp2InBattle #saveStatus{font-size:12px;opacity:.86}
  <div class="ms126HudSpeech"><img id="ms126SlimeImg" src="./assets/slime/hero_idle_a.png" alt="計算スライム" onerror="this.style.display='none'"><div><b>🟢 スライム先生の卒業試合</b><p id="ms126TeacherText" aria-live="polite">計算をしてカードを出そう！</p></div></div>
  <div class="ms126HudBtns"><button id="ms126Hint" type="button">💡 ヒント（3段階）</button><button id="ms126Resume" type="button">▶ ヒントを閉じて続ける</button><button id="ms126Retry" type="button" hidden>↻ 再挑戦</button><button id="ms126Quit" type="button">← チュートリアルへ戻る</button></div>
 </div>
-<main><header><div><h1>⚡ マスピード</h1><div class="muted">四則演算 × スピード　Ver.11.2.19</div></div><div style="text-align:right"><b id="stage">LEVEL 1</b><div id="timer" class="muted">00:00</div></div></header><div id="profileBar"><div class="avatar" id="profileIcon">🦊</div><div style="flex:1;min-width:0"><div id="profileName">プレイヤー</div><div id="coins">🪙 0 マスコイン</div></div><button class="smallbtn" id="editProfile">プロフィール・実績</button><button class="smallbtn" id="openShop">ショップ</button><button class="smallbtn" id="openGacha">🎲 ガチャ</button><span class="msCardBadge" id="msPlayerBackPreview" data-ms-back="b0" title="装備中のカード裏面">⚡</span></div><div class="bar" style="margin-top:12px"><div><b id="journey">10人抜きチャレンジ</b><div class="muted" id="best">最高到達 Lv.1</div></div><button id="reset" class="smallbtn">最初から挑戦</button></div><div class="controls"><button id="load">📂 続きから再開</button><span class="muted" id="saveStatus">オートセーブ有効（同じ端末・ブラウザ）</span></div><div class="table"><div class="bar"><b id="cpuName">CPU</b><span id="cpuCount">残り 27枚</span></div><div id="cpuHand" class="hand" style="margin-top:10px"></div><div class="meter"><div id="cpuMeter"></div></div><div style="text-align:center;font-size:12px;letter-spacing:2px">中央の2枚</div><div class="center" id="center"></div><div id="centerNote" style="text-align:center;font-size:12px">計算してカードを出そう！</div><div class="meter"><div id="playerMeter"></div></div></div><div class="panel"><div class="bar"><b>あなたの手札</b><span id="playerCount" class="muted"></span></div><p class="muted">① 演算を選ぶ（ジョーカーなら不要）</p><div class="ops" id="ops"></div><p class="muted">② カードを選ぶ → ③ 中央の山を選ぶ</p><div id="restartPickBanner" class="restart-pick-banner" role="status">⚡ 両者手詰まり！<br>💗 ピンクのカードから1枚選んで「マスピード！」</div><div id="playerHand" class="hand"></div><p class="muted" id="stockCount">自動補充</p></div><div class="msg" id="message" aria-live="polite"></div><div class="controls"><button id="hint">ヒント</button><button id="cancel">選択解除</button><button id="pause">一時停止</button><button id="menuBack">タイトルへ</button><button id="battleMap">マップへ</button></div><p class="muted">ジョーカーはどちらの山にも出せます。ジョーカーの上にはどんなカードでも置けます。ジョーカーでない山には通常の計算ルールが適用されます。山札がなくなって手詰まりになったら、場のカードを1枚選んで中央を更新します。引き算・割り算は順序を入れ替えてもOK。答えが10、20、30など正の10の倍数なら10を出せます。答えが0のときは10を出せません。</p></main><div id="vsOverlay"><div class="modal vsBox"><div style="color:#f8d77a;font-weight:800;margin-bottom:14px" id="vsStage">STAGE 1</div><div class="vsRow"><div><div class="avatar vsPortrait" id="vsEnemy">🟢</div><div class="vsLabel" id="vsEnemyName">計算スライム</div></div><div class="vsMark">VS</div><div><div class="avatar vsPortrait" id="vsPlayer">🦊</div><div class="vsLabel" id="vsPlayerName">プレイヤー</div></div></div><p style="margin:24px 0 4px;color:#f8d77a;font-weight:800">対戦開始！</p></div></div>
+<main><header><div><h1>⚡ マスピード</h1><div class="muted">四則演算 × スピード　Ver.11.2.20</div></div><div style="text-align:right"><b id="stage">LEVEL 1</b><div id="timer" class="muted">00:00</div></div></header><div id="profileBar"><div class="avatar" id="profileIcon">🦊</div><div style="flex:1;min-width:0"><div id="profileName">プレイヤー</div><div id="coins">🪙 0 マスコイン</div></div><button class="smallbtn" id="editProfile">プロフィール・実績</button><button class="smallbtn" id="openShop">ショップ</button><button class="smallbtn" id="openGacha">🎲 ガチャ</button><span class="msCardBadge" id="msPlayerBackPreview" data-ms-back="b0" title="装備中のカード裏面">⚡</span></div><div class="bar" style="margin-top:12px"><div><b id="journey">10人抜きチャレンジ</b><div class="muted" id="best">最高到達 Lv.1</div></div><button id="reset" class="smallbtn">最初から挑戦</button></div><div class="controls"><button id="load">📂 続きから再開</button><span class="muted" id="saveStatus">オートセーブ有効（同じ端末・ブラウザ）</span></div><div class="table"><div class="bar"><b id="cpuName">CPU</b><span id="cpuCount">残り 27枚</span></div><div id="cpuHand" class="hand" style="margin-top:10px"></div><div class="meter"><div id="cpuMeter"></div></div><div style="text-align:center;font-size:12px;letter-spacing:2px">中央の2枚</div><div class="center" id="center"></div><div id="centerNote" style="text-align:center;font-size:12px">計算してカードを出そう！</div><div class="meter"><div id="playerMeter"></div></div></div><div class="panel"><div class="bar"><b>あなたの手札</b><span id="playerCount" class="muted"></span></div><p class="muted">① 演算を選ぶ（ジョーカーなら不要）</p><div class="ops" id="ops"></div><p class="muted">② カードを選ぶ → ③ 中央の山を選ぶ</p><div id="restartPickBanner" class="restart-pick-banner" role="status">⚡ 両者手詰まり！<br>💗 ピンクのカードから1枚選んで「マスピード！」</div><div id="playerHand" class="hand"></div><p class="muted" id="stockCount">自動補充</p></div><div class="msg" id="message" aria-live="polite"></div><div class="controls"><button id="hint">ヒント</button><button id="cancel">選択解除</button><button id="pause">一時停止</button><button id="menuBack">タイトルへ</button><button id="battleMap">マップへ</button></div><p class="muted">ジョーカーはどちらの山にも出せます。ジョーカーの上にはどんなカードでも置けます。ジョーカーでない山には通常の計算ルールが適用されます。山札がなくなって手詰まりになったら、場のカードを1枚選んで中央を更新します。引き算・割り算は順序を入れ替えてもOK。答えが10、20、30など正の10の倍数なら10を出せます。答えが0のときは10を出せません。</p></main><div id="vsOverlay"><div class="modal vsBox"><div style="color:#f8d77a;font-weight:800;margin-bottom:14px" id="vsStage">STAGE 1</div><div class="vsRow"><div><div class="avatar vsPortrait" id="vsEnemy">🟢</div><div class="vsLabel" id="vsEnemyName">計算スライム</div></div><div class="vsMark">VS</div><div><div class="avatar vsPortrait" id="vsPlayer">🦊</div><div class="vsLabel" id="vsPlayerName">プレイヤー</div></div></div><p style="margin:24px 0 4px;color:#f8d77a;font-weight:800">対戦開始！</p></div></div>
 <div id="titleSettingsOverlay" class="settingsOverlay" hidden><div class="settingsCard"><div class="settingsHead"><strong>⚙ ゲーム設定</strong><button id="titleSettingsClose" type="button">✕ 閉じる</button></div><button id="settingsProfile" type="button">🎮 アバター・育成を見る</button><button id="settingsTrophies" type="button">🏆 トロフィー・実績・称号を見る</button><button id="settingsSound" type="button">♫ 音量設定</button><div class="schoolModeSettings"><strong>🎓 難易度を選ぶ</strong><div class="schoolModeButtons"><button id="modeElementary" type="button">🌱 小学生モード</button><button id="modeJunior" type="button">⚔ 中学生モード</button></div><p id="schoolModeNote" aria-live="polite"></p></div><details><summary>📖 遊び方を見る</summary><p>中央の２枚を四則演算し、答えの一の位と同じ数字のカードを出そう。10は答えが10、20、30などのときに出せるよ（答えが0のときは出せない）。A=1、J=1、Q=2、K=3。ジョーカーはどこにでも出せるよ！</p><div class="rulesHowTo"><strong>🃏 カードの出し方（３つの操作）</strong><ol><li><b>① 演算ボタンを押す</b><br>中央の２枚を見て、「＋」「−」「×」「÷」から使いたい計算を選ぼう。</li><li><b>② 自分のカードを押す</b><br>計算の答えの一の位と同じ数字の手札をタップしよう。</li><li><b>③ 出す場所を決める</b><br>中央にある左右２つの山のうち、カードを置きたい方をタップ！ これで１枚出せるよ。</li></ol><div class="rulesExample"><b>たとえば…</b> 中央が「７」と「５」なら、<b>「＋」→ 手札の「２」→ 中央の左右どちらかの山</b>の順に押すよ。７＋５＝12だから、答えの一の位は２！</div><p>※出せるカードがないときは、ほかの演算も考えてみよう。ジョーカーは計算せずに出せるよ。</p></div></details><p class="settingsNote">セーブデータは同じ端末・ブラウザに保存されます。</p></div></div><div id="profileOverlay"><div class="modal"><div class="msProfileHeading"><h2>🎮 プレイヤー設定</h2><button type="button" id="msProfileClose" aria-label="プレイヤー設定を閉じる">✕ 閉じる</button></div><p class="muted">名前とキャラクターを選ぼう。途中でも変更できるよ！</p><label for="nameInput">プレイヤー名（最大12文字）</label><input id="nameInput" maxlength="12" placeholder="名前を入力" autocomplete="off"><div class="msProfileTabs" role="group" aria-label="プロフィール表示切り替え"><button id="msProfileTabAvatar" type="button" aria-pressed="true">🎭 アバター・育成</button><button id="msProfileTabTrophies" type="button" aria-pressed="false">🏆 トロフィー・称号</button></div><div id="msProfileAvatarPane" class="msProfilePane"><p><b>アバターを選択</b></p><div class="avatarGrid" id="avatarGrid"></div><section id="evolutionSection"></section></div><div id="msProfileTrophyPane" class="msProfilePane" hidden><section id="achievementSection"><h3>🏆 冒険者の記録</h3><div id="achievementStats"></div><div class="achievementTitleLine"><label for="achievementTitle">名乗る称号</label><select id="achievementTitle"></select></div><h3>トロフィーコレクション <span id="achievementCount"></span></h3><p id="trophyRewardNotice" aria-live="polite" hidden></p><div id="achievementGrid"></div></section></div><p id="profileError" style="color:#ffd1ca;font-size:13px"></p><button class="primaryBtn" id="confirmProfile" style="width:100%;margin-top:12px">このキャラで決定！</button></div></div>
 <div id="shopOverlay"><div class="modal"><div class="bar"><h2>🛍️ アバターショップ</h2><button class="smallbtn" id="closeShop">閉じる</button></div><p>所持金：<strong id="shopCoins">0</strong> 🪙</p><p class="muted">敵を倒してから購入可能！前の敵を購入すると次の敵がショップに現れるよ。未登場の敵は「？」で表示。</p><div class="shopGrid" id="shopGrid"></div></div></div><div id="chant" aria-live="assertive"><div class="count" id="chantCount">3</div><div class="word">マスピード！</div><div class="sub" id="chantSub">準備はいい？</div></div><div id="overlay" class="overlay"><div class="dialog"><h2 id="resultTitle"></h2><div id="victoryScene" class="victoryScene" hidden><div class="victoryHeading">STAGE CLEAR!</div><img id="defeatArt" alt="倒した敵のドット絵"><div id="defeatQuote" class="defeatQuote"></div></div><p id="resultDetail"></p><button id="again" class="smallbtn">次へ</button><button id="resultMap" class="smallbtn" type="button" style="margin-left:8px">🗺 マップに戻る</button></div></div><div id="worldOverlay" class="worldOverlay"><div class="worldPanel"><div class="worldTop"><div><div class="worldEyebrow">MASPEED ADVENTURE</div><h2>🗺 ワールドマップ</h2><div id="worldProgress" class="worldHint"></div></div><button id="worldClose" class="worldButton">タイトルへ</button></div><div id="worldMap" class="worldMap"></div><div class="worldActions"><button id="worldNext" class="worldButton worldGold">次の敵に挑む</button><button id="worldArchive" class="worldButton">📖 キャラ図鑑</button></div><div class="worldHint">光る場所は次の挑戦者。撃破した場所は何度でも再戦できるよ。フリー対戦で負けても進行状況はそのまま！</div></div></div><div id="archiveOverlay" class="worldOverlay"><div class="worldPanel"><div class="worldTop"><div><div class="worldEyebrow">CHARACTER ARCHIVE</div><h2>📖 マスピード図鑑</h2><div id="archiveCount" class="worldHint"></div></div><button id="archiveClose" class="worldButton">マップへ</button></div><div id="archiveGrid" class="archiveGrid"></div><div id="archiveDetail" class="archiveDetail" hidden></div><div id="secretLetter" class="secretLetter" hidden></div></div></div><button id="soundToggle" type="button" aria-label="サウンド設定">🔇 サウンド</button><div id="soundPanel" hidden><div style="display:flex;justify-content:space-between;align-items:center"><b>🎼 サウンド設定</b><button id="soundClose" type="button">閉じる</button></div><label>BGM <input id="bgmVolume" type="range" min="0" max="100" value="0"></label><label>効果音 <input id="sfxVolume" type="range" min="0" max="100" value="0"></label><div class="soundTestArea"><b>🎧 サウンドテスト</b><select id="soundTrack" aria-label="試聴するBGM"><option value="title">タイトル画面</option><option value="map">ワールドマップ・図鑑</option><option value="ep3_map">第3章・魔法王国マップ ✨</option><option value="ep3_battle">第3章・封印術師との戦い 🌿</option><option value="ep3_boss">第3章・アルカドとの試練 🐉</option><option value="battle">通常戦闘（Lv.1〜6）</option><option value="hard">強敵戦（Lv.7〜9）</option><option value="boss">数学教師戦（Lv.10）</option><option value="orch_easy">【実装】冒険者の挑戦（Lv.1〜3）</option><option value="orch_mid">【実装】立ちはだかる強敵（Lv.4〜6）</option><option value="orch_high">【実装】計算を統べる者（Lv.7〜9）</option><option value="orch_final">【実装】数学の深淵（Lv.10）</option></select><div class="soundTestBtns"><button id="soundTest" type="button">▶ BGMを試聴</button><button id="soundStop" type="button">■ 停止</button></div><select id="soundEffect" aria-label="試聴する効果音"><option value="count">カウントダウン</option><option value="go">マスピード！</option><option value="card">カードを出す</option><option value="win">勝利・撃破</option><option value="lose">敗北</option><option value="coin">ショップ購入（チャリン！）</option></select><button id="effectTest" type="button">♪ 効果音を試聴</button></div><p class="soundNote">初期設定は消音です。音量はこのブラウザに保存されます。ブラウザの仕様によりタップ後に再生します。</p></div><div id="gachaOverlay" role="dialog" aria-modal="true" aria-label="マスコインガチャ"><div id="gachaPanel"><div class="msGachaHeader"><h2>🎲 マスコインガチャ</h2><button type="button" id="msGachaClose">✕ 閉じる</button></div><p style="margin:8px 0">カード裏面とフレームはN〜R！ SR・SSRが出たら限定キャラクター確定！</p><div class="msGachaRow"><strong id="msGachaCoins">🪙 0</strong><button type="button" id="msGachaRoll">🎲 500コインで1回</button></div><div class="msGachaOdds" id="msGachaOdds"><strong>排出率</strong>：N 58% ・ UC 30% ・ R 8% ・ SR（キャラ確定）3% ・ <strong>SSR（キャラ確定）1%</strong><div>所持済み景品は出ません。抽選されたレアリティをすべて所持している場合は200コイン還元されます。</div></div><div class="msCollectionProgress" id="msCollectionProgress" aria-live="polite"></div><div class="msGachaResult" id="msGachaResult" aria-live="polite" tabindex="-1">何が出るかはお楽しみ！</div><h3>🃏 カード裏面</h3><div class="msGachaGrid" id="msGachaBacks"></div><h3>🖼️ アバターフレーム</h3><div class="msGachaGrid" id="msGachaFrames"></div><h3>✨ 限定アバター</h3><div class="msGachaGrid" id="msGachaAvatars"></div><p class="msGachaFineprint">ゲーム内で獲得するマスコインだけを使用します。実際のお金は使いません。抽選割合：N58%・UC30%・R8%・SR3%・SSR1%。重複なし。あるレアリティの景品をコンプリートしていた場合は200コイン還元されます。全景品収集でガチャ停止。どの景品も計算の強さには影響しません。保存は同じ端末・同じブラウザのみ。</p></div><div id="msGachaCinematic" hidden role="dialog" aria-modal="true" aria-label="ガチャ開封演出" data-phase="charge" data-tier="normal">
 <div class="msCineScene"><div class="msCineConfetti" id="msCineConfetti" aria-hidden="true"></div><div class="msCineFlash" aria-hidden="true"></div>
@@ -1252,6 +1274,7 @@ window.MasCosmetics={KEY,PRICE,REFUND,backs,frames,avatars:avatars,catalog,ODDS,
 let activeChapter=1;
 // Episode 2 is a private preview, not a public release or a security boundary.
 function ep2ChapterOneCleared(){return Array.isArray(profile.defeated)&&Array.from({length:10},(_,i)=>i).every(i=>profile.defeated.includes(i))} function ep2Allowed(){return ep2ChapterOneCleared()}
+function ep3Allowed(){const p=ep2Progress();return p.completed===true||(Array.isArray(p.defeated)&&Array.from({length:10},(_,i)=>i).every(i=>p.defeated.includes(i)))}
 const ep2CpuBaseDelays=[6000,5700,5450,5150,4900,4600,4350,4050,3800,3500];
 const ep2Names=['黒羽の偵察兵 クロバ','毒胞子の魔茸 ドクマル','呪札ゴブリン ジグ','強欲の宝箱 ガブリエル','紅蓮の魔騎士 ヴァルガ','深紅の魔女 モルガナ','機巧兵 クロノス','獄炎の黒竜 バルザード','仮面の将軍 レイヴン','呪札王 グリモル'];
 const ep2Lines=[
@@ -1760,7 +1783,7 @@ msApplyGachaStyle();
 refreshMenu();window.MasSound?.scene('title');
 
 function abandonEp2Match(){if(!state||state.chapter<2||state.ended)return;state.ended=true;ep3StopSeal();vsTimers.forEach(clearTimeout);vsTimers=[];chantTimers.forEach(clearTimeout);chantTimers=[];$('chant').classList.remove('show');$('vsOverlay').classList.remove('show');clearSave();state=null;document.body.classList.remove('msEp2InBattle')}
-function switchEpisode(ep){if(ep===2&&!ep2Allowed())return false;if(ep===3&&!window.MasEp3SecretUnlocked)return false;if(state&&!state.ended){if(state.chapter>=2)abandonEp2Match();else{state.paused=true;store(true)}}state=null;activeChapter=ep===3?3:ep===2?2:1;if(ep>=2){try{localStorage.removeItem(ep===3?'mathspeed-v3-save-ep3':'mathspeed-v3-save-ep2')}catch(e){}}document.body.classList.remove('msEp2InBattle');window.MasSound?.scene('map');return true;}
+function switchEpisode(ep){if(ep===2&&!ep2Allowed())return false;if(ep===3&&!ep3Allowed())return false;if(state&&!state.ended){if(state.chapter>=2)abandonEp2Match();else{state.paused=true;store(true)}}state=null;activeChapter=ep===3?3:ep===2?2:1;if(ep>=2){try{localStorage.removeItem(ep===3?'mathspeed-v3-save-ep3':'mathspeed-v3-save-ep2')}catch(e){}}document.body.classList.remove('msEp2InBattle');window.MasSound?.scene('map');return true;}
 
 let ep3Seal={until:0,active:false,penaltyUntil:0,question:null,correct:0,solved:0,errors:0,readyAt:0,armedChoice:null,serial:0};
 function ep3Sealed(){return activeChapter===3&&state&&state.chapter===3&&ep3Seal.active}
@@ -1820,7 +1843,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 window.MasEp3Debug=()=>({active:ep3Seal.active,solved:ep3Seal.solved,errors:ep3Seal.errors,remaining:ep3Seal.until-state?.elapsed});
 
 window.MasEp3EndingData={pages:ep3EndingPages,art:ep3EndingArt};window.MasDevEpisodeData={openings:[prologuePages,ep2OpeningPages,ep3OpeningPages],openingArt:[prologueArt,ep2OpeningArt,ep3OpeningArt],enemies:[names,ep2Names,ep3Names],enemyArt:[defeatImages,ep2DefeatArt,ep3EnemyArt],quotes:[defeatLines,ep2Lines,ep3Lines]}; window.MasEpisodeBridge={chapter:()=>activeChapter,select:(ep)=>switchEpisode(ep),
- newEpisode3(){if(!window.MasEp3SecretUnlocked)return;switchEpisode(3);clearSave();state=null;const p=ep3Progress();p.runLevel=0;p.forceNewRun=true;saveProfile();$('ms108ChapterDialog').hidden=true;hideMenu();showPrologue(()=>showWorld())},openEpisode3Map(){if(!window.MasEp3SecretUnlocked)return;switchEpisode(3);$('ms108ChapterDialog').hidden=true;hideMenu();showWorld()},newEpisode2(){if(!ep2Allowed())return;if(activeChapter!==2)switchEpisode(2);clearSave();state=null;const p=ep2Progress();p.runLevel=0;p.forceNewRun=true;saveProfile();$('ms108ChapterDialog').hidden=true;hideMenu();showPrologue(()=>showWorld())},
+ newEpisode3(){if(!ep3Allowed()||!switchEpisode(3))return;clearSave();state=null;const p=ep3Progress();p.runLevel=0;p.forceNewRun=true;saveProfile();$('ms108ChapterDialog').hidden=true;hideMenu();showPrologue(()=>showWorld())},openEpisode3Map(){if(!ep3Allowed()||!switchEpisode(3))return;$('ms108ChapterDialog').hidden=true;hideMenu();showWorld()},newEpisode2(){if(!ep2Allowed())return;if(activeChapter!==2)switchEpisode(2);clearSave();state=null;const p=ep2Progress();p.runLevel=0;p.forceNewRun=true;saveProfile();$('ms108ChapterDialog').hidden=true;hideMenu();showPrologue(()=>showWorld())},
  openEpisode2Map(){if(!ep2Allowed())return;switchEpisode(2);$('ms108ChapterDialog').hidden=true;hideMenu();showWorld()},
  continueEpisode2(){if(!ep2Allowed())return;switchEpisode(2);$('ms108ChapterDialog').hidden=true;hideMenu();showWorld()},
  openEpisode1Map(){switchEpisode(1);$('ms108ChapterDialog').hidden=true;hideMenu();showWorld()},
@@ -2188,6 +2211,16 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  let lastLaunch=null;
  let ep2TapCount=0;
  function chapter1Cleared(){const p=readProfile();return Array.isArray(p.defeated)&&Array.from({length:10},(_,i)=>i).every(i=>p.defeated.includes(i))} function ep2Unlocked(){return chapter1Cleared()}
+function ep3Unlocked(){const p=readProfile();const ep2=p.episode2||{};return ep2.completed===true||(Array.isArray(ep2.defeated)&&Array.from({length:10},(_,i)=>i).every(i=>ep2.defeated.includes(i)))}
+function revealEp3(p){
+  const unlocked=ep3Unlocked();
+  $('msEp3ChapterCard').classList.toggle('ep3Unlocked',unlocked);
+  $('msEp3StatusTag').textContent=unlocked?'プレイ可能':'第2章クリアで解放';
+  $('msEp3StatusTag').setAttribute('aria-label',unlocked?'第3章 プレイ可能':'第2章の全10ステージクリアで第3章を解放');
+  $('msEp3Pitch').textContent=unlocked?'魔法王国で十人の封印術師に挑戦！ 4枚の手札を封じる新たな試練を突破しよう。':'第2章「十枚の呪い」の10人全員を倒すと、この章が解放されるよ。';
+  const ep3=Array.isArray(p.episode3?.defeated)?p.episode3.defeated:[];
+  $('ms108Ep3Progress').textContent='第3章の撃破記録 '+ep3.length+' / 10 人'+(p.episode3?.completed?' · 全ステージクリア！':'');
+}
  function revealEp2(){
   const unlocked=ep2Unlocked();
   $('msEp2ChapterCard').classList.toggle('ep2Unlocked',unlocked);
@@ -2201,16 +2234,17 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  function readProfile(){try{return JSON.parse(localStorage.getItem('mathspeed-v4-profile')||'null')||{}}catch(e){return {}}}
  function readHasSave(){try{const s=JSON.parse(localStorage.getItem('mathspeed-v3-save')||'null');return !!(s&&s.player&&s.cpu&&s.center&&!s.ended)}catch(e){return false}}
  function updateStatus(){
-  revealEp2();const p=readProfile();const defeated=Array.isArray(p.defeated)?p.defeated:[];
+  revealEp2();const p=readProfile();revealEp3(p);const defeated=Array.isArray(p.defeated)?p.defeated:[];
   const coins=Math.max(0,Math.floor(Number(p.coins)||0));
   $('ms108Coins').textContent='🪙 '+coins.toLocaleString('ja-JP')+' マスコイン';
-  const ep2=Array.isArray(p.episode2?.defeated)?p.episode2.defeated:[];$('ms108HomeStatus').textContent='第1章 '+defeated.length+'/10 撃破'+(ep2Unlocked()?' · 第2章 '+ep2.length+'/10':'');$('ms108Ep2Progress').textContent='第2章の撃破記録 '+ep2.length+' / 10 人 · 所持コイン '+coins.toLocaleString('ja-JP')+'枚';
+  const ep2=Array.isArray(p.episode2?.defeated)?p.episode2.defeated:[];$('ms108HomeStatus').textContent='第1章 '+defeated.length+'/10 撃破'+(ep2Unlocked()?' · 第2章 '+ep2.length+'/10':'')+(ep3Unlocked()?' · 第3章 '+(Array.isArray(p.episode3?.defeated)?p.episode3.defeated.length:0)+'/10':'');$('ms108Ep2Progress').textContent='第2章の撃破記録 '+ep2.length+' / 10 人 · 所持コイン '+coins.toLocaleString('ja-JP')+'枚';
   $('ms108ProgressLine').textContent='撃破記録 '+defeated.length+' / 10 人 · 所持コイン '+coins.toLocaleString('ja-JP')+'枚';
   $('ms108ChapterContinue').disabled=!readHasSave();
  }
  function openDialog(id,launch){lastLaunch=launch||document.activeElement;updateStatus();closeAll(false);$(id).hidden=false;const btn=$(id).querySelector('.ms108Close');if(btn)btn.focus({preventScroll:true});}
  function delegate(id){closeAll(false);const el=$(id);if(!el)return;if(el.disabled)return;el.click()}
  for(const [id,method] of [['msEp2Continue','continueEpisode2'],['msEp2Map','openEpisode2Map'],['msEp2New','newEpisode2']])$(id).addEventListener('click',()=>{if(!ep2Unlocked())return;closeAll(false);window.MasEpisodeBridge?.[method]?.()});
+for(const [id,method] of [['msEp3Map','openEpisode3Map'],['msEp3New','newEpisode3']])$(id).addEventListener('click',()=>{if(!ep3Unlocked())return;closeAll(false);window.MasEpisodeBridge?.[method]?.()});
  $('ms108OpenChapters').addEventListener('click',()=>openDialog('ms108ChapterDialog',$('ms108OpenChapters')));
  $('ms108OpenMinis').addEventListener('click',()=>openDialog('ms108MiniDialog',$('ms108OpenMinis')));
  window.ms110OpenMiniPreview=()=>{if(window.msMiniPreviewUnlocked===true)openDialog('ms108MiniDialog',$('ms108OpenMinis'))};
@@ -2218,7 +2252,7 @@ new MutationObserver(()=>{if(!$('devModeOverlay')?.classList.contains('show')&&!
  $('ms108OpenOnline').addEventListener('click',()=>delegate('menuOnline'));
  $('ms108Settings').addEventListener('click',()=>delegate('menuSoundTest'));
  $('ms108OpenBase').addEventListener('click',()=>{window.location.href='secret-base.html'});
- $('ms109News').addEventListener('click',()=>openQuick('🎉 新コンテンツ公開！','マスピード Ver.11.2.4 のお知らせ\n\n👊 新ミニゲーム「かけ算ファイターの正拳突き」を正式公開！ 81マスから正しい答え50個を見抜こう。5回ミスすると挑戦失敗。100秒・60秒・40秒の実績と全国最短タイムランキングにも挑戦！\n\n🏆 全国ランキングが正式公開！ 「計算スライムの冒険」は到達距離、「足し算キッズの無限階層」は60秒間の到達階層で競います。全国TOP3と自分の全国ベストを確認しよう！ 名前やアバターは表示されず、アップデート後の新しい本番プレイだけが対象です。開発者モードの記録は登録されません。\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n🏡 新コンテンツ「ひみつきち」公開！ 家具・マット・レコードをマスコインで集め、アバターを着せ替えよう。レコードプレイヤーを置くとBGMも楽しめる！ しあわせねこ・れあねこ・きせきねこが訪ねてくるかも。\n\n🏆 買い物実績も追加！ 敵アバターとひみつきちの購入を合算して100回まで挑戦できます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🏆 全国ランキングを見る',action:'ms112OpenRanking'},{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章を見る',action:'ms108OpenChapters'},{label:'🏡 ひみつきちへ',action:'secretbase'}],$('ms109News')));
+ $('ms109News').addEventListener('click',()=>openQuick('✨ 第3章「封印術師の試練」開幕！','マスピード Ver.11.2.20 のお知らせ\n\n🌟 新章開幕！ 第3章「封印術師の試練」を正式公開！ 第2章「十枚の呪い」の全10ステージをクリアした人だけが遊べます。魔法王国で十人の封印術師に挑戦！ 4枚の手札が封印される新ルールと、専用BGM、物語を楽しもう。最終試練を越えると、ひみつきちに飾れる限定家具「星の紋章」も手に入るよ。\n\n🏡 ひみつきちのショップに、1×3マスの新しい家具3種類が入荷！ 回転して自由に飾ろう。\n\n👊 新ミニゲーム「かけ算ファイターの正拳突き」を正式公開！ 81マスから正しい答え50個を見抜こう。5回ミスすると挑戦失敗。100秒・60秒・40秒の実績と全国最短タイムランキングにも挑戦！\n\n🏆 全国ランキングが正式公開！ 「計算スライムの冒険」は到達距離、「足し算キッズの無限階層」は60秒間の到達階層で競います。全国TOP3と自分の全国ベストを確認しよう！ 名前やアバターは表示されず、アップデート後の新しい本番プレイだけが対象です。開発者モードの記録は登録されません。\n\n🎮 ミニゲーム広場がオープン！ 「計算スライムの冒険」に加え、「足し算キッズの無限階層」も遊べるようになりました。\n\n👥 通信対戦がパワーアップ！ これまでの2人対戦に加えて、3〜4人での対戦も選べます。友達とルームを作って遊ぼう！\n\n📜 第2章「十枚の呪い」を解放！ 第1章の全10ステージをクリアすると、第2章へ進めます。\n\n🏡 新コンテンツ「ひみつきち」公開！ 家具・マット・レコードをマスコインで集め、アバターを着せ替えよう。レコードプレイヤーを置くとBGMも楽しめる！ しあわせねこ・れあねこ・きせきねこが訪ねてくるかも。\n\n🏆 買い物実績も追加！ 敵アバターとひみつきちの購入を合算して100回まで挑戦できます。\n\n※ 第2章の解放条件はこれまでどおり。通信対戦にはネット接続が必要です。', [{label:'🏆 全国ランキングを見る',action:'ms112OpenRanking'},{label:'🎮 ミニゲーム広場へ',action:'ms108OpenMinis'},{label:'👥 通信対戦へ',action:'ms108OpenOnline'},{label:'📜 第1章・第2章・第3章を見る',action:'ms108OpenChapters'},{label:'🏡 ひみつきちへ',action:'secretbase'}],$('ms109News')));
  function openQuick(title,help,actions,btn){
   $('ms108QuickHeading').textContent=title;$('ms108QuickHelp').textContent=help;
   const wrap=$('ms108QuickActions');wrap.replaceChildren();
@@ -2551,19 +2585,16 @@ body.msEp3BattleHUD{scroll-padding-top:56px}
 <div id="msEp3SealCountdown" hidden></div>
 <div id="msEp3Seal" hidden role="dialog" aria-label="封印術の計算問題"><div class="sealCard"><div style="font-size:33px">🔮 🔒 🔮</div><h2 id="msEp3SealStage"></h2><div id="msEp3SealProblem"></div><div id="msEp3SealChoices"></div><p id="msEp3SealStatus"></p><small>計算に正解すれば封印解除！不正解は3秒ペナルティ</small></div></div>
 <div id="msEp3Ending" hidden role="dialog" aria-modal="true" aria-label="第3章エンディング"><div class="ep3StoryCard"><div style="color:#ffdf91;font-weight:bold">CHAPTER III · ENDING <span id="msEp3EndCount"></span></div><h2 id="msEp3EndTitle"></h2><img id="msEp3EndImg" alt="第3章の物語"><p id="msEp3EndText"></p><button id="msEp3EndClose">閉じる</button><button id="msEp3EndNext">次へ ▶</button></div></div>
-<script id="msEp3PrivateUI">(()=>{'use strict';
-const $=id=>document.getElementById(id);let taps=0,last=0;
-const chapter=$('ms108ChapterDialog');if(!chapter)return;
-const trigger=chapter.querySelector('h2')||chapter.querySelector('.ms108WindowHeader')||chapter;
-const block=document.createElement('div');block.id='msEp3Hidden';block.hidden=true;
-block.innerHTML='<b>🌿 第3章「封印術師の試練」【非公開試作】</b><p>4枚の手札を封じる術師たちを倒そう！ 10ステージ・封印間隔10〜7秒</p><button id="msEp3New" type="button">✨ 第3章を最初から遊ぶ（物語6幕）</button><button id="msEp3Map" type="button">🗺 第3章マップ／つづきから</button><button id="msEp3Replay" type="button">🎞 オープニングをもう一度見る</button><button id="msEp3EndReplay" type="button">🎉 エンディング4幕を試しに見る</button>';
-chapter.querySelector('.ms108Window')?.append(block);
-trigger.addEventListener('click',e=>{if(e.target.closest('button'))return;const now=Date.now();taps=now-last<1800?taps+1:1;last=now;if(taps>=7){taps=0;window.MasEp3SecretUnlocked=true;block.hidden=false;block.scrollIntoView({block:'nearest',behavior:'smooth'});}});
-$('msEp3New').addEventListener('click',()=>window.MasEpisodeBridge?.newEpisode3());
-$('msEp3Map').addEventListener('click',()=>window.MasEpisodeBridge?.openEpisode3Map());
-$('msEp3Replay').addEventListener('click',()=>window.MasEpisodeBridge?.newEpisode3());
-$('msEp3EndReplay').addEventListener('click',()=>{chapter.hidden=true;window.MasEp3Ending?.()});
-window.MasEp3Ending=()=>{let page=0;const pages=window.MasEp3EndingData?.pages||[];const arts=window.MasEp3EndingData?.art||[];if(!pages.length)return;const el=$('msEp3Ending');el.hidden=false;function draw(){const p=pages[page];$('msEp3EndTitle').textContent=p[0];$('msEp3EndImg').src=arts[page];$('msEp3EndText').textContent=p[1];$('msEp3EndCount').textContent=(page+1)+' / '+pages.length;$('msEp3EndNext').textContent=page===pages.length-1?'完了':'次へ ▶'}
- $('msEp3EndNext').onclick=()=>{if(page===pages.length-1){el.hidden=true;return}page++;draw()};$('msEp3EndClose').onclick=()=>el.hidden=true;draw()};
+<script id="msEp3OfficialEnding">(()=>{'use strict';
+const $=id=>document.getElementById(id);
+window.MasEp3Ending=()=>{
+ let page=0;const pages=window.MasEp3EndingData?.pages||[];const arts=window.MasEp3EndingData?.art||[];
+ if(!pages.length)return;
+ const el=$('msEp3Ending');el.hidden=false;
+ function draw(){const p=pages[page];$('msEp3EndTitle').textContent=p[0];$('msEp3EndImg').src=arts[page];$('msEp3EndText').textContent=p[1];$('msEp3EndCount').textContent=(page+1)+' / '+pages.length;$('msEp3EndNext').textContent=page===pages.length-1?'完了':'次へ ▶'}
+ $('msEp3EndNext').onclick=()=>{if(page===pages.length-1){el.hidden=true;return}page++;draw()};
+ $('msEp3EndClose').onclick=()=>el.hidden=true;
+ draw();
+};
 })();</script>
 </body></html>
