@@ -93,9 +93,9 @@ function install(){if(document.getElementById('hyakkiEventModal'))return;
     <div class="hyakki-intro-hero"><div><strong>ひゅ〜どろどろ……</strong><p>十二の妖怪たちが、マスピードの世界へ迷い込んだ！</p></div></div>
     <div class="hyakki-intro-section"><h3>① ガチャに限定キャラ登場！</h3><div class="hyakki-portraits">
       <figure><img src="${ROOT}sunekosuri.webp" alt="すねこすり"><figcaption>SSR すねこすり</figcaption></figure>
-      <figure><img src="${ROOT}karakasa.webp" alt="唐傘小僧"><figcaption>SR 唐傘小僧</figcaption></figure>
-      <figure><img src="${ROOT}chochin.webp" alt="提灯お化け"><figcaption>SR 提灯お化け</figcaption></figure>
-      <figure><img src="${ROOT}ittanmomen.webp" alt="一反木綿"><figcaption>SR 一反木綿</figcaption></figure>
+      <figure><img src="${ROOT}approved_karakasa.webp" alt="唐傘小僧"><figcaption>SR 唐傘小僧</figcaption></figure>
+      <figure><img src="${ROOT}approved_chochin.webp" alt="提灯お化け"><figcaption>SR 提灯お化け</figcaption></figure>
+      <figure><img src="${ROOT}approved_ittanmomen.webp" alt="一反木綿"><figcaption>SR 一反木綿</figcaption></figure>
      </div><p>いつものガチャに4体が追加！ SR・SSRの合計排出率はそのまま。</p></div>
     <div class="hyakki-intro-section"><h3>② 12体の妖怪が突然乱入！</h3><p>きもだめし中、通常対戦に勝つと5％の確率で「ひゅ〜どろどろ……」と妖怪が現れる。<strong>勝負する／逃げる</strong>を選ぼう！</p>
        <p>勝てば図鑑に妖怪の絵と紹介が追加され、<b>1体につき500マスコイン</b>。12体で最大6000枚！　一度倒した妖怪はもう出現しないけど、負けた妖怪にはまた出会えるよ。</p></div>
@@ -112,7 +112,7 @@ function install(){if(document.getElementById('hyakkiEventModal'))return;
  </section>
  <section class="hyakki-modal hyakki-encounter" id="hyakkiEncounter" hidden aria-label="妖怪の乱入">
    <div class="hyakki-encounter-body" role="dialog" aria-modal="true">
-    <div class="hyakki-mist">ひゅ〜どろどろ……</div><img id="hyakkiEncounterImg" alt="乱入した妖怪" src="${ROOT}nurikabe.webp">
+    <div class="hyakki-mist">ひゅ〜どろどろ……</div><img id="hyakkiEncounterImg" alt="乱入した妖怪" src="${ROOT}approved_nurikabe.webp">
     <h2 id="hyakkiEncounterName">ぬりかべが現れた！</h2>
     <p>勝てば妖怪図鑑に登録！ 負けても、いつかまた出会えるよ。</p>
     <div class="hyakki-choice"><button type="button" id="hyakkiFight">⚔ 勝負する！</button><button type="button" id="hyakkiFlee">🌫️ 逃げる</button></div>
