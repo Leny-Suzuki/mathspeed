@@ -1,0 +1,59 @@
+/* Hyakki Yakou event display: standalone overlays; core game UI unchanged */
+.hyakki-modal[hidden],.hyakki-modal [hidden]{display:none!important}
+.hyakki-modal{position:fixed;inset:0;z-index:9500;overflow-y:auto;overscroll-behavior:contain;background:#080a17eF;display:flex;justify-content:center;align-items:flex-start;padding:12px;color:#f7f0dc;font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN',sans-serif}
+.hyakki-window{width:min(960px,100%);background:linear-gradient(150deg,#251b38,#152539 60%,#12182d);border:3px solid #b58b58;border-radius:15px;box-shadow:0 12px 40px #000b;overflow:hidden;margin:auto}
+.hyakki-head{padding:16px 19px;background:linear-gradient(90deg,#4b2940,#2e284d);border-bottom:2px solid #b18b5d;display:flex;align-items:center;gap:12px;justify-content:space-between}
+.hyakki-head h2{margin:3px 0 0;font-size:clamp(17px,4.5vw,27px);color:#ffdc8b}.hyakki-head small{color:#d7aeb6;letter-spacing:.12em;font-size:10px}
+.hyakki-head button,.hyakki-actions button,.hyakki-choice button{background:linear-gradient(#655042,#39354b);border:2px solid #c5a16e;border-radius:9px;color:#fff4d5;padding:10px 13px;font-weight:800;cursor:pointer}
+.hyakki-tabs{display:flex;gap:7px;padding:12px 15px 0}.hyakki-tab{flex:1;background:#2b374f;color:#eee;border:1px solid #586482;border-radius:7px;padding:10px;cursor:pointer}.hyakki-tab.active{background:#74604b;border-color:#edc078;color:#fff5c8;font-weight:800}
+#hyakkiIntroPage,#hyakkiBookPage{padding:15px;max-height:74vh;overflow:auto}
+.hyakki-intro-hero{display:grid;grid-template-columns:125px minmax(0,1fr);gap:14px;background:radial-gradient(ellipse at 13% 50%,#67324c,#273046 70%);border:1px solid #7e6475;border-radius:11px;padding:10px;align-items:center}
+.hyakki-intro-hero img{width:100%;aspect-ratio:1;object-fit:contain;image-rendering:pixelated;border-radius:6px}.hyakki-intro-hero strong{font-size:clamp(19px,4vw,28px);color:#f3c589}.hyakki-intro-hero p{font-size:14px;line-height:1.75}
+.hyakki-intro-section{margin-top:13px;padding:13px;background:#1a2a39d9;border:1px solid #54627a;border-radius:10px}.hyakki-intro-section h3{font-size:17px;margin:0 0 9px;color:#ffe1a5}.hyakki-intro-section p{line-height:1.7;font-size:13px;margin:8px 0 0}.hyakki-intro-section p b{color:#ffe099}
+.hyakki-portraits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.hyakki-portraits figure{margin:0;background:#131b2e;border-radius:8px;border:1px solid #5d6883;overflow:hidden}.hyakki-portraits img{width:100%;aspect-ratio:1;object-fit:cover;image-rendering:pixelated;display:block}.hyakki-portraits figcaption{font-size:11px;text-align:center;padding:7px 2px;color:#f6deb8}
+.hyakki-secret{display:flex;align-items:center;gap:15px}.hyakki-secret img{width:105px;height:105px;object-fit:contain;border-radius:8px;image-rendering:pixelated}
+.hyakki-actions{display:flex;justify-content:center;gap:10px;margin:16px auto}.hyakki-actions button{min-width:130px}
+.hyakki-progress{font-weight:900;text-align:center;color:#f7df9c;font-size:17px;background:#342d3c;border-radius:9px;padding:11px}.hyakki-book-info{font-size:12px;color:#c4d6d5;line-height:1.7}
+.hyakki-book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.hyakki-book-card{background:#202d42;border:1px solid #5b7183;border-radius:9px;padding:8px}.hyakki-book-card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;image-rendering:pixelated}.hyakki-book-card.unseen img{filter:brightness(0) contrast(1);opacity:.55}.hyakki-book-card h4{font-size:12px;margin:8px 1px 5px;color:#f9df9c}.hyakki-book-card p{font-size:11px;color:#dfd5bf;line-height:1.65;margin:0}
+.hyakki-encounter{align-items:center;background:radial-gradient(ellipse at 50% 40%,#502a5deb,#0a0c1aeF 72%)}.hyakki-encounter-body{width:min(480px,100%);background:linear-gradient(170deg,#38233f,#13213a);border:3px solid #c99c6d;border-radius:16px;text-align:center;padding:20px 14px;box-shadow:0 15px 60px #000b;animation:hyakki-risen .48s ease-out both}
+.hyakki-mist{font-size:23px;font-weight:900;color:#e4ccf7;letter-spacing:.13em;text-shadow:0 0 15px #a987f9;animation:hyakki-haunt 2.8s ease-in-out infinite}
+.hyakki-encounter-body img{width:min(270px,90%);max-height:45vh;aspect-ratio:1;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 0 22px #a87dc788);border-radius:12px;margin:12px 0}.hyakki-encounter-body h2{font-size:clamp(18px,5vw,24px);color:#ffe1a0;margin:8px 0}.hyakki-encounter-body p{font-size:12px;color:#d7d6da;line-height:1.6}
+.hyakki-choice{display:flex;justify-content:center;gap:11px;margin-top:13px}.hyakki-choice button:first-child{background:linear-gradient(#946046,#643d3a)}.hyakki-choice button:last-child{background:linear-gradient(#354e65,#233a52)}
+.hyakki-event-launch{display:block;width:100%;min-height:32px;margin:6px 0 0;border:1px solid #be9b68;background:linear-gradient(90deg,#3c2e43,#272b46);border-radius:8px;color:#f7db9b;font-weight:800;cursor:pointer;font-size:12px;padding:6px 11px}
+@keyframes hyakki-risen{from{opacity:0;transform:translateY(35px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes hyakki-haunt{0%,100%{opacity:.75;transform:translateY(1px)}50%{opacity:1;transform:translateY(-3px)}}
+@media(max-width:640px){.hyakki-book-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.hyakki-intro-hero{grid-template-columns:90px minmax(0,1fr)}.hyakki-intro-section{padding:10px}.hyakki-portraits{gap:4px}.hyakki-portraits figcaption{font-size:9px}.hyakki-secret img{width:80px;height:80px}.hyakki-head{padding:12px}.hyakki-head button{font-size:11px;padding:7px}}
+@media(prefers-reduced-motion:reduce){.hyakki-mist,.hyakki-encounter-body{animation:none}}
+
+/* Ver.11.3.1 / opt-in trial controls and collection preview */
+.hyakki-mode-card{border:2px solid #d8b474;background:linear-gradient(145deg,#33263c,#1d3442);padding:14px;border-radius:12px;margin-bottom:14px}
+.hyakki-mode-card h3{color:#ffe4a3;font-size:19px;margin:0 0 6px}
+.hyakki-mode-card p{font-size:12px;line-height:1.7;margin:5px 0 10px}
+.hyakki-mode-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.hyakki-mode-actions button{background:#283b4f;color:#f9f1dc;border:2px solid #748592;border-radius:9px;padding:13px 8px;font-size:15px;font-weight:900;cursor:pointer}
+.hyakki-mode-actions button.active{background:#405b52;border-color:#ffe199;box-shadow:0 0 0 2px #e8bb6540}
+.hyakki-mode-actions small{display:block;font-size:11px;font-weight:500;line-height:1.4;margin-top:6px;color:#d7e4dd}
+.hyakki-mode-status{text-align:center;color:#ffe1a7;margin-top:10px;font-size:12px;font-weight:800}
+.hyakki-test-panel{border-top:2px dashed #c9a76d;padding:14px;margin:10px 14px 16px;background:#213043;border-radius:10px}
+.hyakki-test-panel h3{font-size:15px;color:#ffe3ac;margin:0 0 8px}
+.hyakki-test-panel p{font-size:11px;line-height:1.7;color:#d7dfdb}
+.hyakki-test-panel label{font-size:12px;margin-right:8px}
+.hyakki-test-panel select{background:#141f32;color:#fff1d9;border:1px solid #8c8fa6;padding:8px;border-radius:6px;max-width:80%}
+.hyakki-test-buttons{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.hyakki-test-buttons button{font-size:11px;font-weight:800;padding:8px 9px;border:1px solid #d0aa73;border-radius:8px;background:#454059;color:#fff5d8;cursor:pointer}
+.hyakki-test-launch{border-style:dashed;border-color:#79aaa6;background:#233c48;color:#e0f4ec}
+.hyakki-portraits img,.hyakki-book-card img,.hyakki-intro-hero img,.hyakki-secret img,.hyakki-encounter-body img{background:#211d49}
+@media(max-width:460px){.hyakki-mode-actions button{font-size:12px;padding:10px 3px}.hyakki-mode-actions small{font-size:9px}}
+
+/* Ver.11.3.2: unified top-menu row and text-only spooky intro */
+#titleOverlay .ms108Home{gap:clamp(4px,.62vw,9px);justify-content:center}
+#titleOverlay .msHyakkiHomeRow{display:flex;min-width:0;width:100%;flex:0 0 auto;margin:0;padding:0}
+#titleOverlay .msHyakkiHomeRow .hyakki-event-launch{box-sizing:border-box;flex:1;margin:0!important;min-height:31px;padding:7px 10px!important;line-height:1.2;text-align:center;color:#ffe4ab!important;-webkit-text-fill-color:#ffe4ab!important;border:1px solid #d7ad74!important;border-radius:8px!important;background:linear-gradient(90deg,#453044,#283e55)!important;box-shadow:0 2px 5px #0005;font-size:clamp(10px,1vw,14px);white-space:normal}
+.hyakki-intro-hero{display:block;padding:18px 18px;text-align:center;min-height:110px;background:radial-gradient(ellipse at 50% 50%,#5a304b,#273046 75%)}
+.hyakki-intro-hero strong{display:block;font-size:clamp(23px,4vw,35px)}
+.hyakki-intro-hero p{margin:12px 0 0}
+.hyakki-secret img{background:#211d49;object-fit:contain}
+@media(max-width:650px){#titleOverlay .ms108Home{gap:4px}#titleOverlay .msHyakkiHomeRow .hyakki-event-launch{font-size:11px;padding:6px!important}}
+
+/* v11.3.3: the secret-base announcement uses the EXACT same 32x32 sprite as the in-room walk animation. */
+.hyakki-secret img{width:112px;height:112px;image-rendering:pixelated!important;object-fit:contain;background:#223847!important;border:1px solid #59717c;box-shadow:inset 0 0 0 3px #162a39}
