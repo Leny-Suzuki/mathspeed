@@ -100,6 +100,7 @@ function install(){if(document.getElementById('hyakkiEventModal'))return;
     <div class="hyakki-intro-section"><h3>② 12体の妖怪が突然乱入！</h3><p>きもだめし中、通常対戦に勝つと5％の確率で「ひゅ〜どろどろ……」と妖怪が現れる。<strong>勝負する／逃げる</strong>を選ぼう！</p>
        <p>勝てば図鑑に妖怪の絵と紹介が追加され、<b>1体につき500マスコイン</b>。12体で最大6000枚！　一度倒した妖怪はもう出現しないけど、負けた妖怪にはまた出会えるよ。</p></div>
     <div class="hyakki-intro-section hyakki-secret"><img src="${ROOT}sunekosuri_walk_front.png" alt="ひみつきちを歩くすねこすりの小さなドット絵"><div><h3>③ ひみつきちにすねこすりが遊びに来る！</h3><p>きせきねこと同じ確率で秘密基地を訪問！ 出会えたら5,000マスコインをプレゼント！</p></div></div>
+     <div class="hyakki-intro-section hyakki-schedule"><h3>④ 期間限定イベントについて</h3><p>百鬼夜行は<strong>期間限定イベント</strong>！ イベント終了後も、いつかまた復活するかも……？</p><p>イベントが終わっても、<b>妖怪図鑑の収集記録や獲得済みの限定キャラはそのまま保存</b>。復刻したときは、前回の続きから集められるよ！</p></div>
     <div class="hyakki-actions"><button type="button" id="hyakkiIntroBook">妖怪図鑑を見る</button><button type="button" id="hyakkiIntroStart">冒険を続ける</button></div>
    </div>
    <div id="hyakkiBookPage" hidden><div class="hyakki-progress" id="hyakkiBookProgress"></div><p class="hyakki-book-info">戦いに勝つと妖怪の姿と説明が明らかになるよ。負けた妖怪は、次の出現時にもう一度挑戦できる。</p><div class="hyakki-book-grid" id="hyakkiBookGrid"></div></div>
